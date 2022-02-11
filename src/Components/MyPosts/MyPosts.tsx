@@ -8,7 +8,7 @@ export const MyPosts = () => {
         <div className={classes.MyPosts}>My posts</div>
         <textarea></textarea>
         <button>Add posts</button>
-        <Post messege='Helllo'/>
-        <Post messege='Helllo, how are you?'/>
+        <Post messege={'Helllo'} LikeCounts={14} />
+        <Post messege='Helllo, how are you?' LikeCounts={3} />
     </div>
 }

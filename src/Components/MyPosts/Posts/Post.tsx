@@ -2,12 +2,17 @@ import React from "react";
 import classes from './Post.module.css';
 
 type MessegeType = {
-    messege:string
+    messege:string,
+    LikeCounts:number
 }
 
 export const Post: React.FC<MessegeType> = (props) => {
-    return <div className={classes.post}>
-        <img src='https://sun9-87.userapi.com/impg/KpMvE2XlSar6vdqaS0U4L-Jvs-VcfMo9OZvheg/CW-8Tk3OJXc.jpg?size=864x1080&quality=96&sign=09320fbdaec6c26518acf74741ba0b5c&type=album'/>
+    return <div>
+       <div className={classes.item}><img src='https://img2.fonwall.ru/o/tp/abstract-digital-art-deviantart.jpeg?route=mid&h=750'/>
         {props.messege}
+           <div>
+               {props.LikeCounts} Like
+           </div>
+       </div>
     </div>
 }
