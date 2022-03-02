@@ -1,21 +1,19 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
+import { PostsType } from '../../Redux/state'
 
-export const MyPosts = () => {
+export type PropsType = {
+    usersMessage:Array<PostsType>
+}
 
-    let postsData = [
-        {id:1, message:'Hello', LikeCounts:14},
-        {id:2, message:'Helllo, how are you?', LikeCounts:14},
-        {id:3, message:'!#$', LikeCounts:184}
-    ]
-
+export const MyPosts = (props:PropsType) => {
     return (
         <div className={classes.content}>
             <div className={classes.MyPosts}>My posts</div>
             <textarea></textarea>
             <button>Add posts</button>
-            {postsData.map(p=><Post message={p.message} LikeCounts={p.LikeCounts} />
+            {props.usersMessage.map(p=><Post message={p.message} LikeCounts={p.LikeCounts} />
             )}
         </div>
     )

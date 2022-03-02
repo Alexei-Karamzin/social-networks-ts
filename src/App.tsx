@@ -8,8 +8,14 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import { News } from './Components/News/News';
+import state from '../src/Redux/state'
 
 export const App = () => {
+
+    const message = state.MessagePage.message
+    const dialogs = state.MessagePage.dialog
+    const ProfilePosts = state.ProfilePage.posts
+
     return (
         <BrowserRouter>
             <div className = 'app-wrapper'>
@@ -18,8 +24,11 @@ export const App = () => {
                 <div className= 'app-wrapper-contents'>
                     <Routes>
                         {/*exact*/}
-                        <Route path='/Profile' element={<Profile />} />
-                        <Route path='/Dialogs' element={<Dialogs />} />
+                        <Route path='/Profile' element={<Profile usersMessage={ProfilePosts} />} />
+                        <Route path='/Dialogs' element={<Dialogs
+                            dialogNameData={dialogs}
+                            dialogMassageData={message} />}
+                        />
                         <Route path='/Music' element={<Music />} />
                         <Route path='/Settings' element={<Settings />} />
                         <Route path='/News' element={<News />} />
