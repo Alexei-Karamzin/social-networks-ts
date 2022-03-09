@@ -50,4 +50,25 @@ let state : RootStateType = {
     }
 }
 
+export const addPost = (message:string) => {
+    let newMessage = message;
+    state.ProfilePage.posts.push(
+        {
+            id:5,
+            message:newMessage,
+            LikeCounts:0
+        }
+    )
+}
+
+export const addMessageFromDialog = (message:string) => {
+    let newMessage = message;
+    state.MessagePage.message.push(
+        {
+            id:5,
+            title:newMessage
+        }
+    )
+}
+
 export default state;

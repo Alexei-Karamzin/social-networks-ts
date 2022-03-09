@@ -6,6 +6,7 @@ import { PostsType } from '../../Redux/state'
 
 type propsType = {
     usersMessage:Array<PostsType>
+    addPost:any
 }
 
 export const Profile = (props:propsType) => {
@@ -14,6 +15,6 @@ export const Profile = (props:propsType) => {
 
     return <div className={classes.content}>
         <ProfileInfo />
-        <MyPosts usersMessage={props.usersMessage}/>
+        <MyPosts usersMessage={props.usersMessage} addPost={props.addPost}/>
     </div>
 }
