@@ -1,12 +1,12 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import classes from './Dialogs.module.css';
 import {Message} from "./Message/Message";
 import {MessageType, DialogType} from '../../Redux/state'
 
 type PropsType = {
-    dialogNameData: Array<DialogType>,
-    dialogMassageData: Array<MessageType>,
+    dialogNameData: Array<DialogType>
+    dialogMassageData: Array<MessageType>
     addMessageFromDialog:any
     UpdateTextDialog:(text:string)=>void
     newMessageDialog:string
@@ -14,13 +14,15 @@ type PropsType = {
 
 export const Dialogs = (props: PropsType) => {
 
-    let newMassageElement = React.createRef<HTMLTextAreaElement>()
+    /*let newMassageElement = React.createRef<HTMLTextAreaElement>()*/
 
     const onClickAddNewPostHandler = () => {
         props.addMessageFromDialog()
     }
 
-    const onChangeMessageHandler = () => newMassageElement.current?.value && props.UpdateTextDialog(newMassageElement.current?.value)
+    const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        props.UpdateTextDialog(e.currentTarget.value)
+    }
 
     return <div className={classes.dialogs}>
 
@@ -34,7 +36,7 @@ export const Dialogs = (props: PropsType) => {
         </div>
         <div className={classes.messages}>
             {props.dialogMassageData.map(m => <Message id={m.id} item={m.title}/>)}
-            <textarea value={props.newMessageDialog} ref={newMassageElement} onChange={onChangeMessageHandler} />
+            <textarea value={props.newMessageDialog} onChange={onChangeMessageHandler} />
             <button onClick={onClickAddNewPostHandler}>add massage</button>
         </div>
     </div>

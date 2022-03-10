@@ -50,7 +50,8 @@ let state: RootStateType = {
             {id: 2, name: 'Sanya'},
             {id: 3, name: 'Lexa'},
             {id: 4, name: 'Ilya'},
-            {id: 5, name: 'Kolik'}]
+            {id: 5, name: 'Kolik'}
+        ]
     }
 }
 
