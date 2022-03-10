@@ -10,9 +10,11 @@ import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
 
 type PropsType = {
-    addPost: any
     state: any
-    addMessageFromDialog: any
+    addPost: () => void
+    addMessageFromDialog: () => void
+    UpdateTextPost: (text: string) => void
+    UpdateTextDialog: (text: string) => void
 }
 
 export const App = (props: PropsType) => {
@@ -20,6 +22,8 @@ export const App = (props: PropsType) => {
     const message = props.state.MessagePage.message
     const dialogs = props.state.MessagePage.dialog
     const ProfilePosts = props.state.ProfilePage.posts
+    const newMessageDialog = props.state.MessagePage.newMessageDialog
+    const newPostText = props.state.ProfilePage.newPostText
 
     return (
         <BrowserRouter>
@@ -29,12 +33,18 @@ export const App = (props: PropsType) => {
                 <div className='app-wrapper-contents'>
                     <Routes>
                         {/*exact*/}
-                        <Route path='/Profile'
-                               element={<Profile usersMessage={ProfilePosts} addPost={props.addPost}/>}/>
+                        <Route path='/Profile' element={<Profile
+                            usersMessage={ProfilePosts}
+                            addPost={props.addPost}
+                            UpdateTextPost={props.UpdateTextPost}
+                            newPostText={newPostText}
+                        />}/>
                         <Route path='/Dialogs' element={<Dialogs
                             dialogNameData={dialogs}
                             dialogMassageData={message}
                             addMessageFromDialog={props.addMessageFromDialog}
+                            UpdateTextDialog={props.UpdateTextDialog}
+                            newMessageDialog={newMessageDialog}
                         />}
                         />
                         <Route path='/Music' element={<Music/>}/>

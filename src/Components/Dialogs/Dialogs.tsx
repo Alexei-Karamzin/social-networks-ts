@@ -8,6 +8,8 @@ type PropsType = {
     dialogNameData: Array<DialogType>,
     dialogMassageData: Array<MessageType>,
     addMessageFromDialog:any
+    UpdateTextDialog:(text:string)=>void
+    newMessageDialog:string
 }
 
 export const Dialogs = (props: PropsType) => {
@@ -15,9 +17,10 @@ export const Dialogs = (props: PropsType) => {
     let newMassageElement = React.createRef<HTMLTextAreaElement>()
 
     const onClickAddNewPostHandler = () => {
-        let text = newMassageElement.current?.value
-        props.addMessageFromDialog(text)
+        props.addMessageFromDialog()
     }
+
+    const onChangeMessageHandler = () => newMassageElement.current?.value && props.UpdateTextDialog(newMassageElement.current?.value)
 
     return <div className={classes.dialogs}>
 
@@ -31,7 +34,7 @@ export const Dialogs = (props: PropsType) => {
         </div>
         <div className={classes.messages}>
             {props.dialogMassageData.map(m => <Message id={m.id} item={m.title}/>)}
-            <textarea ref={newMassageElement}></textarea>
+            <textarea value={props.newMessageDialog} ref={newMassageElement} onChange={onChangeMessageHandler} />
             <button onClick={onClickAddNewPostHandler}>add massage</button>
         </div>
     </div>
