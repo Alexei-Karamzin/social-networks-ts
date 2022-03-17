@@ -2,7 +2,7 @@ import React from "react";
 import classes from './Profile.module.css';
 import {MyPosts} from "../MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo";
-import {PostsType, UpdateTextPost} from '../../Redux/state';
+import {PostsType} from '../../Redux/state';
 
 type propsType = {
     usersMessage: Array<PostsType>
@@ -19,7 +19,7 @@ export const Profile = (props: propsType) => {
         <MyPosts
             usersMessage={props.usersMessage}
             addPost={props.addPost}
-            UpdateTextPost={UpdateTextPost}
+            UpdateTextPost={props.UpdateTextPost}
             newPostText={props.newPostText}
         />
     </div>

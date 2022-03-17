@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "../renderJS";
+
 
 export type DialogType = {
     id: number,
@@ -21,7 +21,7 @@ export type ProfilePageType = {
 export type MessagePageType = {
     dialog: Array<DialogType>
     message: Array<MessageType>
-    newMessageDialog:string
+    newMessageDialog: string
 }
 
 export type RootStateType = {
@@ -29,71 +29,86 @@ export type RootStateType = {
     MessagePage: MessagePageType
 }
 
-let state: RootStateType = {
-    ProfilePage: {
-        posts: [
-            {id: 1, message: 'Hello', LikeCounts: 14},
-            {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
-            {id: 3, message: '!#$', LikeCounts: 184}
-        ],
-        newPostText: ''
+export type storeType = {
+    _state: RootStateType,
+    addPost: () => void,
+    UpdateTextPost: (text: string) => void,
+    addMessageFromDialog: () => void,
+    UpdateTextDialog: (message: string)=>void,
+    _rerenderEntireTree: ()=>void,
+    subscribe: (observer: () => void)=>void
+    getState: ()=> void
+}
+
+
+
+
+const store: storeType = {
+    _state: {
+        ProfilePage: {
+            posts: [
+                {id: 1, message: 'Hello', LikeCounts: 14},
+                {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
+                {id: 3, message: '!#$', LikeCounts: 184}
+            ],
+            newPostText: ''
+        },
+        MessagePage: {
+            message: [
+                {id: 1, title: 'Hello'},
+                {id: 2, title: 'Hello!!!'},
+                {id: 3, title: '!#$'}
+            ],
+            newMessageDialog: '',
+            dialog: [
+                {id: 1, name: 'Tim'},
+                {id: 2, name: 'Sanya'},
+                {id: 3, name: 'Lexa'},
+                {id: 4, name: 'Ilya'},
+                {id: 5, name: 'Kolik'}
+            ]
+        }
     },
-    MessagePage: {
-        message: [
-            {id: 1, title: 'Hello'},
-            {id: 2, title: 'Hello!!!'},
-            {id: 3, title: '!#$'}
-        ],
-        newMessageDialog: '',
-        dialog: [
-            {id: 1, name: 'Tim'},
-            {id: 2, name: 'Sanya'},
-            {id: 3, name: 'Lexa'},
-            {id: 4, name: 'Ilya'},
-            {id: 5, name: 'Kolik'}
-        ]
+    getState() {
+        return this._state
+    },
+    addPost() {
+        this._state.ProfilePage.posts.push(
+            {
+                id: 5,
+                message: this._state.ProfilePage.newPostText,
+                LikeCounts: 0
+            }
+        )
+        this._state.ProfilePage.newPostText = ''
+        this._rerenderEntireTree()
+    },
+    UpdateTextPost(text) {
+        this._state.ProfilePage.newPostText = text
+        this._rerenderEntireTree()
+    },
+    addMessageFromDialog() {
+        this._state.MessagePage.message.push(
+            {
+                id: 5,
+                title: this._state.MessagePage.newMessageDialog
+            }
+        )
+        this._state.MessagePage.newMessageDialog = ''
+        this._rerenderEntireTree()
+    },
+    UpdateTextDialog(message: string) {
+        this._state.MessagePage.newMessageDialog = message;
+        this._rerenderEntireTree()
+    },
+    _rerenderEntireTree() {
+        //
+    },
+    subscribe(observer: () => void) {
+        this._rerenderEntireTree = observer
     }
 }
 
 
+export default store;
 
-export const addPost = () => {
-    state.ProfilePage.posts.push(
-        {
-            id: 5,
-            message: state.ProfilePage.newPostText,
-            LikeCounts: 0
-        }
-    )
-    state.ProfilePage.newPostText = ''
-    rerenderEntireTree(state)
-}
-
-export const UpdateTextPost = (text:string) => {
-    state.ProfilePage.newPostText = text
-    rerenderEntireTree(state)
-}
-
-export const addMessageFromDialog = () => {
-    state.MessagePage.message.push(
-        {
-            id: 5,
-            title: state.MessagePage.newMessageDialog
-        }
-    )
-    state.MessagePage.newMessageDialog = ''
-    rerenderEntireTree(state)
-}
-
-export const UpdateTextDialog = (message: string) => {
-    state.MessagePage.newMessageDialog = message;
-    rerenderEntireTree(state)
-}
-
-
-
-
-
-
-
-export default state;
