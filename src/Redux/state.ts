@@ -1,5 +1,4 @@
 
-
 export type DialogType = {
     id: number,
     name: string
@@ -69,6 +68,9 @@ const store: storeType = {
             ]
         }
     },
+    _rerenderEntireTree() {
+        //
+    },
     getState() {
         return this._state
     },
@@ -101,12 +103,11 @@ const store: storeType = {
         this._state.MessagePage.newMessageDialog = message;
         this._rerenderEntireTree()
     },
-    _rerenderEntireTree() {
-        //
-    },
     subscribe(observer: () => void) {
         this._rerenderEntireTree = observer
-    }
+    },
+
+
 }
 
 
