@@ -53,6 +53,11 @@ export type UpdateTextDialogActionType = {
     message: string
 }
 
+const ADD_MESSAGE_FROM_DIALOG = 'ADD-MESSAGE-FROM-DIALOG'
+const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'
+const ADD_POST = 'ADD-POST'
+const UPDATE_TEXT_POST = 'UPDATE-TEXT-POST'
+
 const store: storeType = {
     _state: {
         ProfilePage: {
@@ -79,21 +84,12 @@ const store: storeType = {
             ]
         }
     },
-<<<<<<< HEAD
 
-
-=======
-    _rerenderEntireTree() {
-        //
-    },
->>>>>>> origin/main
     getState() {
         return this._state
     },
-
-
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             this._state.ProfilePage.posts.push(
                 {
                     id: 5,
@@ -103,10 +99,10 @@ const store: storeType = {
             )
             this._state.ProfilePage.newPostText = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-TEXT-POST') {
+        } else if (action.type === UPDATE_TEXT_POST) {
             this._state.ProfilePage.newPostText = action.text
             this._callSubscriber()
-        } else if (action.type === 'ADD-MESSAGE-FROM-DIALOG') {
+        } else if (action.type === ADD_MESSAGE_FROM_DIALOG) {
             this._state.MessagePage.message.push(
                 {
                     id: 5,
@@ -115,44 +111,36 @@ const store: storeType = {
             )
             this._state.MessagePage.newMessageDialog = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-TEXT-DIALOG') {
+        } else if (action.type === UPDATE_TEXT_DIALOG) {
             this._state.MessagePage.newMessageDialog = action.message;
+            this._callSubscriber()
+        } else {
             this._callSubscriber()
         }
     },
-
-
     subscribe(observer) {
         this._callSubscriber = observer
 
     },
-<<<<<<< HEAD
     _callSubscriber() {
         //
     }
-=======
-    addMessageFromDialog() {
-        this._state.MessagePage.message.push(
-            {
-                id: 5,
-                title: this._state.MessagePage.newMessageDialog
-            }
-        )
-        this._state.MessagePage.newMessageDialog = ''
-        this._rerenderEntireTree()
-    },
-    UpdateTextDialog(message: string) {
-        this._state.MessagePage.newMessageDialog = message;
-        this._rerenderEntireTree()
-    },
-    subscribe(observer: () => void) {
-        this._rerenderEntireTree = observer
-    },
-
-
->>>>>>> origin/main
 }
 
+
+export const AddMessageFromDialogAC = () => {
+    return store.dispatch({type: ADD_MESSAGE_FROM_DIALOG})
+}
+export const UpdateTextDialogAC = (message:string) => {
+    return store.dispatch({type:UPDATE_TEXT_DIALOG, message:message})
+}
+export const UpdateTextPostAC = (text:string) =>{
+    return store.dispatch({type:UPDATE_TEXT_POST, text:text})
+}
+
+export const AddPostAC = () =>{
+    return store.dispatch({type:ADD_POST})
+}
 
 export default store;
 

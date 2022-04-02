@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
 import classes from './Dialogs.module.css';
 import {Message} from "./Message/Message";
-import {actionType, DialogType, MessageType} from '../../Redux/state'
+import {actionType, AddMessageFromDialogAC, DialogType, MessageType, UpdateTextDialogAC} from '../../Redux/state'
 
 type PropsType = {
     dialogNameData: Array<DialogType>
@@ -11,16 +11,21 @@ type PropsType = {
     newMessageDialog:string
 }
 
+
+
+
 export const Dialogs = (props: PropsType) => {
 
     /*let newMassageElement = React.createRef<HTMLTextAreaElement>()*/
 
     const onClickAddNewPostHandler = () => {
-        props.dispatch({type:'ADD-MESSAGE-FROM-DIALOG'})
+        /*props.dispatch({type:'ADD-MESSAGE-FROM-DIALOG'})*/
+        AddMessageFromDialogAC()
     }
 
     const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type:'UPDATE-TEXT-DIALOG', message:e.currentTarget.value})
+        /*props.dispatch({type:'UPDATE-TEXT-DIALOG', message:e.currentTarget.value})*/
+        UpdateTextDialogAC(e.currentTarget.value)
     }
 
     return <div className={classes.dialogs}>
