@@ -79,8 +79,14 @@ const store: storeType = {
             ]
         }
     },
+<<<<<<< HEAD
 
 
+=======
+    _rerenderEntireTree() {
+        //
+    },
+>>>>>>> origin/main
     getState() {
         return this._state
     },
@@ -120,9 +126,31 @@ const store: storeType = {
         this._callSubscriber = observer
 
     },
+<<<<<<< HEAD
     _callSubscriber() {
         //
     }
+=======
+    addMessageFromDialog() {
+        this._state.MessagePage.message.push(
+            {
+                id: 5,
+                title: this._state.MessagePage.newMessageDialog
+            }
+        )
+        this._state.MessagePage.newMessageDialog = ''
+        this._rerenderEntireTree()
+    },
+    UpdateTextDialog(message: string) {
+        this._state.MessagePage.newMessageDialog = message;
+        this._rerenderEntireTree()
+    },
+    subscribe(observer: () => void) {
+        this._rerenderEntireTree = observer
+    },
+
+
+>>>>>>> origin/main
 }
 
 
