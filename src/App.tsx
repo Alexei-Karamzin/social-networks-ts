@@ -8,23 +8,21 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
+import {actionType, storeType} from "./Redux/state";
 
 type PropsType = {
-    state: any
-    addPost: () => void
-    addMessageFromDialog: () => void
-    UpdateTextPost: (text: string) => void
-    UpdateTextDialog: (text: string) => void
+    store: storeType
+    dispatch: (action:actionType)=>void
 }
 
 export const App = (props: PropsType) => {
 
-    const message = props.state.MessagePage.message
-    const dialogs = props.state.MessagePage.dialog
-    const ProfilePosts = props.state.ProfilePage.posts
-    const newMessageDialog = props.state.MessagePage.newMessageDialog
-    const newPostText = props.state.ProfilePage.newPostText
-
+    const message = props.store.getState().MessagePage.message
+    const dialogs = props.store.getState().MessagePage.dialog
+    const ProfilePosts = props.store.getState().ProfilePage.posts
+    const newMessageDialog = props.store.getState().MessagePage.newMessageDialog
+    const newPostText = props.store.getState().ProfilePage.newPostText
+    console.log(newMessageDialog)
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -32,18 +30,15 @@ export const App = (props: PropsType) => {
                 <Navbar/>
                 <div className='app-wrapper-contents'>
                     <Routes>
-                        {/*exact*/}
                         <Route path='/Profile' element={<Profile
                             usersMessage={ProfilePosts}
-                            addPost={props.addPost}
-                            UpdateTextPost={props.UpdateTextPost}
+                            dispatch={props.dispatch.bind(props.store)}
                             newPostText={newPostText}
                         />}/>
                         <Route path='/Dialogs' element={<Dialogs
                             dialogNameData={dialogs}
                             dialogMassageData={message}
-                            addMessageFromDialog={props.addMessageFromDialog}
-                            UpdateTextDialog={props.UpdateTextDialog}
+                            dispatch={props.dispatch.bind(props.store)}
                             newMessageDialog={newMessageDialog}
                         />}
                         />

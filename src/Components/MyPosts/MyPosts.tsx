@@ -1,12 +1,11 @@
 import React, {ChangeEvent} from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
-import {PostsType} from '../../Redux/state'
+import {actionType, PostsType} from '../../Redux/state'
 
 export type PropsType = {
     usersMessage: Array<PostsType>
-    addPost: any
-    UpdateTextPost: (text: string) => void
+    dispatch: (action:actionType) => void
     newPostText: string
 }
 
@@ -17,11 +16,11 @@ export const MyPosts = (props: PropsType) => {
     /*let newPostElement = React.createRef<HTMLTextAreaElement>()*/
 
     const onClickAddPostHandler = () => {
-        props.addPost()
+        props.dispatch({type:'ADD-POST'})
     }
 
     const onChangeTextareaHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.UpdateTextPost(e.currentTarget.value)
+        props.dispatch({type:'UPDATE-TEXT-POST', text:e.currentTarget.value})
     }
 
     return (

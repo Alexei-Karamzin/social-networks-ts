@@ -2,24 +2,21 @@ import React from "react";
 import classes from './Profile.module.css';
 import {MyPosts} from "../MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo";
-import {PostsType} from '../../Redux/state';
+import {actionType, PostsType} from '../../Redux/state';
 
 type propsType = {
     usersMessage: Array<PostsType>
-    addPost: any
-    UpdateTextPost: (text: string) => void
+    dispatch:(action:actionType)=>void
     newPostText: string
 }
 
 export const Profile = (props: propsType) => {
 
-
     return <div className={classes.content}>
         <ProfileInfo/>
         <MyPosts
             usersMessage={props.usersMessage}
-            addPost={props.addPost}
-            UpdateTextPost={props.UpdateTextPost}
+            dispatch={props.dispatch}
             newPostText={props.newPostText}
         />
     </div>
