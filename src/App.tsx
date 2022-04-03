@@ -22,7 +22,7 @@ export const App = (props: PropsType) => {
     const ProfilePosts = props.store.getState().ProfilePage.posts
     const newMessageDialog = props.store.getState().MessagePage.newMessageDialog
     const newPostText = props.store.getState().ProfilePage.newPostText
-    console.log(newMessageDialog)
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

@@ -1,3 +1,8 @@
+import {addPostActionType, profileReducer, updateTextPostActionType} from "./profile-reducer";
+import {
+    addMessageFromDialogActionType,
+    dialogReducer, updateTextDialogActionType,
+} from "./dialog-reducer";
 
 export type DialogType = {
     id: number,
@@ -31,32 +36,15 @@ export type RootStateType = {
 export type storeType = {
     _state: RootStateType
     getState: () => RootStateType
-    dispatch: (action:any) => void
-    subscribe: (callback: ()=>void) => void
-    _callSubscriber: () => void
+    dispatch: (action:any) => any
+    subscribe: (callback: ()=>any) => any
+    _callSubscriber: () => any
 }
 
-export type actionType = addPostActionType | UpdateTextPostActionType | AddMessageFromDialogActionType | UpdateTextDialogActionType
-
-export type addPostActionType = {
-    type: 'ADD-POST'
-}
-export type UpdateTextPostActionType = {
-    type: 'UPDATE-TEXT-POST'
-    text: string
-}
-export type AddMessageFromDialogActionType = {
-    type: 'ADD-MESSAGE-FROM-DIALOG'
-}
-export type UpdateTextDialogActionType = {
-    type: 'UPDATE-TEXT-DIALOG'
-    message: string
+export type actionType = {
+    type: addPostActionType | updateTextPostActionType | addMessageFromDialogActionType | updateTextDialogActionType
 }
 
-const ADD_MESSAGE_FROM_DIALOG = 'ADD-MESSAGE-FROM-DIALOG'
-const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'
-const ADD_POST = 'ADD-POST'
-const UPDATE_TEXT_POST = 'UPDATE-TEXT-POST'
 
 const store: storeType = {
     _state: {
@@ -89,35 +77,11 @@ const store: storeType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            this._state.ProfilePage.posts.push(
-                {
-                    id: 5,
-                    message: this._state.ProfilePage.newPostText,
-                    LikeCounts: 0
-                }
-            )
-            this._state.ProfilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_TEXT_POST) {
-            this._state.ProfilePage.newPostText = action.text
-            this._callSubscriber()
-        } else if (action.type === ADD_MESSAGE_FROM_DIALOG) {
-            this._state.MessagePage.message.push(
-                {
-                    id: 5,
-                    title: this._state.MessagePage.newMessageDialog
-                }
-            )
-            this._state.MessagePage.newMessageDialog = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_TEXT_DIALOG) {
-            this._state.MessagePage.newMessageDialog = action.message;
-            this._callSubscriber()
-        } else {
-            this._callSubscriber()
-        }
+        this._state.ProfilePage = profileReducer(this._state.ProfilePage, action)
+        this._state.MessagePage = dialogReducer(this._state.MessagePage, action)
+        this._callSubscriber()
     },
+
     subscribe(observer) {
         this._callSubscriber = observer
 
@@ -128,19 +92,9 @@ const store: storeType = {
 }
 
 
-export const AddMessageFromDialogAC = () => {
-    return store.dispatch({type: ADD_MESSAGE_FROM_DIALOG})
-}
-export const UpdateTextDialogAC = (message:string) => {
-    return store.dispatch({type:UPDATE_TEXT_DIALOG, message:message})
-}
-export const UpdateTextPostAC = (text:string) =>{
-    return store.dispatch({type:UPDATE_TEXT_POST, text:text})
-}
 
-export const AddPostAC = () =>{
-    return store.dispatch({type:ADD_POST})
-}
+
+
 
 export default store;
 
