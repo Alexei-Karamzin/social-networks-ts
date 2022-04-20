@@ -21,12 +21,12 @@ export const Dialogs = (props: PropsType) => {
 
     const onClickAddNewPostHandler = () => {
         /*props.dispatch({type:'ADD-MESSAGE-FROM-DIALOG'})*/
-        AddMessageFromDialogAC()
+        props.dispatch(AddMessageFromDialogAC())
     }
 
     const onChangeMessageHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
         /*props.dispatch({type:'UPDATE-TEXT-DIALOG', message:e.currentTarget.value})*/
-        UpdateTextDialogAC(e.currentTarget.value)
+        props.dispatch(UpdateTextDialogAC(e.currentTarget.value))
     }
 
     return <div className={classes.dialogs}>

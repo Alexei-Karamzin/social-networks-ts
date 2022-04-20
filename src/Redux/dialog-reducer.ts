@@ -1,9 +1,8 @@
-
-
 /*const ADD_MESSAGE_FROM_DIALOG = 'ADD-MESSAGE-FROM-DIALOG'
 const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'*/
 
-import store, {MessagePageType} from "./store";
+import {MessagePageType} from "./store";
+import store from "./redux-store";
 
 export type dialogActionsType = addMessageFromDialogActionType | updateTextDialogActionType
 
@@ -22,7 +21,7 @@ let initialState = {
         {id: 2, title: 'Hello!!!'},
         {id: 3, title: '!#$'}
     ],
-    newMessageDialog: '',
+    newMessageDialog: 'init massage',
     dialog: [
         {id: 1, name: 'Tim'},
         {id: 2, name: 'Sanya'},
@@ -55,11 +54,9 @@ export const dialogReducer = (state: MessagePageType = initialState, action: dia
     }
 }
 
-
-
-export const AddMessageFromDialogAC = ():addMessageFromDialogActionType => {
-    return store.dispatch({type:'ADD-MESSAGE-FROM-DIALOG'})
+export const AddMessageFromDialogAC = (): any => {
+    return {type: 'ADD-MESSAGE-FROM-DIALOG'}
 }
-export const UpdateTextDialogAC = (message:string):updateTextDialogActionType => {
-    return store.dispatch({type:'UPDATE-TEXT-DIALOG', message:message})
+export const UpdateTextDialogAC = (message: string): any => {
+    return {type: 'UPDATE-TEXT-DIALOG', message: message}
 }

@@ -8,21 +8,20 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
-import {actionType, storeType} from "./Redux/store";
+import {actionType, RootStateType} from "./Redux/store";
 
 type PropsType = {
-    store: storeType
-    dispatch: (action:actionType)=>void
+    state: RootStateType
+    dispatch: any
+    store: any
 }
 
 export const App = (props: PropsType) => {
-
     const message = props.store.getState().MessagePage.message
     const dialogs = props.store.getState().MessagePage.dialog
     const ProfilePosts = props.store.getState().ProfilePage.posts
     const newMessageDialog = props.store.getState().MessagePage.newMessageDialog
     const newPostText = props.store.getState().ProfilePage.newPostText
-
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -32,13 +31,13 @@ export const App = (props: PropsType) => {
                     <Routes>
                         <Route path='/Profile' element={<Profile
                             usersMessage={ProfilePosts}
-                            dispatch={props.dispatch.bind(props.store)}
+                            dispatch={props.dispatch}
                             newPostText={newPostText}
                         />}/>
                         <Route path='/Dialogs' element={<Dialogs
                             dialogNameData={dialogs}
                             dialogMassageData={message}
-                            dispatch={props.dispatch.bind(props.store)}
+                            dispatch={props.dispatch}
                             newMessageDialog={newMessageDialog}
                         />}
                         />
