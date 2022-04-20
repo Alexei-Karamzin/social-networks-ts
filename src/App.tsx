@@ -9,6 +9,7 @@ import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
 import {actionType, RootStateType} from "./Redux/store";
+import { DialogsContainer } from './Components/Dialogs/DialogsContainer';
 
 type PropsType = {
     state: RootStateType
@@ -17,11 +18,7 @@ type PropsType = {
 }
 
 export const App = (props: PropsType) => {
-    const message = props.store.getState().MessagePage.message
-    const dialogs = props.store.getState().MessagePage.dialog
-    const ProfilePosts = props.store.getState().ProfilePage.posts
-    const newMessageDialog = props.store.getState().MessagePage.newMessageDialog
-    const newPostText = props.store.getState().ProfilePage.newPostText
+
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -30,17 +27,11 @@ export const App = (props: PropsType) => {
                 <div className='app-wrapper-contents'>
                     <Routes>
                         <Route path='/Profile' element={<Profile
-                            usersMessage={ProfilePosts}
-                            dispatch={props.dispatch}
-                            newPostText={newPostText}
+                            store={props.store}
                         />}/>
-                        <Route path='/Dialogs' element={<Dialogs
-                            dialogNameData={dialogs}
-                            dialogMassageData={message}
-                            dispatch={props.dispatch}
-                            newMessageDialog={newMessageDialog}
-                        />}
-                        />
+                        <Route path='/Dialogs' element={<DialogsContainer
+                            store={props.store}
+                        />}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                         <Route path='/News' element={<News/>}/>

@@ -6,8 +6,9 @@ import {AddPostAC, UpdateTextPostAC} from "../../Redux/profile-reducer";
 
 export type PropsType = {
     usersMessage: Array<PostsType>
-    dispatch: (action: actionType) => void
     newPostText: string
+    onClickAddPostHandler: ()=>void
+    onChangeTextareaHandler: (e:any)=>void
 }
 
 
@@ -17,19 +18,11 @@ export const MyPosts = (props: PropsType) => {
 
     /*let newPostElement = React.createRef<HTMLTextAreaElement>()*/
 
-    const onClickAddPostHandler = () => {
-        props.dispatch(AddPostAC())
-    }
-
-    const onChangeTextareaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(UpdateTextPostAC(e.currentTarget.value))
-    }
-
     return (
         <div className={classes.content}>
             <div className={classes.MyPosts}>My posts</div>
-            <textarea value={props.newPostText} onChange={onChangeTextareaHandler}/>
-            <button onClick={onClickAddPostHandler}>Add posts</button>
+            <textarea value={props.newPostText} onChange={props.onChangeTextareaHandler}/>
+            <button onClick={props.onClickAddPostHandler}>Add posts</button>
             {postsElement}
         </div>
     )
