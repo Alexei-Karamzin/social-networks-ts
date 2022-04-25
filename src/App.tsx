@@ -3,13 +3,12 @@ import './App.css'
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
-import {actionType, RootStateType} from "./Redux/store";
-import { DialogsContainer } from './Components/Dialogs/DialogsContainer';
+import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
+import {RootStateType} from "./Redux/store";
 
 type PropsType = {
     state: RootStateType
@@ -26,12 +25,8 @@ export const App = (props: PropsType) => {
                 <Navbar/>
                 <div className='app-wrapper-contents'>
                     <Routes>
-                        <Route path='/Profile' element={<Profile
-                            store={props.store}
-                        />}/>
-                        <Route path='/Dialogs' element={<DialogsContainer
-                            store={props.store}
-                        />}/>
+                        <Route path='/Profile' element={<Profile/>}/>
+                        <Route path='/Dialogs' element={<DialogsContainer/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                         <Route path='/News' element={<News/>}/>

@@ -1,12 +1,27 @@
 import React, {ChangeEvent} from "react";
 import {AddPostAC, UpdateTextPostAC} from "../../Redux/profile-reducer";
 import {MyPosts} from "./MyPosts";
+import {connect} from "react-redux";
 
-export type PropsType = {
-    store: any
+
+let mapStateToProps = (state: any) => {
+    return {
+        usersMessage: state.ProfilePage.posts,
+        newPostText: state.ProfilePage.newPostText
+    }
 }
 
+let mapDispatchToProps = (dispatch: any) => {
+    return {
+        onClickAddPostHandler: ()=>{dispatch(AddPostAC())},
+        onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(UpdateTextPostAC(e))}
+    }
+}
 
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+
+/*
 export const MyPostsContainer = (props: PropsType) => {
 
     const usersMessage = props.store.getState().ProfilePage.posts
@@ -29,3 +44,4 @@ export const MyPostsContainer = (props: PropsType) => {
         />
     )
 }
+*/

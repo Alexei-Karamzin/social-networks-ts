@@ -8,7 +8,7 @@ export type PropsType = {
     usersMessage: Array<PostsType>
     newPostText: string
     onClickAddPostHandler: ()=>void
-    onChangeTextareaHandler: (e:any)=>void
+    onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
 

@@ -1,5 +1,6 @@
 import {ProfilePageType} from "./store";
 import store from './redux-store'
+import {ChangeEvent} from "react";
 
 
 export type profileActionType = addPostActionType | updateTextPostActionType
@@ -29,29 +30,26 @@ let initialState = {
 export const profileReducer = (state: ProfilePageType = initialState, action: profileActionType) => {
     switch (action.type) {
         case 'ADD-POST': {
-            state.posts.push(
-                {
-                    id: 5,
-                    message: state.newPostText,
-                    LikeCounts: 0
-                }
-            )
+            let newPost = {
+                id: 5,
+                message: state.newPostText,
+                LikeCounts: 0
+            }
             state.newPostText = ''
-            return state
+            return {...state, posts: [...state.posts, newPost]}
         }
 
         case 'UPDATE-TEXT-POST': {
-            state.newPostText = action.text
-            return state
+            return {...state, newPostText: action.text}
         }
         default:
             return state
     }
 }
 
-export const UpdateTextPostAC = (text: string): any => {
-    return {type: 'UPDATE-TEXT-POST', text: text}
+export const UpdateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
+    return {type: 'UPDATE-TEXT-POST', text: text.currentTarget.value}
 }
-export const AddPostAC = (): any => {
+export const AddPostAC = (): addPostActionType => {
     return {type: 'ADD-POST'}
 }

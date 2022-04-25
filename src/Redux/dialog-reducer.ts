@@ -3,6 +3,9 @@ const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'*/
 
 import {MessagePageType} from "./store";
 import store from "./redux-store";
+import {ChangeEvent} from "react";
+/*import {v1} from "uuid";*/
+
 
 export type dialogActionsType = addMessageFromDialogActionType | updateTextDialogActionType
 
@@ -34,19 +37,14 @@ let initialState = {
 export const dialogReducer = (state: MessagePageType = initialState, action: dialogActionsType) => {
     switch (action.type) {
         case "ADD-MESSAGE-FROM-DIALOG": {
-            state.message.push(
-                {
-                    id: 5,
-                    title: state.newMessageDialog
-                }
-            )
+            let newMessage = {id:6, title: state.newMessageDialog}
             state.newMessageDialog = ''
-            return state
+            return {...state, message: [...state.message, newMessage]}
         }
 
         case 'UPDATE-TEXT-DIALOG': {
             state.newMessageDialog = action.message;
-            return state
+            return {...state, newMessageDialog: action.message}
         }
 
         default:
@@ -54,9 +52,9 @@ export const dialogReducer = (state: MessagePageType = initialState, action: dia
     }
 }
 
-export const AddMessageFromDialogAC = (): any => {
+export const AddMessageFromDialogAC = (): addMessageFromDialogActionType => {
     return {type: 'ADD-MESSAGE-FROM-DIALOG'}
 }
-export const UpdateTextDialogAC = (message: string): any => {
-    return {type: 'UPDATE-TEXT-DIALOG', message: message}
+export const UpdateTextDialogAC = (message: ChangeEvent<HTMLTextAreaElement>): updateTextDialogActionType => {
+    return {type: 'UPDATE-TEXT-DIALOG', message: message.currentTarget.value}
 }
