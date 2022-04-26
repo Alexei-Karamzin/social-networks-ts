@@ -2,7 +2,6 @@
 const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'*/
 
 import {MessagePageType} from "./store";
-import store from "./redux-store";
 import {ChangeEvent} from "react";
 /*import {v1} from "uuid";*/
 
@@ -18,7 +17,7 @@ export type updateTextDialogActionType = {
 }
 
 
-let initialState = {
+export let initialState = {
     message: [
         {id: 1, title: 'Hello'},
         {id: 2, title: 'Hello!!!'},
