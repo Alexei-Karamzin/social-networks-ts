@@ -11,7 +11,6 @@ import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {RootStateType} from "./Redux/store";
 
 type PropsType = {
-    state: RootStateType
     dispatch: any
     store: any
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import {dialogReducer} from "./dialog-reducer";
 
 test('update text dialog should be correct', () => {
