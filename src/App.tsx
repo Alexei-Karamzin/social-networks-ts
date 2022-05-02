@@ -9,6 +9,7 @@ import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {RootStateType} from "./Redux/store";
+import Users from "./Components/Users/Users";
 
 type PropsType = {
     dispatch: any
@@ -29,6 +30,7 @@ export const App = (props: PropsType) => {
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
                         <Route path='/News' element={<News/>}/>
+                        <Route path='/Users' element={<Users/>}/>
                     </Routes>
                 </div>
             </div>
