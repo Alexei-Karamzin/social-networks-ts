@@ -3,9 +3,9 @@ import {usersReducer} from "./users-reducer";
 test('follow should be correct', () => {
     let testState = {
         users: [
-            {id: 1, followed: true, fullName: 'Alex', location: {citi: 'Grodno', country: 'Belarus'}},
-            {id: 2, followed: false, fullName: 'Sasha', location: {citi: 'Minsk', country: 'Belarus'}},
-            {id: 3, followed: true, fullName: 'Tim', location: {citi: 'Gomel', country: 'Belarus'}}
+            {id: 1, photoUrl: '', followed: true, fullName: 'Alex', status:'good', location: {citi: 'Grodno', country: 'Belarus'}},
+            {id: 2, photoUrl: '', followed: false, fullName: 'Sasha', status:'good', location: {citi: 'Minsk', country: 'Belarus'}},
+            {id: 3, photoUrl: '', followed: true, fullName: 'Tim', status:'good', location: {citi: 'Gomel', country: 'Belarus'}}
         ]
     }
 

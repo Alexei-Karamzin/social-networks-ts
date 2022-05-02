@@ -1,0 +1,44 @@
+.containerStyle {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.UserStyle {
+    padding: 15px;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.photo {
+    width: 150px;
+    height: 200px;
+    border-radius: 25px;
+}
+
+.UnfollowButtonStyle {
+    background-color: #fc3232;
+    color: #2a2a2a;
+}
+
+.FollowButtonStyle {
+    background-color: #8fe849;
+    color: #0e0e0e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
