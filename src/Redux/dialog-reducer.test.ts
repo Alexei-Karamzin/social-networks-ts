@@ -1,6 +1,7 @@
 import {dialogReducer} from "./dialog-reducer";
 
-test('update text dialog should be correct', () => {
+
+beforeEach(()=>{
     let testState = {
         message: [
             {id: 1, title: 'Hello'},
@@ -16,6 +17,12 @@ test('update text dialog should be correct', () => {
             {id: 5, name: 'Kolik'}
         ]
     }
+})
+
+
+
+test('update text dialog should be correct', () => {
+    let testState
 
     let newState = dialogReducer(testState, {type: 'UPDATE-TEXT-DIALOG', message: 'Hi!'})
 
