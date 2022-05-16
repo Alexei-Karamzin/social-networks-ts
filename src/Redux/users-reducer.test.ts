@@ -1,4 +1,5 @@
 import {usersReducer} from "./users-reducer";
+/*
 
 test('follow should be correct', () => {
     let testState = {
@@ -17,4 +18,5 @@ test('follow should be correct', () => {
     expect(newState.users[0].followed).toBe(testState.users[0].followed)
 })
 
+*/
 

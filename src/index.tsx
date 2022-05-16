@@ -8,8 +8,6 @@ import {Provider} from "react-redux";
         <React.StrictMode>
             <Provider store={store}>
                 <App
-                    dispatch={store.dispatch.bind(store)}
-                    store={store}
                 />
             </Provider>
 

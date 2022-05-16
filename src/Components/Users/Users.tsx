@@ -1,13 +1,15 @@
 import React from 'react';
 import styles from './usersContainer.module.css'
-import {InitialStateUsersType, UserType} from "../../Redux/users-reducer";
+import {UsersType} from "../../Redux/users-reducer";
 import axios from 'axios';
+import userPhoto from '../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg'
 
 type PropsType = {
-    users: Array<UserType>
+    users: UsersType
     toggleFollow: (userID: number) => void
-    setUsers: (users: InitialStateUsersType) => void
+    setUsers: (users: UsersType) => void
 }
+
 
 const Users = (props: PropsType) => {
 
@@ -22,29 +24,41 @@ const Users = (props: PropsType) => {
             ])
         }
         */
-    const axios = require('axios').default;
-    axios.get('https://social-network.samuraijs.com/api/1.0').then(response => {
-        props.users
-    })
+
+    if (props.users.items.length === 0) {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                console.log(response.data.items[0]);
+                props.setUsers(response.data.items)
+
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
+
+
+
 
     return (
         <div className={styles.containerStyle}>
             {
-                props.users.map(u => <div key={u.id} className={styles.UserStyle}>
+                props.users.items.map(u => <div key={u.id} className={styles.UserStyle}>
                     <div>
                         <div>
-                            <img src={u.photoUrl} className={styles.photo}/>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.photo}/>
                         </div>
 
                     </div>
                     <div>
                         <div>
-                            <div>name: {u.fullName}</div>
+                            <div>name: {u.name}</div>
                             <div>status: {u.status}</div>
                         </div>
                         <div>
-                            <div> country: {u.location.country}</div>
-                            <div> citi: {u.location.citi}</div>
+                            <div> country: ?</div>
+                            <div> citi: ?</div>
                         </div>
                     </div>
                     <div>

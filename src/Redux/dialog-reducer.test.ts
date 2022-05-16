@@ -1,6 +1,7 @@
 import {dialogReducer} from "./dialog-reducer";
 
 
+/*
 beforeEach(()=>{
     let testState = {
         message: [
@@ -55,4 +56,4 @@ test('add message should be correct', () => {
     expect(newState.newMessageDialog).toBe('')
     expect(newState.message[3].title).toBe('Hi! how old are you?')
     expect(newState.message.length).toBe(4)
-})
+})*/

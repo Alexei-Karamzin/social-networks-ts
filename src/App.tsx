@@ -8,16 +8,9 @@ import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
-import {RootStateType} from "./Redux/store";
 import UsersContainer from "./Components/Users/UsersContainer";
 
-type PropsType = {
-    dispatch: any
-    store: any
-}
-
-export const App = (props: PropsType) => {
-
+export const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
