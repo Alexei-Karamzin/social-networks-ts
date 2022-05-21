@@ -25,24 +25,24 @@ const Users = (props: PropsType) => {
         }
         */
 
-    if (props.users.items.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                console.log(response.data.items[0]);
-                props.setUsers(response.data.items)
+    let getUsers = () => {
+        if (props.users.items.length === 0) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    console.log(response.data.items[0]);
+                    props.setUsers(response.data.items)
 
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
     }
 
-
-
-
-
     return (
+
         <div className={styles.containerStyle}>
+            <button onClick={getUsers}>get users</button>
             {
                 props.users.items.map(u => <div key={u.id} className={styles.UserStyle}>
                     <div>
