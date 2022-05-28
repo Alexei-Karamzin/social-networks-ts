@@ -12,19 +12,16 @@ type PropsType = {
 
 class UsersClassComponent extends React.Component<PropsType> {
 
-    constructor(props:PropsType) {
-        super(props);
-        if (this.props.users.items.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    console.log(response.data.items[0]);
-                    this.props.setUsers(response.data.items)
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        }
+    componentDidMount() {
+        console.log('component is Mount')
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                console.log(response.data.items[0]);
+                this.props.setUsers(response.data.items)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     render() {
