@@ -2,10 +2,10 @@ import React from 'react';
 import styles from './usersContainer.module.css'
 import axios from 'axios';
 import userPhoto from '../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg'
-import {UsersType} from "../../Redux/users-reducer";
+import {AxiosUsersType, UsersType} from "../../Redux/users-reducer";
 
 type PropsType = {
-    users: UsersType
+    users: Array<AxiosUsersType>
     toggleFollow: (userID: number) => void
     setUsers: (users: UsersType) => void
 }
@@ -28,7 +28,7 @@ class UsersClassComponent extends React.Component<PropsType> {
         return (
             <div className={styles.containerStyle}>
                 {
-                    this.props.users.items.map(u => <div key={u.id} className={styles.UserStyle}>
+                    this.props.users.map(u => <div key={u.id} className={styles.UserStyle}>
                         <div>
                             <div>
                                 <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.photo}/>

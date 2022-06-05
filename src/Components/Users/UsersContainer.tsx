@@ -1,15 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Users from './Users';
-import {setUsersAC, toggleFollowAC, UsersType} from "../../Redux/users-reducer";
+import {AxiosUsersType, setUsersAC, toggleFollowAC, UsersType} from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
 import UsersClassComponent from './UsersClassComponent';
 
 
-
 type MapStatePropsType = {
-    users: UsersType
+    users: Array<AxiosUsersType>
+    pageSize: number
+    totalUserCount: number
 }
 type MapDispatchPropsType = {
     toggleFollow: (userID: number) => void
@@ -19,7 +20,9 @@ type MapDispatchPropsType = {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        users: state.usersPage
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUserCount: state.usersPage.totalUserCount
     }
 }
 

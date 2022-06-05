@@ -1,8 +1,8 @@
 import React from "react";
-import {MyPosts} from "../MyPosts/MyPosts";
 import classes from './ProfileInfo.module.css'
 
 export const ProfileInfo = () => {
+
     return (
         <>
             <div>

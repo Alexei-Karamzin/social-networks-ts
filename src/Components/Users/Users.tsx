@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from './usersContainer.module.css'
-import {UsersType} from "../../Redux/users-reducer";
-import axios from 'axios';
+
 import userPhoto from '../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg'
+
+
+/*
 
 type PropsType = {
     users: UsersType
@@ -13,7 +14,7 @@ type PropsType = {
 
 const Users = (props: PropsType) => {
 
-    /*    if(props.users.length===0){
+    /!*    if(props.users.length===0){
             props.setUsers([
                 {id: 1, photoUrl: 'https://sun9-38.userapi.com/s/v1/if2/DKfhcucGVkbIy85O-q5e8Cn-7FozjXXY84tQZfXLz3BhfIbfsG30EkEuWQ1gwMmREiU-qhTdlQVp48J3s-9XkueK.jpg?size=607x1080&quality=96&type=album',
                     followed: true, fullName: 'Alex', status:'good', location: {citi: 'Grodno', country: 'Belarus'}},
@@ -23,7 +24,7 @@ const Users = (props: PropsType) => {
                     followed: true, fullName: 'Tim', status:'hello', location: {citi: 'Gomel', country: 'Belarus'}}
             ])
         }
-        */
+        *!/
 
     let getUsers = () => {
         if (props.users.items.length === 0) {
@@ -81,4 +82,4 @@ const Users = (props: PropsType) => {
     );
 };
 
-export default Users;
+export default Users;*/
