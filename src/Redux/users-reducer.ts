@@ -29,6 +29,7 @@ export type UsersType = {
     users: Array<AxiosUsersType>
     pageSize: number
     totalUserCount: number
+    currentPage: number
 }
 
 export type AxiosUsersType = {
@@ -55,7 +56,8 @@ const initialState: UsersType /*InitialStateUsersType*/ = {
             followed: true, fullName: 'Tim', status:'hello', location: {citi: 'Gomel', country: 'Belarus'}}*/
     ],
     pageSize: 5,
-    totalUserCount: 0
+    totalUserCount: 20,
+    currentPage: 1
 }
 
 

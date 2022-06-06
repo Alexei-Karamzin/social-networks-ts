@@ -6,6 +6,9 @@ import {AxiosUsersType, UsersType} from "../../Redux/users-reducer";
 
 type PropsType = {
     users: Array<AxiosUsersType>
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
     toggleFollow: (userID: number) => void
     setUsers: (users: UsersType) => void
 }
@@ -25,13 +28,27 @@ class UsersClassComponent extends React.Component<PropsType> {
     }
 
     render() {
+
+
+        /*className={this.props.currentPage === el && styles.selectedPage}*/
+
+        let pagesCount = this.props.totalUserCount / this.props.pageSize
+        let pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <div className={styles.containerStyle}>
+                <div>
+                    {pages.map( el => <span >{el}</span>)}
+                </div>
                 {
                     this.props.users.map(u => <div key={u.id} className={styles.UserStyle}>
                         <div>
                             <div>
-                                <img src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.photo}/>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={styles.photo}/>
                             </div>
 
                         </div>
