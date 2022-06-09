@@ -17,7 +17,7 @@ class UsersClassComponent extends React.Component<PropsType> {
 
     componentDidMount() {
         console.log('component is Mount')
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 console.log(response.data.items[0]);
                 this.props.setUsers(response.data.items)
@@ -32,7 +32,7 @@ class UsersClassComponent extends React.Component<PropsType> {
 
         /*className={this.props.currentPage === el && styles.selectedPage}*/
 
-        let pagesCount = this.props.totalUserCount / this.props.pageSize
+        let pagesCount = Math.ceil(this.props.totalUserCount / this.props.pageSize)
         let pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i)
@@ -41,7 +41,7 @@ class UsersClassComponent extends React.Component<PropsType> {
         return (
             <div className={styles.containerStyle}>
                 <div>
-                    {pages.map( el => <span >{el}</span>)}
+                    {pages.map( el => <span className={this.props.currentPage === el ? styles.selectedPage : styles.defaultPage}>{el}</span>)}
                 </div>
                 {
                     this.props.users.map(u => <div key={u.id} className={styles.UserStyle}>

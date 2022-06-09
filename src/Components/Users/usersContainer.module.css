@@ -28,9 +28,12 @@
 
 .selectedPage {
     font-weight: bold;
+    text-decoration: underline;
 }
 
+.defaultPage {
 
+}
 
 
 
