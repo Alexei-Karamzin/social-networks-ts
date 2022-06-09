@@ -11,6 +11,8 @@ type PropsType = {
     currentPage: number
     toggleFollow: (userID: number) => void
     setUsers: (users: UsersType) => void
+    setCurrentPage: (page: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 class UsersClassComponent extends React.Component<PropsType> {
@@ -21,9 +23,18 @@ class UsersClassComponent extends React.Component<PropsType> {
             .then(response => {
                 console.log(response.data.items[0]);
                 this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
             })
             .catch(function (error) {
                 console.log(error)
+            })
+    }
+
+    onPageChanged = (page: number) => {
+        this.props.setCurrentPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
             })
     }
 
@@ -41,7 +52,12 @@ class UsersClassComponent extends React.Component<PropsType> {
         return (
             <div className={styles.containerStyle}>
                 <div>
-                    {pages.map( el => <span className={this.props.currentPage === el ? styles.selectedPage : styles.defaultPage}>{el}</span>)}
+                    {pages.map( el => <span
+                        className={this.props.currentPage === el ? styles.selectedPage : styles.defaultPage}
+                        onClick={ () => this.onPageChanged(el) }
+                    >
+                        {el}
+                    </span>)}
                 </div>
                 {
                     this.props.users.map(u => <div key={u.id} className={styles.UserStyle}>

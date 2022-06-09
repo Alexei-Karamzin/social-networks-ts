@@ -1,6 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AxiosUsersType, setUsersAC, toggleFollowAC, UsersType} from "../../Redux/users-reducer";
+import {
+    AxiosUsersType,
+    setCurrentPageAC,
+    setTotalUserCountAC,
+    setUsersAC,
+    toggleFollowAC,
+    UsersType
+} from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
 import UsersClassComponent from './UsersClassComponent';
@@ -14,6 +21,8 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     toggleFollow: (userID: number) => void
     setUsers: (users: UsersType) => void
+    setCurrentPage: (page: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -32,6 +41,12 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         },
         setUsers: (users: UsersType) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (page: number) => {
+            dispatch(setCurrentPageAC(page))
+        },
+        setTotalUsersCount: (totalCount: number) => {
+            dispatch(setTotalUserCountAC(totalCount))
         }
     }
 }
