@@ -20,6 +20,12 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    // 1 2 3 4 ..... 145
+    /*let UiPages = [1]
+    if (pages.length > 6) {
+
+    }*/
+
 
     return <div className={styles.containerStyle}>
         <div>
