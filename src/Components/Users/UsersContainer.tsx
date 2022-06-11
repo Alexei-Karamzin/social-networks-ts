@@ -10,7 +10,8 @@ import {
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
-import UsersClassComponent from './UsersClassComponent';
+import axios from "axios";
+import {Users} from "./Users";
 
 type MapStatePropsType = {
     users: Array<AxiosUsersType>
@@ -24,6 +25,63 @@ type MapDispatchPropsType = {
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalCount: number) => void
 }
+type PropsType = {
+    users: Array<AxiosUsersType>
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    toggleFollow: (userID: number) => void
+    setUsers: (users: UsersType) => void
+    setCurrentPage: (page: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+}
+
+
+
+class UsersContainer extends React.Component<PropsType> {
+
+    componentDidMount() {
+        console.log('component is Mount')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                console.log(response.data.items[0]);
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
+    onPageChanged = (page: number) => {
+        this.props.setCurrentPage(page)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then(res => {
+                this.props.setUsers(res.data.items)
+            })
+    }
+
+    render() {
+
+
+        /*className={this.props.currentPage === el && styles.selectedPage}*/
+
+
+        return (
+            <Users
+                users={this.props.users}
+                toggleFollow={this.props.toggleFollow}
+                onPageChanged={this.onPageChanged}
+                currentPage={this.props.currentPage}
+                totalUserCount={this.props.totalUserCount}
+                pageSize={this.props.pageSize}
+
+            />
+        )
+    }
+}
+
+
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -51,4 +109,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersClassComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
