@@ -5,24 +5,25 @@ import classes from './Navbar.module.css';
 import { ProfileBtn } from "./ProfileBtn";
 
 export const Navbar = () => {
+
     return <nav className={classes.nav}>
         <div className={classes.item}>
-            <NavLink to='/Profile' className={classes.activeLink}>Profile<ProfileBtn /></NavLink>
+            <NavLink to='/profile' className={classes.activeLink}>Profile<ProfileBtn /></NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/Dialogs' className={classes.activeLink}>Messages<MessageBtn /></NavLink>
+            <NavLink to='/dialogs' className={classes.activeLink}>Messages<MessageBtn /></NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/News' className={classes.activeLink}>News</NavLink>
+            <NavLink to='/news' className={classes.activeLink}>News</NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/Music' className={classes.activeLink}>Music</NavLink>
+            <NavLink to='/music' className={classes.activeLink}>Music</NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/Settings' className={classes.activeLink}>Settings</NavLink>
+            <NavLink to='/settings' className={classes.activeLink}>Settings</NavLink>
         </div>
         <div className={classes.item}>
-            <NavLink to='/Users' className={classes.activeLink}>Users</NavLink>
+            <NavLink to='/users' className={classes.activeLink}>Users</NavLink>
         </div>
     </nav>
 

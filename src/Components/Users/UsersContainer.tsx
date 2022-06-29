@@ -8,10 +8,10 @@ import {
     toggleFollowAC,
     UsersType
 } from "../../Redux/users-reducer";
-import {AppStateType} from "../../Redux/redux-store";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import { AppRootStateType } from '../../Redux/redux-store';
 
 type MapStatePropsType = {
     users: Array<AxiosUsersType>
@@ -88,7 +88,7 @@ class UsersContainer extends React.Component<PropsType> {
 
 
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,

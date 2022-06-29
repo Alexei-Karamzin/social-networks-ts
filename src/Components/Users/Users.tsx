@@ -3,6 +3,7 @@ import styles from "./usersContainer.module.css";
 import userPhoto
     from "../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     users: Array<AxiosUsersType>
@@ -41,8 +42,10 @@ export const Users = (props: UsersPropsType) => {
                 return <div key={u.id} className={styles.UserStyle}>
                     <div>
                         <div>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                 className={styles.photo}/>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={styles.photo}/>
+                            </NavLink>
                         </div>
 
                     </div>
@@ -68,7 +71,7 @@ export const Users = (props: UsersPropsType) => {
                         }
                     </div>
                 </div>
-            } )
+            })
         }
     </div>
 }

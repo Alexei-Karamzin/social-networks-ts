@@ -10,7 +10,7 @@ export const rootReducers = combineReducers({
     usersPage: usersReducer
 })
 
-export type AppStateType = ReturnType<typeof rootReducers>
+export type AppRootStateType = ReturnType<typeof rootReducers>
 
 
 

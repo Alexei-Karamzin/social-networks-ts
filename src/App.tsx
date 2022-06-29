@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css'
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Profile} from "./Components/Profile/Profile";
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import UsersContainer from "./Components/Users/UsersContainer";
+import ProfileContainer from './Components/Profile/ProfileContainer';
 
 export const App = () => {
     return (
@@ -18,12 +18,14 @@ export const App = () => {
                 <Navbar/>
                 <div className='app-wrapper-contents'>
                     <Routes>
-                        <Route path='/Profile' element={<Profile/>}/>
-                        <Route path='/Dialogs' element={<DialogsContainer/>}/>
-                        <Route path='/Music' element={<Music/>}/>
-                        <Route path='/Settings' element={<Settings/>}/>
-                        <Route path='/News' element={<News/>}/>
-                        <Route path='/Users' element={<UsersContainer/>}/>
+                        <Route path='/profile' element={<ProfileContainer/>}>
+                            <Route path=':id' element={<ProfileContainer/>}/>
+                        </Route>
+                        <Route path='/dialogs' element={<DialogsContainer/>}/>
+                        <Route path='/music' element={<Music/>}/>
+                        <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/news' element={<News/>}/>
+                        <Route path='/users' element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>
