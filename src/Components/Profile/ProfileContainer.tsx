@@ -11,7 +11,6 @@ class ProfileContainer extends React.Component<any> {
 
 
     componentDidMount() {
-        debugger
         let profileId = this.props.router.params.id
         if (!profileId) {
             profileId = 2
