@@ -12,9 +12,10 @@ export class HeaderContainer extends React.Component<any, any> {
             withCredentials: true
         })
             .then(response => {
+                debugger
               if (response.data.resultCode === 0) {
                   let {id,email,login} = response.data.data
-                  this.props.setAuthUserDataAC(id,email,login)
+                  this.props.setAuthUserDataAC({id,email,login})
               }
             })
     }

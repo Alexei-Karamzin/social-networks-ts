@@ -17,9 +17,10 @@ export type initialStateType = {
     isAuth: boolean
 }
 
-export const authReducer = (state: initialStateType = initialState, action: AuthActionType) => {
+export const authReducer = (state: initialStateType = initialState, action: authActionType) => {
+    debugger
     switch (action.type) {
-        case SET_USER_DATA: {
+        case 'SET_USER_DATA': {
             return {
                 ...state,
                 ...action.data,
@@ -39,6 +40,11 @@ export type setUserDataType = {
     login: string | null
 }
 
-export const setAuthUserDataAC = (data: setUserDataType) => ({type: SET_USER_DATA, data} as const)
+export const setAuthUserDataAC = (data: setUserDataType): setAuthActionType => ({type: 'SET_USER_DATA', data})
 
-export type AuthActionType = ReturnType<typeof setAuthUserDataAC>
+type setAuthActionType = {
+    type: 'SET_USER_DATA',
+    data: setUserDataType
+}
+
+export type authActionType = setAuthActionType
