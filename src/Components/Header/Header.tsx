@@ -4,10 +4,9 @@ import {NavLink} from "react-router-dom";
 
 type HeaderPropsType = {
     isAuth: boolean
-
 }
 
-export const Header = (props: any) => {
+export const Header = (props: HeaderPropsType) => {
     return <header className={classes.header}>
         <div className={classes.loginButton}>
             {props.isAuth ?

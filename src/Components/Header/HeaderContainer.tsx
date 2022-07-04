@@ -21,6 +21,7 @@ export class HeaderContainer extends React.Component<any, any> {
     }
 
     render() {
+        //@ts-ignore
         return <Header {...this.props}/>
     }
 }
