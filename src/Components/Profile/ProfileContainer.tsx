@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {SetUserProfileAC} from "../../Redux/profile-reducer";
+import {SetUserProfileAC} from "../../Redux/reducer/profile-reducer";
 import {WithRouter} from "./WithRouter";
 
 

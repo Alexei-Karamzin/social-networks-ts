@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import {AddMessageFromDialogAC, UpdateTextDialogAC} from "../../Redux/dialog-reducer";
+import {AddMessageFromDialogAC, UpdateTextDialogAC} from "../../Redux/reducer/dialog-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 

@@ -1,4 +1,4 @@
-import {ProfilePageType} from "./store";
+import {ProfilePageType} from "../store";
 import {ChangeEvent} from "react";
 
 

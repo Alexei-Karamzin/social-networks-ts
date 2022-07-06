@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {AddPostAC, UpdateTextPostAC} from "../../Redux/profile-reducer";
+import {AddPostAC, UpdateTextPostAC} from "../../Redux/reducer/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 

@@ -1,7 +1,7 @@
 /*const ADD_MESSAGE_FROM_DIALOG = 'ADD-MESSAGE-FROM-DIALOG'
 const UPDATE_TEXT_DIALOG = 'UPDATE-TEXT-DIALOG'*/
 
-import {MessagePageType} from "./store";
+import {MessagePageType} from "../store";
 import {ChangeEvent} from "react";
 /*import {v1} from "uuid";*/
 
