@@ -13,6 +13,7 @@ type UsersPropsType = {
     currentPage: number
     totalUserCount: number
     pageSize: number
+    /*toggleFollowingProgress: (i:boolean)=>void*/
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -64,6 +65,7 @@ export const Users = (props: UsersPropsType) => {
                             u.followed ?
                                 <button
                                     onClick={() => {
+                                        /*props.toggleFollowingProgress(true)*/
                                         axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                             withCredentials: true,
                                             headers: {
@@ -74,6 +76,7 @@ export const Users = (props: UsersPropsType) => {
                                                 if (res.data.resultCode == 0) {
                                                     props.toggleFollow(u.id)
                                                 }
+                                                /*props.toggleFollowingProgress(false)*/
                                             })
                                     }}
                                     className={styles.UnfollowButtonStyle}
@@ -82,6 +85,7 @@ export const Users = (props: UsersPropsType) => {
                                 </button> :
                                 <button
                                     onClick={() => {
+                                        /*props.toggleFollowingProgress(true)*/
                                         axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                             withCredentials: true,
                                             headers: {
@@ -92,6 +96,7 @@ export const Users = (props: UsersPropsType) => {
                                                 if (res.data.resultCode == 0) {
                                                     props.toggleFollow(u.id)
                                                 }
+                                                /*props.toggleFollowingProgress(false)*/
                                             })
                                     }}
                                     className={styles.FollowButtonStyle}

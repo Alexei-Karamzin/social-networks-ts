@@ -4,6 +4,7 @@ export type usersActionsType =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUserCountAC>
     | ReturnType<typeof setIsFetchingAC>
+    | ReturnType<typeof toggleFollowingProgressAC>
 
 export type toggleFollowActionType = {
     type: 'TOGGLE_FOLLOW',
@@ -36,6 +37,7 @@ export type UsersType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 export type AxiosUsersType = {
@@ -56,7 +58,8 @@ const initialState: UsersType = {
     pageSize: 5,
     totalUserCount: 0,
     currentPage: 5,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: false
 }
 
 export const usersReducer = (state: UsersType = initialState, action: usersActionsType): UsersType => {
@@ -74,6 +77,8 @@ export const usersReducer = (state: UsersType = initialState, action: usersActio
             return {...state, totalUserCount: action.count}
         case "SET_IS_FETCH":
             return {...state, isFetching: action.isFetch}
+        case "TOGGLE_IS_FOLLOWING_PROGRESS":
+            return {...state, followingInProgress: action.isFetching}
         default:
             return state
     }
@@ -85,7 +90,10 @@ export const setUsersAC = (users: any): setUsersActionType => ({type: 'SET_USERS
 export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
 export const setTotalUserCountAC = (count: number) => ({type: 'SET_TOTAL_USER_TYPE', count} as const)
 export const setIsFetchingAC = (isFetch: boolean) => ({type: 'SET_IS_FETCH', isFetch} as const)
-
+export const toggleFollowingProgressAC = (isFetching: boolean) => ({
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS',
+    isFetching
+} as const)
 
 /*
 export const AddPostAC = (): addPostActionType => {
