@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    AxiosUsersType,
+    AxiosUsersType, getUsersTC,
     setCurrentPageAC, setIsFetchingAC,
     setTotalUserCountAC,
     setUsersAC,
@@ -19,6 +19,7 @@ type MapStatePropsType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: any[]
 }
 type MapDispatchPropsType = {
     toggleFollow: (userID: number) => void
@@ -27,33 +28,11 @@ type MapDispatchPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     setIsFetching: (isFetch: boolean) => void
 }
-type PropsType = {
-    users: Array<AxiosUsersType>
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    toggleFollow: (userID: number) => void
-    setUsers: (users: UsersType) => void
-    setCurrentPage: (page: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    isFetching: boolean
-    setIsFetching: (isFetch: boolean) => void
-}
 
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-        console.log('component is Mount')
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (page: number) => {
@@ -79,7 +58,8 @@ class UsersContainer extends React.Component<PropsType> {
                     currentPage={this.props.currentPage}
                     totalUserCount={this.props.totalUserCount}
                     pageSize={this.props.pageSize}
-                    /*toggleFollowingProgress={this.props.toggleFollowingProgress}*/
+                    toggleFollowingProgress={this.props.toggleFollowingProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         )
@@ -94,28 +74,9 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
-
-/*const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        toggleFollow: (userID: number) => {
-            dispatch(toggleFollowAC(userID))
-        },
-        setUsers: (users: UsersType) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (page: number) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUserCountAC(totalCount))
-        },
-        setIsFetching: (isFetch: boolean) => {
-            dispatch(setIsFetchingAC(isFetch))
-        }
-    }
-}*/
 
 export default connect(mapStateToProps,
     {
@@ -124,6 +85,26 @@ export default connect(mapStateToProps,
         setCurrentPage: setCurrentPageAC,
         setTotalUsersCount: setTotalUserCountAC,
         setIsFetching: setIsFetchingAC,
-        toggleFollowingProgress: toggleFollowingProgressAC
+        toggleFollowingProgress: toggleFollowingProgressAC,
+        getUsersTC: getUsersTC
     }
 )(UsersContainer);
+
+// types
+
+type PropsType = {
+    users: Array<AxiosUsersType>
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: any[]
+
+    toggleFollow: (userID: number) => void
+    setUsers: (users: UsersType) => void
+    setCurrentPage: (page: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    setIsFetching: (isFetch: boolean) => void
+    toggleFollowingProgress: (i:boolean)=>void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+}

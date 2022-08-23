@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
+
 export type usersActionsType =
     | toggleFollowActionType
     | setUsersActionType
@@ -37,7 +40,7 @@ export type UsersType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: any[]
 }
 
 export type AxiosUsersType = {
@@ -59,7 +62,7 @@ const initialState: UsersType = {
     totalUserCount: 0,
     currentPage: 5,
     isFetching: true,
-    followingInProgress: false
+    followingInProgress: []
 }
 
 export const usersReducer = (state: UsersType = initialState, action: usersActionsType): UsersType => {
@@ -78,7 +81,12 @@ export const usersReducer = (state: UsersType = initialState, action: usersActio
         case "SET_IS_FETCH":
             return {...state, isFetching: action.isFetch}
         case "TOGGLE_IS_FOLLOWING_PROGRESS":
-            return {...state, followingInProgress: action.isFetching}
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -90,12 +98,26 @@ export const setUsersAC = (users: any): setUsersActionType => ({type: 'SET_USERS
 export const setCurrentPageAC = (page: number) => ({type: 'SET_CURRENT_PAGE', page} as const)
 export const setTotalUserCountAC = (count: number) => ({type: 'SET_TOTAL_USER_TYPE', count} as const)
 export const setIsFetchingAC = (isFetch: boolean) => ({type: 'SET_IS_FETCH', isFetch} as const)
-export const toggleFollowingProgressAC = (isFetching: boolean) => ({
+export const toggleFollowingProgressAC = (isFetching: boolean, userId: number) => ({
     type: 'TOGGLE_IS_FOLLOWING_PROGRESS',
-    isFetching
+    isFetching,
+    userId
 } as const)
 
 /*
 export const AddPostAC = (): addPostActionType => {
     return {type: 'ADD-POST'}
 }*/
+
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(setIsFetchingAC(true))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setIsFetchingAC(false))
+            dispatch(setIsFetchingAC(data.items))
+            dispatch(setTotalUserCountAC(data.totalCount))
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
