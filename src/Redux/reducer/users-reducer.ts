@@ -109,15 +109,39 @@ export const AddPostAC = (): addPostActionType => {
     return {type: 'ADD-POST'}
 }*/
 
+// thunks
+
 export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(setIsFetchingAC(true))
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(setIsFetchingAC(false))
-            dispatch(setIsFetchingAC(data.items))
+            dispatch(setUsersAC(data.items))
             dispatch(setTotalUserCountAC(data.totalCount))
         })
         .catch(function (error) {
             console.log(error)
         })
+}
+
+export const toggleFollowTC = (userId: number, followed: boolean) => (dispatch: Dispatch) => {
+    if (followed) {
+        dispatch(toggleFollowingProgressAC(true, userId))
+        usersAPI.unFollow(userId)
+            .then(res => {
+                if (res.data.resultCode == 0) {
+                    dispatch(toggleFollowAC(userId))
+                }
+                toggleFollowingProgressAC(false, userId)
+            })
+    } else {
+        dispatch(toggleFollowingProgressAC(true, userId))
+        usersAPI.follow(userId)
+            .then(res => {
+                if (res.data.resultCode == 0) {
+                    dispatch(toggleFollowAC(userId))
+                }
+                toggleFollowingProgressAC(false, userId)
+            })
+    }
 }
