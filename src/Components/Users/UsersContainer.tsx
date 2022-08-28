@@ -43,13 +43,12 @@ class UsersContainer extends React.Component<PropsType> {
                     totalUserCount={this.props.totalUserCount}
                     pageSize={this.props.pageSize}
                     followingInProgress={this.props.followingInProgress}
-                    followTC={this.props.followTC}
+                    toggleFollowTC={this.props.toggleFollowTC}
                 />
             </>
         )
     }
 }
-
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
@@ -68,7 +67,7 @@ export default connect(mapStateToProps,
         setCurrentPage: setCurrentPageAC,
         toggleFollowingProgress: toggleFollowingProgressAC,
         getUsersTC: getUsersTC,
-        followTC: toggleFollowTC
+        toggleFollowTC: toggleFollowTC
     }
 )(UsersContainer);
 
@@ -85,5 +84,5 @@ type PropsType = {
     toggleFollow: (userID: number) => void
     setCurrentPage: (page: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
-    followTC: (userId: number, followed: boolean) => void
+    toggleFollowTC: (userId: number, followed: boolean) => void
 }

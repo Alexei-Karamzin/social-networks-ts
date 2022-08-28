@@ -8,7 +8,10 @@ import {News} from './Components/News/News';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from './Components/Profile/ProfileContainer';
-import {HeaderContainer} from "./Components/Header/HeaderContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
+import {Login} from "./Components/Login/Login";
+
+
 
 export const App = () => {
 
@@ -27,6 +30,7 @@ export const App = () => {
                         <Route path='/settings' element={<Settings/>}/>
                         <Route path='/news' element={<News/>}/>
                         <Route path='/users' element={<UsersContainer/>}/>
+                        <Route path='/login' element={<Login/>}/>
                     </Routes>
                 </div>
             </div>

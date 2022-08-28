@@ -1,6 +1,7 @@
 import {ProfilePageType} from "../store";
 import {ChangeEvent} from "react";
-
+import {Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
 
 export type addPostActionType = {
     type: 'ADD-POST'
@@ -9,9 +10,6 @@ export type updateTextPostActionType = {
     type: 'UPDATE-TEXT-POST'
     text: string
 }
-
-/*const ADD_POST = 'ADD-POST'
-const UPDATE_TEXT_POST = 'UPDATE-TEXT-POST'*/
 
 let initialState = {
     posts: [
@@ -48,14 +46,29 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
     }
 }
 
-export const UpdateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
+// actions
+
+export const updateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
     return {type: 'UPDATE-TEXT-POST', text: text.currentTarget.value}
 }
-export const AddPostAC = (): addPostActionType => ({type: 'ADD-POST'})
+export const addPostAC = (): addPostActionType => ({type: 'ADD-POST'})
+export const setUserProfileAC = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
 
-export const SetUserProfileAC = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
+// thunks
+
+export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfileAC(response.data))
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
+
+// types
 
 export type profileActionType =
     | addPostActionType
     | updateTextPostActionType
-    | ReturnType<typeof SetUserProfileAC>
+    | ReturnType<typeof setUserProfileAC>

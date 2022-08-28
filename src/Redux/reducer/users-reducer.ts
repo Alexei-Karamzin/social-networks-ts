@@ -129,10 +129,12 @@ export const toggleFollowTC = (userId: number, followed: boolean) => (dispatch: 
         dispatch(toggleFollowingProgressAC(true, userId))
         usersAPI.unFollow(userId)
             .then(res => {
-                if (res.data.resultCode == 0) {
+                if (res.data.resultCode === 0) {
                     dispatch(toggleFollowAC(userId))
+                } else {
+                    console.log('Error in toggle follow TC')
                 }
-                toggleFollowingProgressAC(false, userId)
+                dispatch(toggleFollowingProgressAC(false, userId))
             })
     } else {
         dispatch(toggleFollowingProgressAC(true, userId))
@@ -140,8 +142,10 @@ export const toggleFollowTC = (userId: number, followed: boolean) => (dispatch: 
             .then(res => {
                 if (res.data.resultCode == 0) {
                     dispatch(toggleFollowAC(userId))
+                } else {
+                    console.log('Error in toggle follow TC')
                 }
-                toggleFollowingProgressAC(false, userId)
+                dispatch(toggleFollowingProgressAC(false, userId))
             })
     }
 }

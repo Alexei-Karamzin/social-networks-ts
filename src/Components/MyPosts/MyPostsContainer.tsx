@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {AddPostAC, UpdateTextPostAC} from "../../Redux/reducer/profile-reducer";
+import {addPostAC, updateTextPostAC} from "../../Redux/reducer/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 
@@ -13,8 +13,8 @@ let mapStateToProps = (state: any) => {
 
 let mapDispatchToProps = (dispatch: any) => {
     return {
-        onClickAddPostHandler: ()=>{dispatch(AddPostAC())},
-        onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(UpdateTextPostAC(e))}
+        onClickAddPostHandler: ()=>{dispatch(addPostAC())},
+        onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(updateTextPostAC(e))}
     }
 }
 
