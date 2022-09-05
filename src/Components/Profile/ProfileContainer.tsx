@@ -9,7 +9,6 @@ import {AppRootStateType} from "../../Redux/redux-store";
 class ProfileContainer extends React.Component<any> {
 
     componentDidMount() {
-        console.log('!!!!!!!!!!')
         let userId = this.props.router.params.id
         if (!userId) {
             userId = 2
@@ -26,17 +25,6 @@ class ProfileContainer extends React.Component<any> {
         )
     }
 }
-
-/*let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-
-AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
-
-
-
-const WithUrlDataComponent = WithRouter(AuthRedirectComponent)
-
-export default connect(mapStateToProps, {getUserProfileTC: getUserProfileTC})(WithUrlDataComponent)*/
 
 const mapStateToProps = (state: AppRootStateType) => ({
     profile: state.profilePage.profile
