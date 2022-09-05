@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/social-networks-ts/static/css/main.f499c41c.css",
-    "main.js": "/social-networks-ts/static/js/main.6b321a99.js",
+    "main.js": "/social-networks-ts/static/js/main.edc86d28.js",
     "static/media/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.jpg": "/social-networks-ts/static/media/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.0e8f342749cd0c4f0fd2.jpg",
     "static/media/Spinner-1.4s-217px.svg": "/social-networks-ts/static/media/Spinner-1.4s-217px.07e8aff1a4181f264b03b38b52d9918a.svg",
     "index.html": "/social-networks-ts/index.html",
     "main.f499c41c.css.map": "/social-networks-ts/static/css/main.f499c41c.css.map",
-    "main.6b321a99.js.map": "/social-networks-ts/static/js/main.6b321a99.js.map"
+    "main.edc86d28.js.map": "/social-networks-ts/static/js/main.edc86d28.js.map"
   },
   "entrypoints": [
     "static/css/main.f499c41c.css",
-    "static/js/main.6b321a99.js"
+    "static/js/main.edc86d28.js"
   ]
 }
