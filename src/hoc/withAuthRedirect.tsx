@@ -15,8 +15,6 @@ export const withAuthRedirect = (Component: any) => {
 
     const RedirectComponent = (props: MapStaeToPropsType) => {
 
-        debugger
-
         if (!props.isAuth) {
             return <Navigate to='/login'/>
         } else {
