@@ -5,11 +5,12 @@
     
 }
 
+
 .item a {
-    color: #fdfdfd;
+    color: #d1ff00;
     text-decoration: none;
 }
-
+/*
 .item a.activeLink {
     color: #38ff00;
-}
+}*/

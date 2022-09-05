@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css'
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, BrowserRouter, Routes, useNavigate} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
@@ -10,8 +10,6 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
-
-
 
 export const App = () => {
 

@@ -8,6 +8,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {AppRootStateType} from '../../Redux/redux-store';
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapStatePropsType = {
     users: Array<AxiosUsersType>
@@ -60,6 +61,8 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
+
+export const AuthRedirectComponent = withAuthRedirect(UsersContainer)
 
 export default connect(mapStateToProps,
     {

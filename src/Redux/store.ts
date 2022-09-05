@@ -20,7 +20,8 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: Array<PostsType>
-    newPostText: string
+    newPostText: string,
+    profile: any
 }
 export type MessagePageType = {
     dialog: Array<DialogType>
@@ -46,9 +47,9 @@ export type actionType = {
 }
 
 
-const store: storeType = {
+const store: any /*storeType*/ = {
     _state: {
-        ProfilePage: {
+        profilePage: {
             posts: [
                 {id: 1, message: 'Hello', LikeCounts: 14},
                 {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
@@ -76,13 +77,13 @@ const store: storeType = {
     getState() {
         return this._state
     },
-    dispatch(action) {
+    dispatch(action: any) {
         this._state.ProfilePage = profileReducer(this._state.ProfilePage, action)
         this._state.MessagePage = dialogReducer(this._state.MessagePage, action)
         this._callSubscriber()
     },
 
-    subscribe(observer) {
+    subscribe(observer: any) {
         this._callSubscriber = observer
 
     },

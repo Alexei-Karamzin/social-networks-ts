@@ -1,14 +1,16 @@
-import React, { ChangeEvent } from "react";
+import React, {ChangeEvent} from "react";
 import {AddMessageFromDialogAC, UpdateTextDialogAC} from "../../Redux/reducer/dialog-reducer";
-import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
+import {AppRootStateType} from "../../Redux/redux-store";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {Dialogs} from "./Dialogs";
 
-
-let mapStateToProps = (state:any) => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
         dialogNameData: state.MessagePage.dialog,
         dialogMassageData: state.MessagePage.message,
-        newMessageDialog: state.MessagePage.newMessageDialog
+        newMessageDialog: state.MessagePage.newMessageDialog,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -19,7 +21,9 @@ let mapDispatchToProps = (dispatch:any) => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 
 /*export const DialogsContainer = (props: PropsType) => {

@@ -1,13 +1,11 @@
 import React from "react";
 import classes from './ProfileInfo.module.css'
-import jobSearchImg from '../../assets/images/Job search.png'
 
 type ProfileInfoPropsType = {
     profile: any
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    console.log('props profileInfo', props)
     return (
         <>
             <div>
@@ -16,7 +14,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             </div>
             <div className={classes.ava}>
                 <img src={props.profile?.photos?.large}/>
-                {/*{props.profile.lookingForAJob ? <img src={jobSearchImg}/> : null}*/}
                 <div>
                     <p>About me: {props.profile?.aboutMe}</p>
                 </div>

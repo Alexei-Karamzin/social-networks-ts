@@ -2,16 +2,17 @@ import React, {ChangeEvent} from "react";
 import {addPostAC, updateTextPostAC} from "../../Redux/reducer/profile-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
+import {AppRootStateType} from "../../Redux/redux-store";
 
 
-let mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
-        usersMessage: state.ProfilePage.posts,
-        newPostText: state.ProfilePage.newPostText
+        usersMessage: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
     }
 }
 
-let mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
         onClickAddPostHandler: ()=>{dispatch(addPostAC())},
         onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(updateTextPostAC(e))}
