@@ -2,9 +2,10 @@ import React from "react";
 import classes from './Profile.module.css';
 import {ProfileInfo} from "./ProfileInfo";
 import {MyPostsContainer} from "../MyPosts/MyPostsContainer";
+import {UserProfileType} from "../../Redux/store";
 
 type ProfilePropsType = {
-    profile: any
+    profile: UserProfileType
 }
 
 export const Profile = (props: ProfilePropsType) => {

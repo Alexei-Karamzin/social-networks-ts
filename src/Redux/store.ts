@@ -21,8 +21,35 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string,
-    profile: any
+    profile: UserProfileType | null
 }
+
+export type UserProfileType = {
+    aboutMe: string
+    contacts: UserContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: UserPhotoType
+}
+
+type UserPhotoType = {
+    small?: string
+    large?: string
+}
+
+type UserContactsType = {
+    facebook?: string
+    website?: string
+    vk?: string
+    twitter?: string
+    instagram?: string
+    youtube?: string
+    github?: string
+    mainLink?: string
+}
+
 export type MessagePageType = {
     dialog: Array<DialogType>
     message: Array<MessageType>
