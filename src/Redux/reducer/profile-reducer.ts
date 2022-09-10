@@ -1,7 +1,7 @@
 import {ProfilePageType} from "../store";
 import {ChangeEvent} from "react";
 import {Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
+import {profileAPI} from "../../api/profileAPI";
 
 export type addPostActionType = {
     type: 'ADD-POST'
@@ -57,7 +57,7 @@ export const setUserProfileAC = (profile: any) => ({type: 'SET_USER_PROFILE', pr
 // thunks
 
 export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId)
+    profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfileAC(response.data))
         })
