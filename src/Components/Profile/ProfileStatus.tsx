@@ -1,9 +1,8 @@
 import React from "react";
-import {profileAPI} from "../../api/profileAPI";
 
 type PropsType = {
     status: string
-    userId: number
+    updateStatus: (status: string) => void
 }
 
 export class ProfileStatus extends React.Component<PropsType, any> {
@@ -17,6 +16,7 @@ export class ProfileStatus extends React.Component<PropsType, any> {
     }
     deActivateEditMode = () => {
         this.setState({editMode: false})
+        this.props.updateStatus('asddasasd')
     }
 
     render() {
@@ -32,7 +32,6 @@ export class ProfileStatus extends React.Component<PropsType, any> {
                         <input autoFocus={true} onBlur={this.deActivateEditMode} value={this.props.status}></input>
                     </div>
                 }
-                <div>{profileAPI.getStatus(this.props.userId)}</div>
             </div>
         )
     }

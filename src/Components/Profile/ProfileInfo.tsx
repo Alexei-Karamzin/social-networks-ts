@@ -5,6 +5,8 @@ import {UserProfileType} from "../../Redux/store";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -12,7 +14,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         <>
             <div className={classes.ava}>
                 <img src={props.profile?.photos?.large}/>
-                <ProfileStatus status={'TEST'} userId={props.profile.userId}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 <div>
                     <p>About me: {props.profile?.aboutMe}</p>
                 </div>

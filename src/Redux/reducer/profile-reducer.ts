@@ -18,7 +18,8 @@ let initialState = {
         {id: 3, message: '!#$', LikeCounts: 184}
     ],
     newPostText: 'init massage',
-    profile: null
+    profile: null,
+    status: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: profileActionType) => {
@@ -41,6 +42,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
         case "SET_USER_PROFILE": {
             return {...state, profile: action.profile}
         }
+        case 'SET_STATUS': {
+            return {...state, status: action.status}
+        }
+        case "UPDATE_STATUS": {
+            return {...state, status: action.status}
+        }
         default:
             return state
     }
@@ -53,6 +60,8 @@ export const updateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): update
 }
 export const addPostAC = (): addPostActionType => ({type: 'ADD-POST'})
 export const setUserProfileAC = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
+export const setUserStatusAC = (status: string) => ({type: 'SET_STATUS', status} as const)
+export const updateUserStatusAC = (status: string) => ({type: 'UPDATE_STATUS', status} as const)
 
 // thunks
 
@@ -66,9 +75,28 @@ export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
         })
 }
 
+export const getUserStatusTC = (userId: number) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            debugger
+            dispatch(setUserStatusAC(response.data))
+        })
+}
+
+export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatusAC(response.data))
+            }
+        })
+}
+
 // types
 
 export type profileActionType =
     | addPostActionType
     | updateTextPostActionType
     | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setUserStatusAC>
+    | ReturnType<typeof updateUserStatusAC>
