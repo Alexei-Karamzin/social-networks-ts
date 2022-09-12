@@ -22,7 +22,7 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: UserProfileType | null
-    status: string
+    status: string | null
 }
 
 export type UserProfileType = {

@@ -43,10 +43,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
             return {...state, profile: action.profile}
         }
         case 'SET_STATUS': {
-            return {...state, status: action.status}
+            return {...state, status: action.status ? action.status : '------------'}
         }
         case "UPDATE_STATUS": {
-            return {...state, status: action.status}
+            return {...state, status: action.status ? action.status : '------------'}
         }
         default:
             return state
@@ -85,7 +85,9 @@ export const getUserStatusTC = (userId: number) => (dispatch: Dispatch) => {
 export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updateStatus(status)
         .then(response => {
-                dispatch(setUserStatusAC(response.data))
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatusAC(status))
+            }
         })
 }
 
