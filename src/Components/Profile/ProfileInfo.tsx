@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './ProfileInfo.module.css'
-import { ProfileStatus } from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatus";
 import {UserProfileType} from "../../Redux/store";
 
 type ProfileInfoPropsType = {
@@ -14,7 +14,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         <>
             <div className={classes.ava}>
                 <img src={props.profile?.photos?.large}/>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatus status={props.status}
+                               updateStatus={props.updateStatus}
+                />
                 <div>
                     <p>About me: {props.profile?.aboutMe}</p>
                 </div>
