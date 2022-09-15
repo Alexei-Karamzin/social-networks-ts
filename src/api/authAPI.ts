@@ -11,5 +11,13 @@ const instance = axios.create({
 export const authAPI = {
     authMe() {
         return instance.get('me')
+    },
+    login(email: string, password: string, /*rememberMe: boolean, captcha: boolean*/) {
+        return instance.post('login', {
+            email: email,
+            password: password,
+            rememberMe: true,
+            captcha: true
+        })
     }
 }

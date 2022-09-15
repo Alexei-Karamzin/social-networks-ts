@@ -29,6 +29,7 @@ export const App = () => {
                         <Route path='/news' element={<News/>}/>
                         <Route path='/users' element={<UsersContainer/>}/>
                         <Route path='/login' element={<Login/>}/>
+                        <Route path='/*' element={<ErrorPage />}/>
                     </Routes>
                 </div>
             </div>
@@ -36,3 +37,8 @@ export const App = () => {
     );
 }
 
+export const ErrorPage = () => {
+    return <div>
+        <h1>ERROR: PAGE NOT FOUND</h1>
+    </div>
+}
