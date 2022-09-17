@@ -10,6 +10,8 @@ import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import { TestComponent } from './trash/TestComponent';
+
 
 export const App = () => {
 
@@ -20,6 +22,7 @@ export const App = () => {
                 <Navbar/>
                 <div className='app-wrapper-contents'>
                     <Routes>
+                        <Route path='/test' element={<TestComponent/>}></Route>
                         <Route path='/profile' element={<ProfileContainer/>}>
                             <Route path=':id' element={<ProfileContainer/>}/>
                         </Route>

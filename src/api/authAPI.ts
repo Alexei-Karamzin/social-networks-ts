@@ -1,4 +1,5 @@
 import axios from "axios";
+import {LoginPayloadType} from "../Redux/reducer/auth-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -12,12 +13,7 @@ export const authAPI = {
     authMe() {
         return instance.get('me')
     },
-    login(email: string, password: string, /*rememberMe: boolean, captcha: boolean*/) {
-        return instance.post('login', {
-            email: email,
-            password: password,
-            rememberMe: true,
-            captcha: true
-        })
+    login(data: LoginPayloadType) {
+        return instance.post('login', data)
     }
 }

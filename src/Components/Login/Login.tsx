@@ -1,10 +1,10 @@
 import React from "react";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
 import {loginTC} from "../../Redux/reducer/auth-reducer";
+import {useAppDispatch} from "../../Redux/redux-store";
 
 export const Login = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -14,7 +14,7 @@ export const Login = () => {
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
-            //dispatch(loginTC(values))
+            dispatch(loginTC(values))
             formik.resetForm();
         },
     })

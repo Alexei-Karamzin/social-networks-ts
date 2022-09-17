@@ -6,7 +6,7 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    //isLoggedIn: false
+    isLoggedIn: false
 }
 
 export type initialStateType = {
@@ -14,24 +14,25 @@ export type initialStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    //isLoggedIn: boolean
+    isLoggedIn: boolean
 }
 
 export const authReducer = (state: initialStateType = initialState, action: authActionType) => {
     switch (action.type) {
-        case 'SET_USER_DATA': {
+        case 'AUTH/set-user-data': {
             return {
                 ...state,
                 ...action.data,
                 isAuth: true
             }
         }
-        /*case "LOGIN": {
+        case "AUTH/login": {
+            debugger
             return {
                 ...state,
-                isLoggedIn: action
+                isLoggedIn: true
             }
-        }*/
+        }
         default:
             return state
     }
@@ -39,8 +40,8 @@ export const authReducer = (state: initialStateType = initialState, action: auth
 
 // actions
 
-export const setAuthUserDataAC = (data: setUserDataType): setAuthActionType => ({type: 'SET_USER_DATA', data})
-export const loginAC = () => ({type: 'LOGIN'} as const)
+export const setAuthUserDataAC = (data: setUserDataType): setAuthActionType => ({type: 'AUTH/set-user-data', data})
+export const setIsLoggedInAC = (data: LoginPayloadType) => ({type: 'AUTH/login'} as const)
 
 // thunks
 
@@ -54,16 +55,15 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
         })
 }
 
-export const loginTC = (dispatch: Dispatch) => (data: LoginPayloadType) => {
+export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch) => {
 
-    const email = data.email
-    const password = data.password
-    const rememberMe = {...data}
-
-    authAPI.login(email, password)
+    authAPI.login(data)
         .then(res => {
+            console.log(res.data)
             if (res.data.resultCode === 0) {
-                loginAC()
+                dispatch(setIsLoggedInAC(res.data.data))
+            } else if (res.data.resultCode === 10) {
+                dispatch(setIsLoggedInAC(res.data.data))
             }
         })
 }
@@ -75,6 +75,7 @@ export type LoginPayloadType = {
     email: string
     password: string
     rememberMe?: boolean
+    captcha?: boolean
 }
 
 type setUserDataType = {
@@ -83,9 +84,9 @@ type setUserDataType = {
     login: string | null
 }
 type setAuthActionType = {
-    type: 'SET_USER_DATA',
+    type: 'AUTH/set-user-data',
     data: setUserDataType
 }
 type authActionType =
     | setAuthActionType
-    | ReturnType<typeof loginAC>
+    | ReturnType<typeof setIsLoggedInAC>

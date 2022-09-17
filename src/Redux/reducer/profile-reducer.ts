@@ -3,14 +3,6 @@ import {ChangeEvent} from "react";
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/profileAPI";
 
-export type addPostActionType = {
-    type: 'ADD-POST'
-}
-export type updateTextPostActionType = {
-    type: 'UPDATE-TEXT-POST'
-    text: string
-}
-
 let initialState = {
     posts: [
         {id: 1, message: 'Hello', LikeCounts: 14},
@@ -24,7 +16,7 @@ let initialState = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: profileActionType) => {
     switch (action.type) {
-        case 'ADD-POST': {
+        case 'PROFILE/add-post': {
             let newPost = {
                 id: 5,
                 message: state.newPostText,
@@ -36,16 +28,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
                 posts: [...state.posts, newPost]
             }
         }
-        case 'UPDATE-TEXT-POST': {
+        case 'PROFILE/update-post-text': {
             return {...state, newPostText: action.text}
         }
-        case "SET_USER_PROFILE": {
+        case "PROFILE/SET_USER_PROFILE": {
             return {...state, profile: action.profile}
         }
-        case 'SET_STATUS': {
+        case 'PROFILE/SET_STATUS': {
             return {...state, status: action.status ? action.status : '------------'}
         }
-        case "UPDATE_STATUS": {
+        case "PROFILE/UPDATE_STATUS": {
             return {...state, status: action.status ? action.status : '------------'}
         }
         default:
@@ -56,12 +48,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
 // actions
 
 export const updateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
-    return {type: 'UPDATE-TEXT-POST', text: text.currentTarget.value}
+    return {type: 'PROFILE/update-post-text', text: text.currentTarget.value}
 }
-export const addPostAC = (): addPostActionType => ({type: 'ADD-POST'})
-export const setUserProfileAC = (profile: any) => ({type: 'SET_USER_PROFILE', profile} as const)
-export const setUserStatusAC = (status: string) => ({type: 'SET_STATUS', status} as const)
-export const updateUserStatusAC = (status: string) => ({type: 'UPDATE_STATUS', status} as const)
+export const addPostAC = (): addPostActionType => ({type: 'PROFILE/add-post'})
+export const setUserProfileAC = (profile: any) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const)
+export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET_STATUS', status} as const)
+export const updateUserStatusAC = (status: string) => ({type: 'PROFILE/UPDATE_STATUS', status} as const)
 
 // thunks
 
@@ -92,6 +84,14 @@ export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
 }
 
 // types
+
+export type addPostActionType = {
+    type: 'PROFILE/add-post'
+}
+export type updateTextPostActionType = {
+    type: 'PROFILE/update-post-text'
+    text: string
+}
 
 export type profileActionType =
     | addPostActionType
