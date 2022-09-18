@@ -70,15 +70,6 @@ export const Navbar = () => {
             >
                 Users
             </NavLink>
-            <NavLink
-                to='/test'
-                className={classes.activeLink}
-                style={(params) => {
-                    return {color: params.isActive ? 'yellow' : 'white'}
-                }}
-            >
-                TEST
-            </NavLink>
         </div>
     </nav>
 

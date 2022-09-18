@@ -1,4 +1,4 @@
-.app-wrapper {
+/*.app-wrapper {
   display: grid;
   margin: 0 auto;
   width: 1500px;
@@ -7,10 +7,18 @@
   "n c";
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  /*grid-gap: 10px;*/
+  !*grid-gap: 10px;*!
+}*/
+
+.app-wrapper {
+    margin: 5px 15px 15px 15px;
+}
+
+.navigate-wrapper {
+
 }
 
 .app-wrapper-contents {
-  grid-area: c;
-  background-color: #015d5d;
+    background-color: #015d5d;
+    align-items: center;
 }
