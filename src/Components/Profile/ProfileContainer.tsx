@@ -6,8 +6,26 @@ import {WithRouter} from "./WithRouter";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {compose} from "redux";
+import {UserProfileType} from "../../Redux/store";
 
-class ProfileContainer extends React.Component<any> {
+type mapStateToPropsType = {
+    profile: UserProfileType | null
+    status: string | null
+}
+
+type withRouterType = {
+    router: { location: any, navigate: any, params: any }
+}
+
+type mapDispatchToPropsType = {
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
+    updateUserStatus: (status: string) => void
+}
+
+type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType & withRouterType
+
+class ProfileContainer extends React.Component<ProfileContainerType> {
 
     componentDidMount() {
         let userId = this.props.router.params.id
@@ -15,7 +33,7 @@ class ProfileContainer extends React.Component<any> {
             userId = 2
         }
         this.props.getUserProfile(userId)
-        this.props.getUserStatusTC(userId)
+        this.props.getUserStatus(userId)
     }
 
     render() {
@@ -25,7 +43,7 @@ class ProfileContainer extends React.Component<any> {
                 <Profile {...this.props}
                          profile={this.props.profile}
                          status={this.props.status}
-                         updateStatus={this.props.updateUserStatusTC}
+                         updateStatus={this.props.updateUserStatus}
                 />
             </div>
         )
@@ -37,14 +55,15 @@ const mapStateToProps = (state: AppRootStateType) => ({
     status: state.profilePage.status
 })
 
+const mapDispatchToProps = () => ({
+    getUserProfile: getUserProfileTC,
+    getUserStatus: getUserStatusTC,
+    updateUserStatus: updateUserStatusTC
+})
+
 export default compose<React.ComponentType>(
     withAuthRedirect,
     WithRouter,
-    connect(mapStateToProps,
-        {
-            getUserProfile: getUserProfileTC,
-            getUserStatusTC: getUserStatusTC,
-            updateUserStatusTC: updateUserStatusTC
-        })
+    connect(mapStateToProps,mapDispatchToProps)
 )(ProfileContainer)
 

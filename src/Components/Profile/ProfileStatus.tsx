@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 
 type PropsType = {
-    status: string
+    status: string | null
     updateStatus: (status: string) => void
 }
 
@@ -17,7 +17,7 @@ export class ProfileStatus extends React.Component<PropsType, any> {
     }
     deActivateEditMode = () => {
         this.setState({editMode: false})
-        this.props.updateStatus(this.state.status)
+        this.props.updateStatus(this.state.status || 'default')
     }
     onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({status: e.currentTarget.value})
@@ -42,7 +42,7 @@ export class ProfileStatus extends React.Component<PropsType, any> {
                         <input onChange={this.onStatusChange}
                                autoFocus={true}
                                onBlur={this.deActivateEditMode}
-                               value={this.state.status}
+                               value={this.state.status || 'default'}
                         />
                     </div>
                 }

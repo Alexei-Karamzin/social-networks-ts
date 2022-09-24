@@ -5,8 +5,8 @@ import {MyPostsContainer} from "../MyPosts/MyPostsContainer";
 import {UserProfileType} from "../../Redux/store";
 
 type ProfilePropsType = {
-    profile: UserProfileType
-    status: string
+    profile: UserProfileType | null
+    status: string | null
     updateStatus: (status: string) => void
 }
 
