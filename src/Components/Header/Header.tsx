@@ -1,16 +1,27 @@
 import React from "react";
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
+import {Button} from "antd";
 
 type HeaderPropsType = {
     isAuth: boolean
+    logout: () => void
 }
 
 export const Header = (props: HeaderPropsType) => {
+
+    const logoutHandler = () => {
+        //props.logout()
+    }
+
     return <header className={classes.header}>
         <div className={classes.loginButton}>
             {props.isAuth ?
-                <div>You are LoginIn!</div> :
+                <div>
+                    <Button onClick={logoutHandler}>
+                        Logout
+                    </Button>
+                </div> :
                 <NavLink to={'/login'}>Login</NavLink>
             }
         </div>

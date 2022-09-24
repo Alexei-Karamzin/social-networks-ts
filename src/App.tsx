@@ -10,7 +10,6 @@ import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
-import {TestComponent} from './trash/TestComponent';
 import 'antd/dist/antd.css'
 import {Col, Row} from "antd";
 
@@ -20,7 +19,6 @@ export const App = () => {
         <BrowserRouter>
             <Row justify="center">
                 <Col span={20}>
-                    {/*<div className={s.appWrapper}>*/}
                     <Row justify="center">
                         <Col className={s.appWrapper} flex={"auto"}>
                             <HeaderContainer/>
@@ -45,7 +43,6 @@ export const App = () => {
                             </Routes>
                         </Col>
                     </Row>
-                    {/*</div>*/}
                 </Col>
             </Row>
         </BrowserRouter>

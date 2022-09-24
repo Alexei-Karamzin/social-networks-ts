@@ -14,7 +14,7 @@ class ProfileContainer extends React.Component<any> {
         if (!userId) {
             userId = 2
         }
-        this.props.getUserProfileTC(userId)
+        this.props.getUserProfile(userId)
         this.props.getUserStatusTC(userId)
     }
 
@@ -42,7 +42,7 @@ export default compose<React.ComponentType>(
     WithRouter,
     connect(mapStateToProps,
         {
-            getUserProfileTC: getUserProfileTC,
+            getUserProfile: getUserProfileTC,
             getUserStatusTC: getUserStatusTC,
             updateUserStatusTC: updateUserStatusTC
         })
