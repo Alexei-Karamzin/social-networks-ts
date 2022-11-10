@@ -19,6 +19,17 @@
 }
 
 .app-wrapper-contents {
-    background-color: #015d5d;
+    background-color: #038585;
+    align-items: center;
+}
+.spin {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }

@@ -27,7 +27,6 @@ export const authReducer = (state: initialStateType = initialState, action: auth
             }
         }
         case "AUTH/login": {
-            debugger
             return {
                 ...state,
                 isLoggedIn: true
@@ -47,16 +46,14 @@ export const authReducer = (state: initialStateType = initialState, action: auth
 // actions
 
 export const setAuthUserDataAC = (data: setUserDataType): setAuthActionType => ({type: 'AUTH/set-user-data', data})
-export const setIsLoggedInAC = (data: LoginPayloadType) => ({type: 'AUTH/login'} as const)
+export const setIsLoggedInAC = () => ({type: 'AUTH/login'} as const)
 export const setIsLoggedOutAC = () => ({type: 'AUTH/logout'} as const)
 
 // thunks
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
-    debugger
     authAPI.authMe()
         .then(response => {
-            debugger
             if (response.data.resultCode === 0) {
                 const {id, email, login} = response.data.data
                 dispatch(setAuthUserDataAC({id, email, login}))
@@ -68,12 +65,11 @@ export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch) => {
 
     authAPI.login(data)
         .then(res => {
-            debugger
-            console.log(res.data)
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(res.data.data))
+                dispatch(setIsLoggedInAC())
             } else if (res.data.resultCode === 10) {
-                dispatch(setIsLoggedInAC(res.data.data))
+                //dispatch(setIsLoggedInAC(res.data.data))
+                throw new Error('err')
             }
         })
 }
@@ -83,11 +79,11 @@ export const logoutTC = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(res => {
             console.log(res)
-            /*if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(res.data.data))
+            if (res.data.resultCode === 0) {
+                dispatch(setIsLoggedOutAC())
             } else if (res.data.resultCode === 10) {
-                dispatch(setIsLoggedInAC(res.data.data))
-            }*/
+                throw new Error('err')
+            }
         })
 }
 
@@ -99,7 +95,6 @@ export type LoginPayloadType = {
     rememberMe?: boolean
     captcha?: boolean
 }
-
 type setUserDataType = {
     id: string | null
     email: string | null
@@ -110,6 +105,6 @@ type setAuthActionType = {
     data: setUserDataType
 }
 type authActionType =
-    | setAuthActionType
     | ReturnType<typeof setIsLoggedInAC>
     | ReturnType<typeof setIsLoggedOutAC>
+    | ReturnType<typeof setAuthUserDataAC>

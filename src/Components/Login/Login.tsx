@@ -1,10 +1,14 @@
 import React from "react";
 import {useFormik} from "formik";
 import {loginTC} from "../../Redux/reducer/auth-reducer";
-import {useAppDispatch} from "../../Redux/redux-store";
+import {AppRootStateType, useAppDispatch} from "../../Redux/redux-store";
+import {useSelector} from "react-redux";
+import { Navigate } from "react-router-dom";
+
 
 export const Login = () => {
     const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppRootStateType>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -14,10 +18,15 @@ export const Login = () => {
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
+
             dispatch(loginTC(values))
             formik.resetForm();
         },
     })
+
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
+    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -38,17 +47,8 @@ export const Login = () => {
                 onChange={formik.handleChange}
                 value={formik.values.password}
             />
-
-            {/*<label htmlFor="checkbox">remember me</label>
-            <input
-                id="checkbox"
-                name="checkbox"
-                type="checkbox"
-                onChange={formik.handleChange}
-                value={formik.values.rememberMe}
-            />*/}
-
-            <button type="submit">Submit</button>
+            <label htmlFor="checkbox">remember me</label>
+                <button type="submit">sign in</button>
         </form>
     );
 }

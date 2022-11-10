@@ -2,8 +2,14 @@ import {AxiosUsersType} from "../../Redux/reducer/users-reducer";
 import styles from "./usersContainer.module.css";
 import userPhoto
     from "../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg";
-import React from "react";
+import React, { useState } from "react";
 import {NavLink} from "react-router-dom";
+import s from "../../App.module.css";
+import {Pagination, Spin} from "antd";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../Redux/redux-store";
+import Avatar from "antd/lib/avatar/avatar";
+import {AntDesignOutlined} from '@ant-design/icons';
 
 type UsersPropsType = {
     users: Array<AxiosUsersType>
@@ -18,69 +24,118 @@ type UsersPropsType = {
 
 export const Users = (props: UsersPropsType) => {
 
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+
+    const [currentPage, setCurrentPage] = useState(props.currentPage)
     let pagesCount = Math.ceil(props.totalUserCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    // 1 2 3 4 ..... 145
-    let uiPages = []
-    if (pages.length > 6) {
-        uiPages.push(1,2,3,4,5,6)
+
+    /*if(!isInitialized) {
+        return  <div className={s.spin}>
+            <Spin size="large" />
+        </div>
+    }*/
+
+    const onChangePaginationHandler = (page: number, pageSize: number) => {
+        props.onPageChanged(page)
+        setCurrentPage(page)
     }
 
     return <div className={styles.containerStyle}>
         <div>
-            {pages.map(el => <span
+            {/*{pages.map(el => <span
                 className={props.currentPage === el ? styles.selectedPage : styles.defaultPage}
                 onClick={() => props.onPageChanged(el)}
             >
                         {el}
-                    </span>)}
+                    </span>)}*/}
+            {/*{pages.map(el => paginationHandler)}*/}
+            <Pagination current={currentPage}
+                        //defaultCurrent={1}
+                        total={pagesCount}
+                        onChange={(page, pageSize) => onChangePaginationHandler(page, pageSize)}
+            />
         </div>
         {
-            props.users.map(u => {
-                return <div key={u.id} className={styles.UserStyle}>
-                    <div>
-                        <div>
-                            <NavLink to={'/profile/' + u.id}>
-                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
-                                     className={styles.photo}/>
-                            </NavLink>
-                        </div>
-
-                    </div>
-                    <div>
-                        <div>
-                            <div>name: {u.name}</div>
-                            <div>status: {u.status}</div>
-                        </div>
-                        <div>
-                            <div> country: ?</div>
-                            <div> citi: ?</div>
-                        </div>
-                    </div>
-                    <div>
-                        {
-                            u.followed ?
-                                <button
-                                    disabled={props.followingInProgress.some(id => id === u.id)}
-                                    onClick={() => props.toggleFollowTC(u.id, u.followed)}
-                                    className={styles.UnfollowButtonStyle}
-                                >
-                                    Unfollow
-                                </button> :
-                                <button
-                                    disabled={props.followingInProgress.some(id => id === u.id)}
-                                    onClick={() => props.toggleFollowTC(u.id, u.followed)}
-                                    className={styles.FollowButtonStyle}
-                                >
-                                    Follow
-                                </button>
-                        }
-                    </div>
-                </div>
-            })
+            props.users.map(u => <UserCard id={u.id}
+                                           key={u.id}
+                                           smallPhoto={u.photos.small}
+                                           name={u.name}
+                                           status={u.status}
+                                           followed={u.followed}
+                                           followingInProgress={props.followingInProgress}
+                                           toggleFollow={props.toggleFollow}
+                                           toggleFollowTC={props.toggleFollowTC}
+            />)
         }
+    </div>
+}
+
+type UserCardPropsTypes = {
+    id: number,
+    smallPhoto: any,
+    name: string,
+    status: string,
+    followed: boolean,
+    followingInProgress: any[],
+    toggleFollow: (userID: number) => void,
+    toggleFollowTC: (userId: number, followed: boolean) => void,
+}
+
+export const UserCard = (props: UserCardPropsTypes) => {
+
+    return <div key={props.id} className={styles.UserStyle} style={{display: 'flex', maxWidth: '300px'}}>
+        <div>
+            <div>
+                <NavLink to={'/profile/' + props.id}>
+                    {props.smallPhoto
+                        ? <img src={props.smallPhoto} className={styles.photo}/>
+                        : <Avatar
+                            size={{
+                                xs: 24,
+                                sm: 32,
+                                md: 40,
+                                lg: 64,
+                                xl: 80,
+                                xxl: 100,
+                            }}
+                            icon={<AntDesignOutlined/>}
+                        />}
+                </NavLink>
+            </div>
+
+        </div>
+        <div>
+            <div>
+                <div>name: {props.name}</div>
+                <div>status: {props.status}</div>
+            </div>
+            <div>
+                <div> country: ?</div>
+                <div> citi: ?</div>
+            </div>
+        </div>
+        <div>
+            {
+                props.followed ?
+                    <button
+                        disabled={props.followingInProgress.some(id => id === props.id)}
+                        onClick={() => props.toggleFollowTC(props.id, props.followed)}
+                        className={styles.UnfollowButtonStyle}
+                    >
+                        Unfollow
+                    </button> :
+                    <button
+                        disabled={props.followingInProgress.some(id => id === props.id)}
+                        onClick={() => props.toggleFollowTC(props.id, props.followed)}
+                        className={styles.FollowButtonStyle}
+                    >
+                        Follow
+                    </button>
+            }
+        </div>
     </div>
 }

@@ -2,6 +2,7 @@ import React from "react";
 import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import {Button} from "antd";
+import {useAppDispatch} from "../../Redux/redux-store";
 
 type HeaderPropsType = {
     isAuth: boolean
@@ -10,8 +11,10 @@ type HeaderPropsType = {
 
 export const Header = (props: HeaderPropsType) => {
 
+    const dispatch = useAppDispatch()
+
     const logoutHandler = () => {
-        //props.logout()
+        //dispatch(props.logout)
     }
 
     return <header className={classes.header}>

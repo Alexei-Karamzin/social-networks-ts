@@ -37,7 +37,6 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 
     render() {
-
         return (
             <div>
                 <Profile {...this.props}
@@ -64,6 +63,6 @@ const mapDispatchToProps = () => ({
 export default compose<React.ComponentType>(
     withAuthRedirect,
     WithRouter,
-    connect(mapStateToProps,mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps)
 )(ProfileContainer)
 

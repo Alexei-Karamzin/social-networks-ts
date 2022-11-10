@@ -10,6 +10,7 @@ import {Preloader} from "../common/Preloader/Preloader";
 import {AppRootStateType} from '../../Redux/redux-store';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {Spin} from "antd";
 
 type MapStatePropsType = {
     users: Array<AxiosUsersType>
@@ -36,7 +37,7 @@ class UsersContainer extends React.Component<PropsType> {
         /*className={this.props.currentPage === el && styles.selectedPage}*/
         return (
             <>
-                <Preloader isFetching={this.props.isFetching}/>
+                {this.props.isFetching && <Spin size="large" />}
                 <Users
                     users={this.props.users}
                     toggleFollow={this.props.toggleFollow}
