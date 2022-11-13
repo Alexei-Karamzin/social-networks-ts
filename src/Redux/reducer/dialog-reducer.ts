@@ -9,13 +9,13 @@ import {ChangeEvent} from "react";
 export type dialogActionsType = addMessageFromDialogActionType | updateTextDialogActionType
 
 export type addMessageFromDialogActionType = {
-    type: 'ADD-MESSAGE-FROM-DIALOG'
+    type: 'ADD-MESSAGE-FROM-DIALOG',
+    message: string
 }
 export type updateTextDialogActionType = {
     type: 'UPDATE-TEXT-DIALOG'
     message: string
 }
-
 
 export let initialState = {
     message: [
@@ -23,7 +23,6 @@ export let initialState = {
         {id: 2, title: 'Hello!!!'},
         {id: 3, title: '!#$'}
     ],
-    newMessageDialog: 'init massage',
     dialog: [
         {id: 1, name: 'Tim'},
         {id: 2, name: 'Sanya'},
@@ -39,20 +38,14 @@ export const dialogReducer = (state: MessagePageType = initialState, action: dia
             return {
                 ...state,
                 newMessageDialog: '',
-                message: [...state.message, {id:6, title: state.newMessageDialog}]
+                message: [...state.message, {id:6, title: action.message}]
             }
-        }
-        case 'UPDATE-TEXT-DIALOG': {
-            return {...state, newMessageDialog: action.message}
         }
         default:
             return state;
     }
 }
 
-export const AddMessageFromDialogAC = (): addMessageFromDialogActionType => {
-    return {type: 'ADD-MESSAGE-FROM-DIALOG'}
-}
-export const UpdateTextDialogAC = (message: ChangeEvent<HTMLTextAreaElement>): updateTextDialogActionType => {
-    return {type: 'UPDATE-TEXT-DIALOG', message: message.currentTarget.value}
+export const AddMessageFromDialogAC = (message: string): addMessageFromDialogActionType => {
+    return {type: 'ADD-MESSAGE-FROM-DIALOG', message}
 }

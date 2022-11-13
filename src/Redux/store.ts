@@ -54,7 +54,6 @@ type UserContactsType = {
 export type MessagePageType = {
     dialog: Array<DialogType>
     message: Array<MessageType>
-    newMessageDialog: string
 }
 
 export type RootStateType = {
