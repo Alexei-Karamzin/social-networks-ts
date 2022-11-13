@@ -1,5 +1,6 @@
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
+import {initializeAppTC, SetAppStatusActionType} from "./app-reducer";
 
 let initialState = {
     id: null,
@@ -19,20 +20,19 @@ export type initialStateType = {
 
 export const authReducer = (state: initialStateType = initialState, action: authActionType) => {
     switch (action.type) {
-        case 'AUTH/set-user-data': {
+        case 'AUTH/SET-USER-DATA': {
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
             }
         }
-        case "AUTH/login": {
+        case "AUTH/LOGIN": {
             return {
                 ...state,
                 isLoggedIn: true
             }
         }
-        case "AUTH/logout": {
+        case "AUTH/LOGOUT": {
             return {
                 ...state,
                 isLoggedIn: false
@@ -45,9 +45,9 @@ export const authReducer = (state: initialStateType = initialState, action: auth
 
 // actions
 
-export const setAuthUserDataAC = (data: setUserDataType): setAuthActionType => ({type: 'AUTH/set-user-data', data})
-export const setIsLoggedInAC = () => ({type: 'AUTH/login'} as const)
-export const setIsLoggedOutAC = () => ({type: 'AUTH/logout'} as const)
+export const setAuthUserDataAC = (payload: setUserDataType) => ({type: 'AUTH/SET-USER-DATA', payload} as const)
+export const setIsLoggedInAC = () => ({type: 'AUTH/LOGIN'} as const)
+export const setIsLoggedOutAC = () => ({type: 'AUTH/LOGOUT'} as const)
 
 // thunks
 
@@ -56,32 +56,34 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 const {id, email, login} = response.data.data
-                dispatch(setAuthUserDataAC({id, email, login}))
+                dispatch(setAuthUserDataAC({id, email, login, isAuth: true, isLoggedIn: true}))
             }
         })
 }
 
-export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch) => {
+export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch<ActionType | SetAppStatusActionType | any>) => {
 
     authAPI.login(data)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC())
+                //dispatch(setAuthUserDataAC({id: ,  email: , login: , isAuth: true}))
+                dispatch(getAuthUserDataTC())
             } else if (res.data.resultCode === 10) {
-                //dispatch(setIsLoggedInAC(res.data.data))
                 throw new Error('err')
             }
         })
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
+export const logoutTC = () => (dispatch: Dispatch<ActionType | SetAppStatusActionType | any>) => {
 
     authAPI.logout()
         .then(res => {
             console.log(res)
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedOutAC())
-            } else if (res.data.resultCode === 10) {
+                dispatch(setAuthUserDataAC({id: null,  email: null, login: null, isAuth: false, isLoggedIn: false}))
+            } else if (res.data.resultCode !== 0) {
                 throw new Error('err')
             }
         })
@@ -99,12 +101,11 @@ type setUserDataType = {
     id: string | null
     email: string | null
     login: string | null
+    isAuth: boolean
+    isLoggedIn: boolean
 }
-type setAuthActionType = {
-    type: 'AUTH/set-user-data',
-    data: setUserDataType
-}
+type ActionType = ReturnType<typeof setIsLoggedInAC>
 type authActionType =
-    | ReturnType<typeof setIsLoggedInAC>
+    | ActionType
     | ReturnType<typeof setIsLoggedOutAC>
     | ReturnType<typeof setAuthUserDataAC>

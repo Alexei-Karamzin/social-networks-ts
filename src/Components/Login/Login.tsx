@@ -5,12 +5,23 @@ import {AppRootStateType, useAppDispatch} from "../../Redux/redux-store";
 import {useSelector} from "react-redux";
 import { Navigate } from "react-router-dom";
 
-
 export const Login = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppRootStateType>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
+        validate: (values) => {
+            if (!values.email) {
+                return {
+                    email: "Email is required"
+                }
+            }
+            if (!values.password) {
+                return {
+                    password: "Password is required"
+                }
+            }
+        },
         initialValues: {
             email: '',
             password: '',

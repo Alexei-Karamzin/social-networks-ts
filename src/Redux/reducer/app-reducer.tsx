@@ -18,7 +18,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
         case 'APP/SET-ERROR':
             return {...state, error: action.error}*/
         case "APP/SET-IS-INITIALIZED":
-            return {...state, isInitialized: action.value}
+            return {...state, isInitialized: action.payload}
         default:
             return state
     }
@@ -28,7 +28,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 /*export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)*/
-export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITIALIZED', value} as const)
+export const setAppInitializedAC = (payload: boolean) => ({type: 'APP/SET-IS-INITIALIZED', payload} as const)
 
 // thunks
 
@@ -38,7 +38,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
             if (res.data.resultCode === 0) {
                 const {id, email, login} = res.data.data
                 dispatch(setAppInitializedAC(true))
-                dispatch(setAuthUserDataAC({id, email, login}))
+                dispatch(setAuthUserDataAC({id, email, login, isAuth: true, isLoggedIn: true}))
             } else {
                 dispatch(setAppInitializedAC(true))
             }
@@ -48,5 +48,6 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 
 // types
 
+export type SetAppStatusActionType = ReturnType<typeof initializeAppTC>
 type InitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof setAppInitializedAC>

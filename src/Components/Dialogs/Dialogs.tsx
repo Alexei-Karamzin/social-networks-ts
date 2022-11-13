@@ -1,8 +1,6 @@
 import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {Message} from "./Message/Message";
 import {DialogType, MessageType} from '../../Redux/store'
-import {useFormik} from "formik";
 import {AddMessageForm} from "./Message/AddMessageForm";
 
 type PropsType = {
@@ -16,11 +14,12 @@ export const Dialogs = (props: PropsType) => {
     return <div style={{display: 'flex'}}>
 
         <div style={{borderRight: '2px solid #34050a',paddingLeft: '30px',paddingTop: '30px,color: #fdfdfd'}}>
-            {props.dialogNameData.map(element => {
-                return (
-                    <DialogItem key={element.id} DialogsDataId={element.id} DialogsDataName={element.name}/>
+            {props.dialogNameData.map(element => <DialogItem key={element.id}
+                                                             DialogsDataId={element.id}
+                                                             DialogsDataName={element.name}
+                    />
                 )
-            })}
+            }
 
         </div>
         <AddMessageForm dialogMassageData={props.dialogMassageData}

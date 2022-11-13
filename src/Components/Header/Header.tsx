@@ -3,10 +3,12 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import {Button} from "antd";
 import {useAppDispatch} from "../../Redux/redux-store";
+import {logoutTC} from "../../Redux/reducer/auth-reducer";
 
 type HeaderPropsType = {
-    isAuth: boolean
+    //isAuth: boolean
     logout: () => void
+    isLoggedIn: boolean
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -14,12 +16,12 @@ export const Header = (props: HeaderPropsType) => {
     const dispatch = useAppDispatch()
 
     const logoutHandler = () => {
-        //dispatch(props.logout)
+        dispatch(logoutTC())
     }
 
     return <header className={classes.header}>
         <div className={classes.loginButton}>
-            {props.isAuth ?
+            {props.isLoggedIn ?
                 <div>
                     <Button onClick={logoutHandler}>
                         Logout

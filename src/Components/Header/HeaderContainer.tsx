@@ -5,7 +5,8 @@ import {AppRootStateType} from "../../Redux/redux-store";
 import {logoutTC} from "../../Redux/reducer/auth-reducer";
 
 type MapStateToPropsType = {
-    isAuth: boolean
+    //isAuth: boolean,
+    isLoggedIn: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -27,7 +28,8 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
 }
 
 const mapStateToProps = (state: AppRootStateType) => ({
-    isAuth: state.auth.isAuth,
+    //isAuth: state.auth.isAuth,
+    isLoggedIn: state.auth.isLoggedIn
 })
 
 const mapDispatchToProps = () => ({

@@ -1,8 +1,6 @@
 import {AxiosUsersType} from "../../Redux/reducer/users-reducer";
 import styles from "./usersContainer.module.css";
-import userPhoto
-    from "../../assets/images/kisspng-ninja-ico-icon-black-ninja-5a6dee087cdc18.5588411915171538005114.jpg";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import s from "../../App.module.css";
 import {Pagination, Spin} from "antd";
@@ -54,7 +52,7 @@ export const Users = (props: UsersPropsType) => {
                     </span>)}*/}
             {/*{pages.map(el => paginationHandler)}*/}
             <Pagination current={currentPage}
-                        //defaultCurrent={1}
+                //defaultCurrent={1}
                         total={pagesCount}
                         onChange={(page, pageSize) => onChangePaginationHandler(page, pageSize)}
             />
@@ -121,17 +119,15 @@ export const UserCard = (props: UserCardPropsTypes) => {
         <div>
             {
                 props.followed ?
-                    <button
-                        disabled={props.followingInProgress.some(id => id === props.id)}
-                        onClick={() => props.toggleFollowTC(props.id, props.followed)}
-                        className={styles.UnfollowButtonStyle}
+                    <button disabled={props.followingInProgress.some(id => id === props.id)}
+                            onClick={() => props.toggleFollowTC(props.id, props.followed)}
+                            className={styles.UnfollowButtonStyle}
                     >
                         Unfollow
                     </button> :
-                    <button
-                        disabled={props.followingInProgress.some(id => id === props.id)}
-                        onClick={() => props.toggleFollowTC(props.id, props.followed)}
-                        className={styles.FollowButtonStyle}
+                    <button disabled={props.followingInProgress.some(id => id === props.id)}
+                            onClick={() => props.toggleFollowTC(props.id, props.followed)}
+                            className={styles.FollowButtonStyle}
                     >
                         Follow
                     </button>

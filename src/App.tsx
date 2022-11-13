@@ -21,10 +21,15 @@ export const App = () => {
 
     const dispatch = useAppDispatch()
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [])
+
+    /*if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }*/
 
     if(!isInitialized) {
         return  <div className={s.spin}>

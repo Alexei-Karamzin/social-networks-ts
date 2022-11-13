@@ -6,7 +6,6 @@ import {
     toggleFollowAC, toggleFollowingProgressAC
 } from "../../Redux/reducer/users-reducer";
 import {Users} from "./Users";
-import {Preloader} from "../common/Preloader/Preloader";
 import {AppRootStateType} from '../../Redux/redux-store';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
