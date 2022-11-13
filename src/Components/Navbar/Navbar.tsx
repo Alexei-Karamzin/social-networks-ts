@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import classes from './Navbar.module.css';
+import HeroiconsSolidChat from "../../assets/images/HeroiconsSolidChat";
 
 export const Navbar = () => {
 
@@ -24,7 +25,7 @@ export const Navbar = () => {
                     return {color: params.isActive ? 'yellow' : 'white'}
                 }}
             >
-                Messages
+                <HeroiconsSolidChat />Messages
             </NavLink>
         </div>
         <div className={classes.item}>

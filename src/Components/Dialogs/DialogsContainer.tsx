@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {AddMessageFromDialogAC} from "../../Redux/reducer/dialog-reducer";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";

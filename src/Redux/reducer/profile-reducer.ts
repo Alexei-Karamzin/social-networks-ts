@@ -9,7 +9,6 @@ let initialState = {
         {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
         {id: 3, message: '!#$', LikeCounts: 184}
     ],
-    newPostText: 'init massage',
     profile: null,
     status: ''
 }
@@ -19,7 +18,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
         case 'PROFILE/add-post': {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.text,
                 LikeCounts: 0
             }
             return {
@@ -50,7 +49,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
 export const updateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
     return {type: 'PROFILE/update-post-text', text: text.currentTarget.value}
 }
-export const addPostAC = (): addPostActionType => ({type: 'PROFILE/add-post'})
+export const addPostAC = (text: string) => ({type: 'PROFILE/add-post', text} as const)
 export const setUserProfileAC = (profile: any) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const)
 export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET_STATUS', status} as const)
 export const updateUserStatusAC = (status: string) => ({type: 'PROFILE/UPDATE_STATUS', status} as const)
@@ -94,7 +93,7 @@ export type updateTextPostActionType = {
 }
 
 export type profileActionType =
-    | addPostActionType
+    | ReturnType<typeof addPostAC>
     | updateTextPostActionType
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserStatusAC>

@@ -8,14 +8,14 @@ import {AppRootStateType} from "../../Redux/redux-store";
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         usersMessage: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
+        addPostAC: addPostAC
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        onClickAddPostHandler: ()=>{dispatch(addPostAC())},
-        onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(updateTextPostAC(e))}
+        //onClickAddPostHandler: ()=>{dispatch(addPostAC())},
+        //onChangeTextareaHandler: (e:ChangeEvent<HTMLTextAreaElement>)=>{dispatch(updateTextPostAC(e))}
     }
 }
 

@@ -17,8 +17,6 @@ export const Login = () => {
             rememberMe: true
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-
             dispatch(loginTC(values))
             formik.resetForm();
         },
