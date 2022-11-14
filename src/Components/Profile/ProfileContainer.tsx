@@ -11,6 +11,8 @@ import {UserProfileType} from "../../Redux/store";
 type mapStateToPropsType = {
     profile: UserProfileType | null
     status: string | null
+    authorizedUserId: number
+    isAuth: boolean
 }
 
 type withRouterType = {
@@ -30,7 +32,8 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
         let userId = this.props.router.params.id
         if (!userId) {
-            userId = 2
+            userId = this.props.authorizedUserId
+            console.log(userId)
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
@@ -51,7 +54,9 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 
 const mapStateToProps = (state: AppRootStateType) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 const mapDispatchToProps = () => ({
