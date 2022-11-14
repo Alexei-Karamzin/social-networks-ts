@@ -1,13 +1,17 @@
 import React from "react";
 import {useFormik} from "formik";
-import {loginTC} from "../../Redux/reducer/auth-reducer";
-import {AppRootStateType, useAppDispatch} from "../../Redux/redux-store";
-import {useSelector} from "react-redux";
-import { Navigate } from "react-router-dom";
+import {useAppDispatch} from "../../Redux/redux-store";
+import {LoginPayloadType} from "../../Redux/reducer/auth-reducer";
+import classes from './Login.module.css'
 
-export const Login = () => {
+type LoginPropsType = {
+    loginTC: (payload: LoginPayloadType) => any
+    errorMessage: null | string
+    error: boolean
+}
+
+export const Login = (props: LoginPropsType) => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useSelector<AppRootStateType>(state => state.auth.isLoggedIn)
 
     const formik = useFormik({
         validate: (values) => {
@@ -28,14 +32,10 @@ export const Login = () => {
             rememberMe: true
         },
         onSubmit: values => {
-            dispatch(loginTC(values))
+            dispatch(props.loginTC(values))
             formik.resetForm();
         },
     })
-
-    if (isLoggedIn) {
-        return <Navigate to={'/profile'}/>
-    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -50,12 +50,14 @@ export const Login = () => {
 
             <label htmlFor="password">password</label>
             <input
+                className={props.error ? classes.error : classes.standard}
                 id="password"
                 name="password"
                 type="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
             />
+            {props.errorMessage && <div style={{color: 'red'}}>{props.errorMessage}</div>}
             <label htmlFor="checkbox">remember me</label>
                 <button type="submit">sign in</button>
         </form>

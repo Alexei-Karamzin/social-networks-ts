@@ -7,7 +7,9 @@ let initialState = {
     email: null,
     login: null,
     isAuth: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    errorMessage: null,
+    errorAppLogin: false
 }
 
 export type initialStateType = {
@@ -16,6 +18,8 @@ export type initialStateType = {
     login: string | null
     isAuth: boolean
     isLoggedIn: boolean
+    errorMessage: null | string
+    errorAppLogin: boolean
 }
 
 export const authReducer = (state: initialStateType = initialState, action: authActionType) => {
@@ -38,6 +42,13 @@ export const authReducer = (state: initialStateType = initialState, action: auth
                 isLoggedIn: false
             }
         }
+        case "AUTH/SET-ERROR": {
+            return {
+                ...state,
+                errorAppLogin: action.err,
+                errorMessage: action.message
+            }
+        }
         default:
             return state
     }
@@ -48,6 +59,7 @@ export const authReducer = (state: initialStateType = initialState, action: auth
 export const setAuthUserDataAC = (payload: setUserDataType) => ({type: 'AUTH/SET-USER-DATA', payload} as const)
 export const setIsLoggedInAC = () => ({type: 'AUTH/LOGIN'} as const)
 export const setIsLoggedOutAC = () => ({type: 'AUTH/LOGOUT'} as const)
+export const setErrorPassword = (message: string | null, err: boolean) => ({type: 'AUTH/SET-ERROR', message, err} as const)
 
 // thunks
 
@@ -65,12 +77,14 @@ export const loginTC = (data: LoginPayloadType) => (dispatch: Dispatch<ActionTyp
 
     authAPI.login(data)
         .then(res => {
+            console.log(res)
             if (res.data.resultCode === 0) {
+                console.log('login')
                 dispatch(setIsLoggedInAC())
-                //dispatch(setAuthUserDataAC({id: ,  email: , login: , isAuth: true}))
                 dispatch(getAuthUserDataTC())
+                dispatch(setErrorPassword(null, false))
             } else if (res.data.resultCode === 10) {
-                throw new Error('err')
+                dispatch(setErrorPassword(res.data.messages, true)) // captcha 79less - 33:45
             }
         })
 }
@@ -79,10 +93,9 @@ export const logoutTC = () => (dispatch: Dispatch<ActionType | SetAppStatusActio
 
     authAPI.logout()
         .then(res => {
-            console.log(res)
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedOutAC())
-                dispatch(setAuthUserDataAC({id: null,  email: null, login: null, isAuth: false, isLoggedIn: false}))
+                dispatch(setAuthUserDataAC({id: null, email: null, login: null, isAuth: false, isLoggedIn: false}))
             } else if (res.data.resultCode !== 0) {
                 throw new Error('err')
             }
@@ -109,3 +122,4 @@ type authActionType =
     | ActionType
     | ReturnType<typeof setIsLoggedOutAC>
     | ReturnType<typeof setAuthUserDataAC>
+    | ReturnType<typeof setErrorPassword>
