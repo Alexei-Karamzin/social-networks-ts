@@ -33,7 +33,6 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
         let userId = this.props.router.params.id
         if (!userId) {
             userId = this.props.authorizedUserId
-            console.log(userId)
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)

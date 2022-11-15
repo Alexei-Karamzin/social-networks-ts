@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
 import {PostsType} from '../../Redux/store'
@@ -13,15 +13,22 @@ export type PropsType = {
 
 export const MyPosts = (props: PropsType) => {
     const dispatch = useAppDispatch()
+    const [error, setError] = useState<string | null>(null)
 
     const formik = useFormik({
         initialValues: {
             text: '',
         },
         onSubmit: values => {
-            //alert(JSON.stringify(values.text, null, 2));
-            dispatch(props.addPostAC(values.text))
-            formik.resetForm();
+
+            console.log(values)
+
+            if (values.text.trim() !== '') {
+                dispatch(props.addPostAC(values.text))
+                formik.resetForm();
+            } else {
+                setError('err')
+            }
         },
     })
 

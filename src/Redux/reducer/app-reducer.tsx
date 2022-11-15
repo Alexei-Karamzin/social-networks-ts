@@ -1,14 +1,9 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
-import {setAuthUserDataAC, setIsLoggedInAC} from "./auth-reducer";
+import {setAuthUserDataAC} from "./auth-reducer";
 
 const initialState = {
-    // происходит ли взаимодействие с сервером
-    //status: 'idle' as RequestStatusType,
-    // если есть ошибка текст ошибки записывается сюда
-    //error: null as null | string,
-    // true когда проинициализировалось приложение
-    isInitialized: false
+    isInitialized: false // true когда проинициализировалось приложение
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
