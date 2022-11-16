@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    AxiosUsersType, toggleFollowTC, getUsersTC,
+    AxiosUsersType, toggleFollowTC, requestUsersTC,
     setCurrentPageAC,
     toggleFollowAC, toggleFollowingProgressAC
 } from "../../Redux/reducer/users-reducer";
@@ -10,6 +10,13 @@ import {AppRootStateType} from '../../Redux/redux-store';
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Spin} from "antd";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUserCount, getUsers
+} from "../../Redux/users-selectors";
 
 type MapStatePropsType = {
     users: Array<AxiosUsersType>
@@ -54,12 +61,12 @@ class UsersContainer extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUserCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
@@ -70,7 +77,7 @@ export default compose<React.ComponentType>(
             toggleFollow: toggleFollowAC,
             setCurrentPage: setCurrentPageAC,
             toggleFollowingProgress: toggleFollowingProgressAC,
-            getUsersTC: getUsersTC,
+            getUsersTC: requestUsersTC,
             toggleFollowTC: toggleFollowTC
         })
 )(UsersContainer)

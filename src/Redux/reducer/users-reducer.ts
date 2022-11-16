@@ -111,13 +111,15 @@ export const AddPostAC = (): addPostActionType => {
 
 // thunks
 
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const requestUsersTC = (page: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(setIsFetchingAC(true))
-    usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setCurrentPageAC(page))
+
+    usersAPI.getUsers(page, pageSize)
         .then(data => {
-            dispatch(setIsFetchingAC(false))
             dispatch(setUsersAC(data.items))
             dispatch(setTotalUserCountAC(data.totalCount))
+            dispatch(setIsFetchingAC(false))
         })
         .catch(function (error) {
             console.log(error)
