@@ -21,7 +21,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     profile: UserProfileType | null
-    status: string | null
+    status: string
 }
 
 export type UserProfileType = {

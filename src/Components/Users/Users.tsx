@@ -108,8 +108,8 @@ export const UserCard = (props: UserCardPropsTypes) => {
         </div>
         <div>
             <div>
-                <div>name: {props.name}</div>
-                <div>status: {props.status}</div>
+                <div>name: {props.name || 'no name'}</div>
+                <div>status: {props.status || '----'}</div>
             </div>
             <div>
                 <div> country: ?</div>

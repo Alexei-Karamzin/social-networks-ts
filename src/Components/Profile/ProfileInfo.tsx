@@ -1,21 +1,25 @@
 import React from "react";
 import classes from './ProfileInfo.module.css'
-import {ProfileStatus} from "./ProfileStatus";
 import {UserProfileType} from "../../Redux/store";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
-    status: string | null
+    status: string
     updateStatus: (status: string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
+
     return (
         <>
             <div className={classes.ava}>
                 <img src={props.profile?.photos?.large}/>
-                <ProfileStatus status={props.status}
+                {/*<ProfileStatus status={props.status}
                                updateStatus={props.updateStatus}
+                />*/}
+                <ProfileStatusWithHooks status={props.status}
+                                        updateStatus={props.updateStatus}
                 />
                 <div>
                     <p>About me: {props.profile?.aboutMe}</p>

@@ -54,6 +54,7 @@ export const updateUserStatusAC = (status: string) => ({type: 'PROFILE/UPDATE_ST
 // thunks
 
 export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
+    console.log('getUserProfileTC profile - reducer')
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfileAC(response.data))

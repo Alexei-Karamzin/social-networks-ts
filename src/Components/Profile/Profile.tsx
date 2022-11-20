@@ -6,7 +6,7 @@ import {UserProfileType} from "../../Redux/store";
 
 type ProfilePropsType = {
     profile: UserProfileType | null
-    status: string | null
+    status: string
     updateStatus: (status: string) => void
 }
 

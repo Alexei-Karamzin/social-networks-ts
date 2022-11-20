@@ -11,7 +11,7 @@ export const getPageSize = (state: AppRootStateType) => {
 
 export const testReselect = createSelector(getUsers, getPageSize, (users: any) => {
     return users.filter( (u: any) => true)
-} )
+} ) // test reselect
 
 export const getTotalUserCount = (state: AppRootStateType) => {
     return state.usersPage.totalUserCount
