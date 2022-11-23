@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     AxiosUsersType, toggleFollowTC, requestUsersTC,
-    setCurrentPageAC,
-    toggleFollowAC, toggleFollowingProgressAC
+    setCurrentPageAC, toggleFollowingProgressAC
 } from "../../Redux/reducer/users-reducer";
 import {Users} from "./Users";
 import {AppRootStateType} from '../../Redux/redux-store';
@@ -46,7 +45,6 @@ class UsersContainer extends React.Component<PropsType> {
                 {this.props.isFetching && <Spin size="large" />}
                 <Users
                     users={this.props.users}
-                    toggleFollow={this.props.toggleFollow}
                     onPageChanged={this.onPageChanged}
                     currentPage={this.props.currentPage}
                     totalUserCount={this.props.totalUserCount}
@@ -74,7 +72,6 @@ export default compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps,
         {
-            toggleFollow: toggleFollowAC,
             setCurrentPage: setCurrentPageAC,
             toggleFollowingProgress: toggleFollowingProgressAC,
             getUsersTC: requestUsersTC,

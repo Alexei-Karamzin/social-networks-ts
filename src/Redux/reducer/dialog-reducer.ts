@@ -1,18 +1,6 @@
 import {MessagePageType} from "../store";
 
-
-export type dialogActionsType = addMessageFromDialogActionType | updateTextDialogActionType
-
-export type addMessageFromDialogActionType = {
-    type: 'ADD-MESSAGE-FROM-DIALOG',
-    message: string
-}
-export type updateTextDialogActionType = {
-    type: 'UPDATE-TEXT-DIALOG'
-    message: string
-}
-
-export let initialState = {
+let initialState = {
     message: [
         {id: 1, title: 'Hello'},
         {id: 2, title: 'Hello!!!'},
@@ -27,9 +15,15 @@ export let initialState = {
     ]
 }
 
+// Action
+
+const ADD_MESSAGE_FROM_DIALOG = "DIALOG/ADD_MESSAGE_FROM_DIALOG"
+
+// Reducer
+
 export const dialogReducer = (state: MessagePageType = initialState, action: dialogActionsType) => {
     switch (action.type) {
-        case "ADD-MESSAGE-FROM-DIALOG": {
+        case 'DIALOG/ADD_MESSAGE_FROM_DIALOG': {
             return {
                 ...state,
                 newMessageDialog: '',
@@ -41,6 +35,20 @@ export const dialogReducer = (state: MessagePageType = initialState, action: dia
     }
 }
 
+// Action Creators
+
 export const AddMessageFromDialogAC = (message: string): addMessageFromDialogActionType => {
-    return {type: 'ADD-MESSAGE-FROM-DIALOG', message}
+    return {type: ADD_MESSAGE_FROM_DIALOG, message}
+}
+
+// Types
+
+export type dialogActionsType = addMessageFromDialogActionType | updateTextDialogActionType
+export type addMessageFromDialogActionType = {
+    type: 'DIALOG/ADD_MESSAGE_FROM_DIALOG',
+    message: string
+}
+export type updateTextDialogActionType = {
+    type: 'UPDATE-TEXT-DIALOG'
+    message: string
 }

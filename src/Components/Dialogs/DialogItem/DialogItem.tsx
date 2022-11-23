@@ -7,11 +7,10 @@ type PropsType = {
     DialogsDataName:string
 }
 
-
-export const DialogItem = (props:PropsType) => {
+export const DialogItem = ({DialogsDataId, DialogsDataName}:PropsType) => {
     return (
         <div className={classes.ItemName}>
-            <NavLink to={'/Dialogs/' + props.DialogsDataId} className={classes.active}>{props.DialogsDataName}</NavLink>
+            <NavLink to={'/Dialogs/' + DialogsDataId} className={classes.active}>{DialogsDataName}</NavLink>
         </div>
     )
 }

@@ -8,21 +8,21 @@ type AddMessageFormPropsType = {
     onClickAddNewPostHandler: (e: string) => void,
 }
 
-export const AddMessageForm = (props: AddMessageFormPropsType) => {
+export const AddMessageForm = ({onClickAddNewPostHandler, dialogMassageData}: AddMessageFormPropsType) => {
 
     const formik = useFormik({
         initialValues: {
             dialogForm: '',
         },
         onSubmit: values => {
-            props.onClickAddNewPostHandler(values.dialogForm)
+            onClickAddNewPostHandler(values.dialogForm)
             formik.resetForm();
         },
     })
 
     return <form onSubmit={formik.handleSubmit}>
         <div style={{paddingLeft: '30px',paddingTop: '30px'}}>
-            {props.dialogMassageData.map(m => <Message key={m.id}
+            {dialogMassageData.map(m => <Message key={m.id}
                                                        id={m.id}
                                                        item={m.title}
             />)}

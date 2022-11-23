@@ -11,7 +11,7 @@ type HeaderPropsType = {
     isLoggedIn: boolean
 }
 
-export const Header = (props: HeaderPropsType) => {
+export const Header = ({isLoggedIn}: HeaderPropsType) => {
 
     const dispatch = useAppDispatch()
 
@@ -21,7 +21,7 @@ export const Header = (props: HeaderPropsType) => {
 
     return <header className={classes.header}>
         <div className={classes.loginButton}>
-            {props.isLoggedIn ?
+            {isLoggedIn ?
                 <div>
                     <Button onClick={logoutHandler}>
                         Logout

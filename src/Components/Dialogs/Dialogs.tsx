@@ -9,21 +9,26 @@ type PropsType = {
     onClickAddNewPostHandler: (e: string) => void
 }
 
-export const Dialogs = (props: PropsType) => {
+export const Dialogs = (
+    {
+        dialogMassageData,
+        dialogNameData,
+        onClickAddNewPostHandler
+    }: PropsType) => {
 
     return <div style={{display: 'flex'}}>
 
-        <div style={{borderRight: '2px solid #34050a',paddingLeft: '30px',paddingTop: '30px,color: #fdfdfd'}}>
-            {props.dialogNameData.map(element => <DialogItem key={element.id}
+        <div style={{borderRight: '2px solid #34050a', paddingLeft: '30px', paddingTop: '30px,color: #fdfdfd'}}>
+            {dialogNameData.map(element => <DialogItem key={element.id}
                                                              DialogsDataId={element.id}
                                                              DialogsDataName={element.name}
-                    />
-                )
+                />
+            )
             }
 
         </div>
-        <AddMessageForm dialogMassageData={props.dialogMassageData}
-                        onClickAddNewPostHandler={props.onClickAddNewPostHandler}
+        <AddMessageForm dialogMassageData={dialogMassageData}
+                        onClickAddNewPostHandler={onClickAddNewPostHandler}
         />
 
     </div>

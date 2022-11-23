@@ -11,7 +11,11 @@ export type PropsType = {
     addPostAC: (text: string) => AnyAction // ?
 }
 
-export const MyPosts = React.memo((props: PropsType) => {
+export const MyPosts = React.memo((
+    {
+        usersMessage,
+        addPostAC
+    }: PropsType) => {
     const dispatch = useAppDispatch()
     const [error, setError] = useState<string | null>(null)
 
@@ -24,7 +28,7 @@ export const MyPosts = React.memo((props: PropsType) => {
             console.log(values)
 
             if (values.text.trim() !== '') {
-                dispatch(props.addPostAC(values.text))
+                dispatch(addPostAC(values.text))
                 formik.resetForm();
             } else {
                 setError('err')
@@ -32,7 +36,7 @@ export const MyPosts = React.memo((props: PropsType) => {
         },
     })
 
-    let postsElement = props.usersMessage.map(p => <Post key={p.id}
+    let postsElement = usersMessage.map(p => <Post key={p.id}
                                                          message={p.message}
                                                          LikeCounts={p.LikeCounts}
     />)

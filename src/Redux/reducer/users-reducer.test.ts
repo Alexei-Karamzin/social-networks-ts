@@ -26,7 +26,7 @@ beforeEach(() => {
 
 test('follow should be correct', () => {
 
-    let newState = usersReducer(testState, {type: "TOGGLE_FOLLOW", userID: testState.users[1].id})
+    let newState = usersReducer(testState, {type: "USERS/TOGGLE_FOLLOW", userID: testState.users[1].id})
 
     expect(newState).not.toBe(testState)
     expect(newState.users.length).toBe(3)
@@ -36,7 +36,7 @@ test('follow should be correct', () => {
 
 test('unFollow should be correct', () => {
 
-    let newState = usersReducer(testState, {type: "TOGGLE_FOLLOW", userID: testState.users[1].id})
+    let newState = usersReducer(testState, {type: "USERS/TOGGLE_FOLLOW", userID: testState.users[1].id})
 
     expect(newState).not.toBe(testState)
     expect(newState.users.length).toBe(3)

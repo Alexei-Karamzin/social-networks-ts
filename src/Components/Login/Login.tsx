@@ -10,7 +10,7 @@ type LoginPropsType = {
     error: boolean
 }
 
-export const Login = (props: LoginPropsType) => {
+export const Login = ({loginTC, errorMessage, error}: LoginPropsType) => {
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
@@ -32,7 +32,7 @@ export const Login = (props: LoginPropsType) => {
             rememberMe: true
         },
         onSubmit: values => {
-            dispatch(props.loginTC(values))
+            dispatch(loginTC(values))
             formik.resetForm();
         },
     })
@@ -50,14 +50,14 @@ export const Login = (props: LoginPropsType) => {
 
             <label htmlFor="password">password</label>
             <input
-                className={props.error ? classes.error : classes.standard}
+                className={error ? classes.error : classes.standard}
                 id="password"
                 name="password"
                 type="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
             />
-            {props.errorMessage && <div style={{color: 'red'}}>{props.errorMessage}</div>}
+            {errorMessage && <div style={{color: 'red'}}>{errorMessage}</div>}
             <label htmlFor="checkbox">remember me</label>
                 <button type="submit">sign in</button>
         </form>

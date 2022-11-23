@@ -12,6 +12,15 @@ let initialState = {
     status: ''
 }
 
+// Action
+
+const ADD_POST = 'PROFILE/ADD_POST'
+const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE'
+const SET_STATUS = 'PROFILE/SET_STATUS'
+const UPDATE_STATUS = 'PROFILE/UPDATE_STATUS'
+
+// Reducer
+
 export const profileReducer = (state: ProfilePageType = initialState, action: profileActionType) => {
     switch (action.type) {
         case 'PROFILE/ADD_POST': {
@@ -26,13 +35,13 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
                 posts: [...state.posts, newPost]
             }
         }
-        case "PROFILE/SET_USER_PROFILE": {
+        case 'PROFILE/SET_USER_PROFILE': {
             return {...state, profile: action.profile}
         }
         case 'PROFILE/SET_STATUS': {
             return {...state, status: action.status ? action.status : '------------'}
         }
-        case "PROFILE/UPDATE_STATUS": {
+        case 'PROFILE/UPDATE_STATUS': {
             return {...state, status: action.status ? action.status : '------------'}
         }
         default:
@@ -40,52 +49,37 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
     }
 }
 
-// actions
+// Action Creators
 
-export const addPostAC = (text: string) => ({type: 'PROFILE/ADD_POST', text} as const)
-export const setUserProfileAC = (profile: any) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const)
-export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET_STATUS', status} as const)
-export const updateUserStatusAC = (status: string) => ({type: 'PROFILE/UPDATE_STATUS', status} as const)
+export const addPostAC = (text: string) => ({type: ADD_POST, text} as const)
+export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
+export const updateUserStatusAC = (status: string) => ({type: UPDATE_STATUS, status} as const)
 
-// thunks
+// Thunk Creators
 
-export const getUserProfileTC = (userId: number) => (dispatch: Dispatch) => {
-    console.log('getUserProfileTC profile - reducer')
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data))
-        })
-        .catch(function (error) {
-            console.log(error)
-        })
+export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
+    let res = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(res.data))
 }
 
-export const getUserStatusTC = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setUserStatusAC(response.data))
-        })
+export const getUserStatusTC = (userId: number) => async (dispatch: Dispatch) => {
+    let res = await profileAPI.getStatus(userId)
+    dispatch(setUserStatusAC(res.data))
+}
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    let res = await profileAPI.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(setUserStatusAC(status))
+    }
 }
 
-export const updateUserStatusTC = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserStatusAC(status))
-            }
-        })
-}
+// Types
 
-// types
-
-export type addPostActionType = {
-    type: 'PROFILE/add-post'
-}
 export type updateTextPostActionType = {
     type: 'PROFILE/UPDATE_POST_TEXT'
     text: string
 }
-
 export type profileActionType =
     | ReturnType<typeof addPostAC>
     | updateTextPostActionType

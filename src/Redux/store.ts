@@ -1,8 +1,5 @@
-import {addPostActionType, profileReducer, updateTextPostActionType} from "./reducer/profile-reducer";
-import {
-    addMessageFromDialogActionType,
-    dialogReducer, updateTextDialogActionType,
-} from "./reducer/dialog-reducer";
+import {profileReducer} from "./reducer/profile-reducer";
+import {dialogReducer} from "./reducer/dialog-reducer";
 
 export type DialogType = {
     id: number,
@@ -67,11 +64,6 @@ export type storeType = {
     subscribe: (callback: ()=>any) => any
     _callSubscriber: () => any
 }
-
-export type actionType = {
-    type: addPostActionType | updateTextPostActionType | addMessageFromDialogActionType | updateTextDialogActionType
-}
-
 
 const store: any /*storeType*/ = {
     _state: {
