@@ -29,12 +29,14 @@ type MapStatePropsType = {
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize, getUsersTC} = this.props
+        getUsersTC(currentPage, pageSize)
     }
 
     onPageChanged = (page: number) => {
-        this.props.setCurrentPage(page)
-        this.props.getUsersTC(page, this.props.pageSize)
+        const {pageSize, setCurrentPage, getUsersTC} = this.props
+        setCurrentPage(page)
+        getUsersTC(page, pageSize)
     }
 
     render() {

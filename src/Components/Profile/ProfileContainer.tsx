@@ -30,18 +30,19 @@ type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType & withR
 class ProfileContainer extends React.Component<ProfileContainerType> {
 
     componentDidMount() {
-        let userId = this.props.router.params.id
+        const {authorizedUserId, getUserProfile, getUserStatus, router} = this.props
+        let userId = router.params.id
         console.log(userId)
         if (!userId) {
-            userId = this.props.authorizedUserId
+            userId = authorizedUserId
         }
-        console.log(userId)
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        getUserProfile(userId)
+        getUserStatus(userId)
     }
 
     updateStatusHandler = (value: string) => {
-        this.props.updateUserStatus(value)
+        const {updateUserStatus} = this.props
+        updateUserStatus(value)
     }
 
     render() {
