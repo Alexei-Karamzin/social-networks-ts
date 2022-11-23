@@ -1,6 +1,6 @@
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
-import {initializeAppTC, SetAppStatusActionType} from "./app-reducer";
+import {SetAppStatusActionType} from "./app-reducer";
 
 let initialState = {
     id: null,
@@ -12,19 +12,9 @@ let initialState = {
     errorAppLogin: false
 }
 
-export type initialStateType = {
-    id: string | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    isLoggedIn: boolean
-    errorMessage: null | string
-    errorAppLogin: boolean
-}
-
 export const authReducer = (state: initialStateType = initialState, action: authActionType) => {
     switch (action.type) {
-        case 'AUTH/SET-USER-DATA': {
+        case 'AUTH/SET_USER_DATA': {
             return {
                 ...state,
                 ...action.payload,
@@ -42,7 +32,7 @@ export const authReducer = (state: initialStateType = initialState, action: auth
                 isLoggedIn: false
             }
         }
-        case "AUTH/SET-ERROR": {
+        case "AUTH/SET_ERROR": {
             return {
                 ...state,
                 errorAppLogin: action.err,
@@ -56,10 +46,10 @@ export const authReducer = (state: initialStateType = initialState, action: auth
 
 // actions
 
-export const setAuthUserDataAC = (payload: setUserDataType) => ({type: 'AUTH/SET-USER-DATA', payload} as const)
+export const setAuthUserDataAC = (payload: setUserDataType) => ({type: 'AUTH/SET_USER_DATA', payload} as const)
 export const setIsLoggedInAC = () => ({type: 'AUTH/LOGIN'} as const)
 export const setIsLoggedOutAC = () => ({type: 'AUTH/LOGOUT'} as const)
-export const setErrorPassword = (message: string | null, err: boolean) => ({type: 'AUTH/SET-ERROR', message, err} as const)
+export const setErrorPassword = (message: string | null, err: boolean) => ({type: 'AUTH/SET_ERROR', message, err} as const)
 
 // thunks
 
@@ -104,6 +94,15 @@ export const logoutTC = () => (dispatch: Dispatch<ActionType | SetAppStatusActio
 
 // types
 
+export type initialStateType = {
+    id: string | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    isLoggedIn: boolean
+    errorMessage: null | string
+    errorAppLogin: boolean
+}
 export type LoginPayloadType = {
     email: string
     password: string

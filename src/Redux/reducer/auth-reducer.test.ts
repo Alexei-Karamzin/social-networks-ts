@@ -1,6 +1,4 @@
 import {authReducer} from "./auth-reducer";
-/*
-
 
 beforeEach(()=>{
     let testState = {
@@ -48,4 +46,3 @@ test('add message should be correct', () => {
     expect(newState.message[3].title).toBe('Hi! how old are you?')
     expect(newState.message.length).toBe(4)
 })
-*/

@@ -15,12 +15,28 @@ beforeEach(() => {
     }
 })
 
-test('update text post should be correct', () => {
+test('status should be set correctly', () => {
 
-    let newState = profileReducer(testState, {type: 'PROFILE/UPDATE_POST_TEXT', text: 'Hi!'})
+    let newState = profileReducer(testState, {type: 'PROFILE/SET_STATUS', status: 'test text'})
 
     expect(newState).not.toBe(testState)
-    expect(newState).toBe('Hi!')
+    expect(newState.status).toBe('test text')
+})
+
+test('status should be updated correctly', () => {
+
+    let newState = profileReducer(testState, {type: 'PROFILE/UPDATE_STATUS', status: 'test text'})
+
+    expect(newState).not.toBe(testState)
+    expect(newState.status).toBe('test text')
+})
+
+test('user profile should be set correctly', () => {
+    let newState = profileReducer(testState, {type: 'PROFILE/SET_USER_PROFILE', profile: {}})
+
+    expect(newState).not.toBe(testState)
+    expect(newState.profile).toBeTruthy()
+    expect(newState.profile).toBeTruthy()
 })
 
 test('post must be added correctly', ()=>{

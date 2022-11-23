@@ -6,13 +6,13 @@ const initialState = {
     isInitialized: false // true когда проинициализировалось приложение
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state: appReducerInitialStateType = initialState, action: ActionsType): appReducerInitialStateType => {
     switch (action.type) {
         /*case 'APP/SET-STATUS':
             return {...state, status: action.status}
         case 'APP/SET-ERROR':
             return {...state, error: action.error}*/
-        case "APP/SET-IS-INITIALIZED":
+        case "APP/SET_IS_INITIALIZED":
             return {...state, isInitialized: action.payload}
         default:
             return state
@@ -23,7 +23,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 
 /*export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)*/
-export const setAppInitializedAC = (payload: boolean) => ({type: 'APP/SET-IS-INITIALIZED', payload} as const)
+export const setAppInitializedAC = (payload: boolean) => ({type: 'APP/SET_IS_INITIALIZED', payload} as const)
 
 // thunks
 
@@ -44,5 +44,5 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 // types
 
 export type SetAppStatusActionType = ReturnType<typeof initializeAppTC>
-type InitialStateType = typeof initialState
+export type appReducerInitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof setAppInitializedAC>
