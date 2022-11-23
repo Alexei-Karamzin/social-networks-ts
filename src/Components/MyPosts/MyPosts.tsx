@@ -11,7 +11,7 @@ export type PropsType = {
     addPostAC: (text: string) => AnyAction // ?
 }
 
-export const MyPosts = (props: PropsType) => {
+export const MyPosts = React.memo((props: PropsType) => {
     const dispatch = useAppDispatch()
     const [error, setError] = useState<string | null>(null)
 
@@ -51,4 +51,4 @@ export const MyPosts = (props: PropsType) => {
             </div>
         </form>
     )
-}
+})

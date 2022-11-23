@@ -1,5 +1,4 @@
 import {ProfilePageType} from "../store";
-import {ChangeEvent} from "react";
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/profileAPI";
 
@@ -15,7 +14,7 @@ let initialState = {
 
 export const profileReducer = (state: ProfilePageType = initialState, action: profileActionType) => {
     switch (action.type) {
-        case 'PROFILE/ADD-POST': {
+        case 'PROFILE/ADD_POST': {
             let newPost = {
                 id: 5,
                 message: action.text,
@@ -43,10 +42,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
 
 // actions
 
-export const updateTextPostAC = (text: ChangeEvent<HTMLTextAreaElement>): updateTextPostActionType => {
-    return {type: 'PROFILE/update-post-text', text: text.currentTarget.value}
-}
-export const addPostAC = (text: string) => ({type: 'PROFILE/ADD-POST', text} as const)
+export const addPostAC = (text: string) => ({type: 'PROFILE/ADD_POST', text} as const)
 export const setUserProfileAC = (profile: any) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const)
 export const setUserStatusAC = (status: string) => ({type: 'PROFILE/SET_STATUS', status} as const)
 export const updateUserStatusAC = (status: string) => ({type: 'PROFILE/UPDATE_STATUS', status} as const)
@@ -86,7 +82,7 @@ export type addPostActionType = {
     type: 'PROFILE/add-post'
 }
 export type updateTextPostActionType = {
-    type: 'PROFILE/update-post-text'
+    type: 'PROFILE/UPDATE_POST_TEXT'
     text: string
 }
 

@@ -1,8 +1,9 @@
 import {usersReducer} from "./users-reducer";
-/*
 
-test('follow should be correct', () => {
-    let testState = {
+let testState: any
+
+beforeEach(() => {
+    testState = {
         users: [
             {
                 id: 1, photoUrl: '', followed: true,
@@ -21,6 +22,9 @@ test('follow should be correct', () => {
             }
         ]
     }
+})
+
+test('follow should be correct', () => {
 
     let newState = usersReducer(testState, {type: "TOGGLE_FOLLOW", userID: testState.users[1].id})
 
@@ -28,7 +32,15 @@ test('follow should be correct', () => {
     expect(newState.users.length).toBe(3)
     expect(newState.users[1].followed).toBe(!testState.users[1].followed)
     expect(newState.users[0].followed).toBe(testState.users[0].followed)
-})*/
+})
 
+test('unFollow should be correct', () => {
 
+    let newState = usersReducer(testState, {type: "TOGGLE_FOLLOW", userID: testState.users[1].id})
+
+    expect(newState).not.toBe(testState)
+    expect(newState.users.length).toBe(3)
+    expect(newState.users[1].followed).toBe(!testState.users[1].followed)
+    expect(newState.users[0].followed).toBe(testState.users[0].followed)
+})
 

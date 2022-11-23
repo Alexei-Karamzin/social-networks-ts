@@ -1,37 +1,33 @@
 import {profileReducer} from "./profile-reducer";
+import {ProfilePageType} from "../store";
 
-/*
-test('update text post should be correct', () => {
-    let testState = {
+let testState: ProfilePageType
+
+beforeEach(() => {
+    testState = {
         posts: [
             {id: 1, message: 'Hello', LikeCounts: 14},
             {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
             {id: 3, message: '!#$', LikeCounts: 184}
         ],
-        newPostText: 'init massage'
+        profile: null,
+        status: ''
     }
-
-    let newState = profileReducer(testState, {type: 'UPDATE-TEXT-POST', text: 'Hi!'})
-
-    expect(newState).not.toBe(testState)
-    expect(newState.newPostText).toBe('Hi!')
 })
 
-test('add post should be correct', ()=>{
-    let testState = {
-        posts: [
-            {id: 1, message: 'Hello', LikeCounts: 14},
-            {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
-            {id: 3, message: '!#$', LikeCounts: 184}
-        ],
-        newPostText: 'Hello!'
-    }
+test('update text post should be correct', () => {
 
-    let newState = profileReducer(testState, {type: "ADD-POST"})
+    let newState = profileReducer(testState, {type: 'PROFILE/UPDATE_POST_TEXT', text: 'Hi!'})
+
+    expect(newState).not.toBe(testState)
+    expect(newState).toBe('Hi!')
+})
+
+test('post must be added correctly', ()=>{
+
+    let newState = profileReducer(testState, {type: "PROFILE/ADD_POST", text: 'test text'})
 
     expect(newState).not.toBe(testState)
     expect(newState.posts.length).toBe(4)
-    expect(newState.newPostText).toBe('')
-    expect(newState.posts[3].message).toBe('Hello!')
-    expect(newState.posts[3].LikeCounts).toBe(0)
-})*/
+    expect(newState.posts[3].message).toBe('test text')
+})
