@@ -1,4 +1,4 @@
-import {MessageType} from "../../../Redux/store";
+import {MessageType} from "../../../trash/store";
 import {useFormik} from "formik";
 import {Message} from "./Message";
 import React from "react";

@@ -1,5 +1,5 @@
-import {profileReducer} from "./reducer/profile-reducer";
-import {dialogReducer} from "./reducer/dialog-reducer";
+import {profileReducer} from "../Redux/reducer/profile-reducer";
+import {dialogReducer} from "../Redux/reducer/dialog-reducer";
 
 export type DialogType = {
     id: number,

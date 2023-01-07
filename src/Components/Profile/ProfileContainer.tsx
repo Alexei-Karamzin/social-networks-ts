@@ -6,7 +6,7 @@ import {WithRouter} from "./WithRouter";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {AppDispatchType, AppRootStateType} from "../../Redux/redux-store";
 import {compose} from "redux";
-import {UserProfileType} from "../../Redux/store";
+import {UserProfileType} from "../../trash/store";
 
 type mapStateToPropsType = {
     profile: UserProfileType | null

@@ -1,4 +1,4 @@
-import {MessagePageType} from "../store";
+import {MessagePageType} from "../../trash/store";
 
 let initialState = {
     message: [

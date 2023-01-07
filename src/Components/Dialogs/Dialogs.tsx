@@ -1,6 +1,6 @@
 import React from "react";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {DialogType, MessageType} from '../../Redux/store'
+import {DialogType, MessageType} from '../../trash/store'
 import {AddMessageForm} from "./Message/AddMessageForm";
 
 type PropsType = {

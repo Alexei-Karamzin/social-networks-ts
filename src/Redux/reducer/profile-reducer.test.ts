@@ -1,5 +1,5 @@
 import {profileReducer} from "./profile-reducer";
-import {ProfilePageType} from "../store";
+import {ProfilePageType} from "../../trash/store";
 
 let testState: ProfilePageType
 

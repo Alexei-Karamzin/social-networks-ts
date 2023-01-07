@@ -1,4 +1,4 @@
-import {ProfilePageType} from "../store";
+import {ProfilePageType} from "../../trash/store";
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/profileAPI";
 

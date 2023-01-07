@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './ProfileInfo.module.css'
-import {UserProfileType} from "../../Redux/store";
+import {UserProfileType} from "../../trash/store";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {

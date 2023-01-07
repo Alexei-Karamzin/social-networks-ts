@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import classes from './MyPosts.module.css';
 import {Post} from "./Posts/Post";
-import {PostsType} from '../../Redux/store'
+import {PostsType} from '../../trash/store'
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../Redux/redux-store";
 import { AnyAction } from "redux";
