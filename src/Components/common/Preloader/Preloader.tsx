@@ -1,15 +1,14 @@
 import React from 'react';
-import preloader from "../../../assets/images/Spinner-1.4s-217px.svg";
+import s from "../../../App.module.css";
+import {Spin} from "antd";
 
 type PreloaderPropsType = {
-    isFetching: boolean
+    //isFetching: boolean
 }
 
-export const Preloader = (props: PreloaderPropsType) => {
-    return (
-        <div>
-            { props.isFetching ? <img src={preloader}/> : null}
-        </div>
-    )
+export const Preloader = ({}: PreloaderPropsType) => {
+    return <div className={s.spin}>
+        <Spin size="large"/>
+    </div>
 }
 
