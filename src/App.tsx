@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import s from './App.module.css'
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Navigate, Route, Routes} from 'react-router-dom';
+import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
@@ -12,8 +12,8 @@ import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import 'antd/dist/antd.css'
 import {Col, Row} from "antd";
 import {initializeAppTC} from "./Redux/reducer/app-reducer";
-import {AppRootStateType, useAppDispatch} from "./Redux/redux-store";
-import {useSelector} from "react-redux";
+import store, {AppRootStateType, useAppDispatch} from "./Redux/redux-store";
+import {Provider, useSelector} from "react-redux";
 import { Spin } from 'antd';
 import LoginContainer from './Components/Login/LoginContainer';
 
@@ -83,4 +83,16 @@ export const DefaultPage = () => {
     return <div>
         default page
     </div>
+}
+
+type MainAppPropsType = {
+
+}
+
+export const MainApp = ({}: MainAppPropsType) => {
+    return <Provider store={store}>
+        <HashRouter>
+            <App/>
+        </HashRouter>
+    </Provider>
 }

@@ -5,29 +5,30 @@ type PropsType = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileStatusWithHooks = (props: PropsType) => {
+export const ProfileStatusWithHooks = ({status, updateStatus}: PropsType) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [status, setStatus] = useState<string>('')
+    const [newStatus, setNewStatus] = useState<string>('')
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setNewStatus(status)
+    }, [status])
 
     const deactivateEditModeHandler = () => {
         setEditMode(false)
-        props.updateStatus(status)
+        updateStatus(status)
     }
 
     const onStatusChangeHandler = (value: string) => {
-        setStatus(value)
+        setNewStatus(value)
     }
 
     return (
         <div>
+            Status:
             {!editMode &&
                 <div>
-                    <span onDoubleClick={() => setEditMode(true)}>{props.status}</span>
+                    <span onDoubleClick={() => setEditMode(true)}>{status}</span>
                 </div>
             }
             {editMode &&

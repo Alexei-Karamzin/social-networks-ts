@@ -3,20 +3,26 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import {Button} from "antd";
 import {useAppDispatch} from "../../Redux/redux-store";
-import {logoutTC} from "../../Redux/reducer/auth-reducer";
+import {HeaderAvatar} from "./HeaderAvatar";
 
 type HeaderPropsType = {
-    //isAuth: boolean
-    logout: () => void
+    authorizedUserId: number | null
+    logout: () => any
     isLoggedIn: boolean
+    getUserProfile: (userId: number) => any
 }
 
-export const Header = ({isLoggedIn}: HeaderPropsType) => {
-
+export const Header = ({logout, getUserProfile, isLoggedIn, authorizedUserId}: HeaderPropsType) => {
+    console.log(authorizedUserId)
     const dispatch = useAppDispatch()
 
     const logoutHandler = () => {
-        dispatch(logoutTC())
+        dispatch(logout())
+    }
+
+    const id = authorizedUserId ? authorizedUserId : 1
+    const goHomePage = () => {
+        dispatch(getUserProfile(id))
     }
 
     return <header className={classes.header}>
@@ -31,5 +37,6 @@ export const Header = ({isLoggedIn}: HeaderPropsType) => {
             }
         </div>
         <img src='https://cdn.pixabay.com/photo/2018/03/27/15/05/logo-3266214_1280.png'/>
+        <HeaderAvatar goHomePage={goHomePage}/>
     </header>
 }

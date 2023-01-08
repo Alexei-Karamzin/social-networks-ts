@@ -3,8 +3,6 @@ import styles from "./usersContainer.module.css";
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {Pagination} from "antd";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../Redux/redux-store";
 import Avatar from "antd/lib/avatar/avatar";
 import {AntDesignOutlined} from '@ant-design/icons';
 

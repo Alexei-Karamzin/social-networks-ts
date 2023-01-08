@@ -99,7 +99,7 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionType | SetAppStatu
 // Types
 
 export type authInitialStateType = {
-    id: string | null
+    id: number | null
     email: string | null
     login: string | null
     isAuth: boolean
@@ -114,7 +114,7 @@ export type LoginPayloadType = {
     captcha?: boolean
 }
 type setUserDataType = {
-    id: string | null
+    id: number | null
     email: string | null
     login: string | null
     isAuth: boolean

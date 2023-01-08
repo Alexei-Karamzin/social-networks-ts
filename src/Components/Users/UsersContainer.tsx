@@ -17,15 +17,6 @@ import {
     getTotalUserCount, getUsers
 } from "../../Redux/users-selectors";
 
-type MapStatePropsType = {
-    users: Array<AxiosUsersType>
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: any[]
-}
-
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
@@ -82,6 +73,15 @@ export default compose<React.ComponentType>(
 )(UsersContainer)
 
 // types
+
+type MapStatePropsType = {
+    users: Array<AxiosUsersType>
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: any[]
+}
 
 type PropsType = {
     users: Array<AxiosUsersType>
