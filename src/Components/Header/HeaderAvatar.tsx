@@ -8,9 +8,7 @@ type HeaderAvatarPropsType = {
 
 export const HeaderAvatar = ({goHomePage}: HeaderAvatarPropsType) => {
 
-    const onClickAvatarHandler = () => goHomePage
-
-    return <Avatar onClick={onClickAvatarHandler}
+    return <Avatar onClick={goHomePage}
                     size={32}
                     icon={<UserOutlined />}
             />

@@ -1,21 +1,25 @@
-import React, {useEffect} from 'react';
+import React, {Suspense, useEffect} from 'react';
 import s from './App.module.css'
 import {Navbar} from "./Components/Navbar/Navbar";
 import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
-import UsersContainer from "./Components/Users/UsersContainer";
+//import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import 'antd/dist/antd.css'
 import {Col, Row} from "antd";
 import {initializeAppTC} from "./Redux/reducer/app-reducer";
 import store, {AppRootStateType, useAppDispatch} from "./Redux/redux-store";
 import {Provider, useSelector} from "react-redux";
-import { Spin } from 'antd';
-import LoginContainer from './Components/Login/LoginContainer';
+import {Spin} from 'antd';
+//import LoginContainer from './Components/Login/LoginContainer';
+//import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
+
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'))
+const LoginContainer = React.lazy(() => import('./Components/Login/LoginContainer'))
+const UsersContainer = React.lazy(() => import('./Components/Users/UsersContainer'))
 
 export const App = () => {
 
@@ -26,25 +30,26 @@ export const App = () => {
         dispatch(initializeAppTC())
     }, [])
 
-    if(!isInitialized) {
-        return  <div className={s.spin}>
-            <Spin size="large" />
+    if (!isInitialized) {
+        return <div className={s.spin}>
+            <Spin size="large"/>
         </div>
     }
 
     return (
-            <Row justify="center">
-                <Col span={20}>
-                    <Row justify="center" style={{paddingTop: '5px', paddingBottom: '10px'}}>
-                        <Col className={s.appWrapper} flex={"auto"}>
-                            <HeaderContainer/>
-                        </Col>
-                    </Row>
-                    <Row justify="start">
-                        <Col span={3} style={{marginRight: '10px'}}>
-                            <Navbar/>
-                        </Col>
-                        <Col flex="auto" span={27} style={{backgroundColor: '#d0f3f3', border: '1px solid black'}}>
+        <Row justify="center">
+            <Col span={20}>
+                <Row justify="center" style={{paddingTop: '5px', paddingBottom: '10px'}}>
+                    <Col className={s.appWrapper} flex={"auto"}>
+                        <HeaderContainer/>
+                    </Col>
+                </Row>
+                <Row justify="start">
+                    <Col span={3} style={{marginRight: '10px'}}>
+                        <Navbar/>
+                    </Col>
+                    <Col flex="auto" span={27} style={{backgroundColor: '#d0f3f3', border: '1px solid black'}}>
+                        <Suspense fallback={<div>Loading...</div>}>
                             <Routes>
                                 <Route path='/' element={<DefaultPage/>}/>
                                 <Route path='profile' element={<ProfileContainer/>}>
@@ -58,13 +63,13 @@ export const App = () => {
                                 <Route path='login' element={<LoginContainer/>}/>
                                 <Route path='/*' element={<ErrorPage/>}/>
                             </Routes>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+                        </Suspense>
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
     );
 }
-
 
 
 export const ErrorPage = () => {
@@ -85,9 +90,7 @@ export const DefaultPage = () => {
     </div>
 }
 
-type MainAppPropsType = {
-
-}
+type MainAppPropsType = {}
 
 export const MainApp = ({}: MainAppPropsType) => {
     return <Provider store={store}>
