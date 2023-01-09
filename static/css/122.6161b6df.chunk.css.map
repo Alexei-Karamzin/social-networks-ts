@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/122.6161b6df.chunk.css","mappings":"AAAA,oBACI,oBACJ,CAEA,uBACI,qBACJ","sources":["Components/Login/Login.module.css"],"sourcesContent":[".error {\r\n    border: 1px solid red;\r\n}\r\n\r\n.standard {\r\n    border: 1px solid black;\r\n}"],"names":[],"sourceRoot":""}
