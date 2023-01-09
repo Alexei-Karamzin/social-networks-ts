@@ -2,6 +2,7 @@ import React from "react";
 import classes from './ProfileInfo.module.css'
 import {UserProfileType} from "../../trash/store";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import userPhoto from '../../assets/images/userPhoto.png'
 
 type ProfileInfoPropsType = {
     profile: UserProfileType | null
@@ -19,7 +20,8 @@ export const ProfileInfo = (
     return (
         <>
             <div className={classes.ava}>
-                <img src={profile?.photos?.large}/>
+                <img src={profile?.photos?.large || userPhoto}
+                     className={classes.mainPhoto}/>
                 <ProfileStatusWithHooks status={status}
                                         updateStatus={updateStatus}
                 />

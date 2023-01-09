@@ -8,33 +8,16 @@ import {AppDispatchType, AppRootStateType} from "../../Redux/redux-store";
 import {compose} from "redux";
 import {UserProfileType} from "../../trash/store";
 
-type mapStateToPropsType = {
-    profile: UserProfileType | null
-    status: string
-    authorizedUserId: number
-    isAuth: boolean
-}
-
-type withRouterType = {
-    router: { location: any, navigate: any, params: any }
-}
-
-type mapDispatchToPropsType = {
-    getUserProfile: (userId: number) => void
-    getUserStatus: (userId: number) => void
-    updateUserStatus: (status: string) => void
-}
-
-type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType & withRouterType
-
 class ProfileContainer extends React.Component<ProfileContainerType> {
 
     componentDidMount() {
         const {authorizedUserId, getUserProfile, getUserStatus, router} = this.props
         let userId = router.params.id
+        console.log(userId)
         if (!userId) {
             userId = authorizedUserId
         }
+        console.log(userId)
         getUserProfile(userId)
         getUserStatus(userId)
     }
@@ -76,3 +59,20 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps)
 )(ProfileContainer)
 
+// Types
+
+type mapStateToPropsType = {
+    profile: UserProfileType | null
+    status: string
+    authorizedUserId: number
+    isAuth: boolean
+}
+type withRouterType = {
+    router: { location: any, navigate: any, params: any }
+}
+type mapDispatchToPropsType = {
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
+    updateUserStatus: (status: string) => void
+}
+type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType & withRouterType

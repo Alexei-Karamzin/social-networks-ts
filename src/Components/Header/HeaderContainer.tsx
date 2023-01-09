@@ -3,7 +3,6 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {logoutTC} from "../../Redux/reducer/auth-reducer";
-import {getUserProfileTC} from "../../Redux/reducer/profile-reducer";
 
 type MapStateToPropsType = {
     isLoggedIn: boolean
@@ -12,7 +11,6 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     logout: () => any
-    getUserProfile: (userId: number) => any
 }
 
 type HeaderPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -35,7 +33,6 @@ const mapStateToProps = (state: AppRootStateType) => ({
 
 const mapDispatchToProps = () => ({
     logout: logoutTC,
-    getUserProfile: getUserProfileTC,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)

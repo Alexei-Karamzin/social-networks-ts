@@ -79,7 +79,6 @@ export const UserCard = (
     }: UserCardPropsTypes) => {
 
     return <div key={id} className={styles.UserStyle} style={{display: 'flex', maxWidth: '300px'}}>
-        <div>
             <div>
                 <NavLink to={'/profile/' + id}>
                     {smallPhoto
@@ -97,8 +96,6 @@ export const UserCard = (
                         />}
                 </NavLink>
             </div>
-
-        </div>
         <div>
             <div>
                 <div>name: {name || 'no name'}</div>

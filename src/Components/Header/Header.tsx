@@ -4,25 +4,23 @@ import {NavLink} from "react-router-dom";
 import {Button} from "antd";
 import {useAppDispatch} from "../../Redux/redux-store";
 import {HeaderAvatar} from "./HeaderAvatar";
+import {getUserProfileTC} from "../../Redux/reducer/profile-reducer";
 
 type HeaderPropsType = {
     authorizedUserId: number | null
     logout: () => any
     isLoggedIn: boolean
-    getUserProfile: (userId: number) => any
 }
 
-export const Header = ({logout, getUserProfile, isLoggedIn, authorizedUserId}: HeaderPropsType) => {
-    console.log(authorizedUserId)
+export const Header = ({logout, isLoggedIn, authorizedUserId}: HeaderPropsType) => {
     const dispatch = useAppDispatch()
 
     const logoutHandler = () => {
         dispatch(logout())
     }
 
-    const id = authorizedUserId ? authorizedUserId : 1
     const goHomePage = () => {
-        dispatch(getUserProfile(id))
+        authorizedUserId && dispatch(getUserProfileTC(authorizedUserId))
     }
 
     return <header className={classes.header}>

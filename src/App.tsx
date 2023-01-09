@@ -11,7 +11,6 @@ import {Col, Row} from "antd";
 import {initializeAppTC} from "./Redux/reducer/app-reducer";
 import store, {AppRootStateType, useAppDispatch} from "./Redux/redux-store";
 import {Provider, useSelector} from "react-redux";
-import {Spin} from 'antd';
 import {Preloader} from "./Components/common/Preloader/Preloader";
 
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'))
