@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
 import {setAuthUserDataAC} from "./auth-reducer";
+import {getUserProfileTC, setUserProfileAC} from "./profile-reducer";
 
 const initialState = {
     isInitialized: false // true когда проинициализировалось приложение

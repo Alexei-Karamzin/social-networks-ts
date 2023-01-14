@@ -20,7 +20,17 @@ export const profileAPI = {
         return instance.put(`status`, {
             status: status
         })
-    }
+    },
+    savePhoto(file: any) {
+        const formData = new FormData()
+        formData.append("image", file)
+
+        return instance.put('photo', formData, {
+            headers: {
+                'Content-Type': 'multipart'
+            }
+        })
+    },
 }
 
 
