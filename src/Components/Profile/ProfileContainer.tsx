@@ -20,7 +20,6 @@ const ProfileContainer = (props: ProfileContainerType) => {
     useEffect(() => {
 
         let userId = Number(params.id)
-        debugger
         if (!userId) {
             userId = authorizedUserId
         }

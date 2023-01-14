@@ -57,7 +57,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
             }
         }
         case 'PROFILE/SET_USER_PROFILE': {
-            debugger
             return {...state, profile: {...action.profile}}
         }
         case 'PROFILE/SET_STATUS': {
@@ -85,7 +84,6 @@ export const savePhotoSuccessAC = (photo: any) => ({type: SET_PHOTO_SUCCESS, pho
 // Thunk Creators
 
 export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
-    debugger
     let res = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(res.data))
 }

@@ -3,6 +3,7 @@ import classes from './ProfileInfo.module.css'
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import userPhoto from '../../assets/images/userPhoto.png'
 import {ProfileUserType, savePhotoTC, updateUserStatusTC} from "../../Redux/reducer/profile-reducer";
+import {Contact} from "./Contact";
 
 type ProfileInfoPropsType = {
     isOwner: boolean
@@ -45,21 +46,27 @@ export const ProfileInfo = (
                         <b>Full Name: {profile.fullName}</b>
                     </div>
                     <div>
-                        <b>about me: {profile.aboutMe}</b>
+                        <b>lookingForAJob: {profile.lookingForAJob ? 'yes' : 'no'}</b>
                     </div>
-                </div>
-                <div>
-                    Social networks:
                     <div>
-                        <div>
-                            Facebook: {/*{profile.contacts.facebook ? profile.contacts.facebook : '???'}*/}
-                        </div>
-                        <div>
-                            vk: {/*{profile.contacts.vk ? profile.contacts.vk : '???'}*/}
-                        </div>
+                        <b>lookingForAJobDescription: {profile.lookingForAJobDescription}</b>
+                    </div>
+                    <div>
+                        <b>contacts</b>:
+                        {Object.keys(profile.contacts).map(key => {
+                            return <Contact key={key}
+                                     contactTitle={key}
+                                     contactValue={profile.contacts[key as keyof typeof profile.contacts]}
+                            />
+                        })}
                     </div>
                 </div>
             </div>
         </>
     )
 }
+
+type ProfileDataPropsType = {
+
+}
+
