@@ -1,4 +1,4 @@
-import {ProfilePageType} from "../../trash/store";
+import {PostsType} from "../../trash/store";
 import {Dispatch} from "redux";
 import {profileAPI} from "../../api/profileAPI";
 
@@ -8,7 +8,27 @@ let initialState = {
         {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
         {id: 3, message: '!#$', LikeCounts: 184}
     ],
-    profile: null,
+    profile: {
+        userId: 1,
+        aboutMe: '',
+        lookingForAJob: true,
+        lookingForAJobDescription: '',
+        fullName: '',
+        contacts: {
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: '',
+        },
+        photos: {
+            small: '',
+            large: ''
+        }
+    },
     status: ''
 }
 
@@ -37,13 +57,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
             }
         }
         case 'PROFILE/SET_USER_PROFILE': {
-            return {...state, profile: action.profile}
+            debugger
+            return {...state, profile: {...action.profile}}
         }
         case 'PROFILE/SET_STATUS': {
-            return {...state, status: action.status ? action.status : '------------'}
+            return {...state, status: action.status}
         }
         case 'PROFILE/UPDATE_STATUS': {
-            return {...state, status: action.status ? action.status : '------------'}
+            return {...state, status: action.status}
         }
         case "PROFILE/SET_PHOTO_SUCCESS": {
             return {...state, profile: {...state.profile, photos: action.photo}}
@@ -56,7 +77,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: pr
 // Action Creators
 
 export const addPostAC = (text: string) => ({type: ADD_POST, text} as const)
-export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserProfileAC = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile} as const)
 export const setUserStatusAC = (status: string) => ({type: SET_STATUS, status} as const)
 export const updateUserStatusAC = (status: string) => ({type: UPDATE_STATUS, status} as const)
 export const savePhotoSuccessAC = (photo: any) => ({type: SET_PHOTO_SUCCESS, photo} as const)
@@ -64,6 +85,7 @@ export const savePhotoSuccessAC = (photo: any) => ({type: SET_PHOTO_SUCCESS, pho
 // Thunk Creators
 
 export const getUserProfileTC = (userId: number) => async (dispatch: Dispatch) => {
+    debugger
     let res = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(res.data))
 }
@@ -80,7 +102,6 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch)
 export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
     let res = await profileAPI.savePhoto(file)
     if (res.data.resultCode === 0) {
-        debugger
         dispatch(savePhotoSuccessAC(res.data.data.photos))
     }
 }
@@ -98,3 +119,33 @@ export type profileActionType =
     | ReturnType<typeof setUserStatusAC>
     | ReturnType<typeof updateUserStatusAC>
     | ReturnType<typeof savePhotoSuccessAC>
+
+export type ProfileUserType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: UserPhotoType
+}
+
+type UserPhotoType = {
+    small: string | null
+    large: string | null
+}
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    profile: ProfileUserType
+    status: string
+}

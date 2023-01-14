@@ -1,4 +1,4 @@
-import {profileReducer} from "../Redux/reducer/profile-reducer";
+import {ProfilePageType, profileReducer} from "../Redux/reducer/profile-reducer";
 import {dialogReducer} from "../Redux/reducer/dialog-reducer";
 
 export type DialogType = {
@@ -15,13 +15,9 @@ export type PostsType = {
     LikeCounts: number
 }
 
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    profile: UserProfileType | null
-    status: string
-}
 
-export type UserProfileType = {
+
+/*export type UserProfileType = {
     aboutMe: string
     contacts: UserContactsType
     lookingForAJob: boolean
@@ -29,12 +25,7 @@ export type UserProfileType = {
     fullName: string
     userId: number
     photos: UserPhotoType
-}
-
-type UserPhotoType = {
-    small?: string
-    large?: string
-}
+}*/
 
 type UserContactsType = {
     facebook?: string

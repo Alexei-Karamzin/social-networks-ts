@@ -16,7 +16,7 @@ export const ProfileStatusWithHooks = ({status, updateStatus}: PropsType) => {
 
     const deactivateEditModeHandler = () => {
         setEditMode(false)
-        updateStatus(status)
+        updateStatus(newStatus)
     }
 
     const onStatusChangeHandler = (value: string) => {
@@ -37,7 +37,7 @@ export const ProfileStatusWithHooks = ({status, updateStatus}: PropsType) => {
                         onChange={(e) => onStatusChangeHandler(e.currentTarget.value)}
                         autoFocus={true}
                         onBlur={deactivateEditModeHandler}
-                        value={status || ''}
+                        value={status}
                     />
                 </div>
             }

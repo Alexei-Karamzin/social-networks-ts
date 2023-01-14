@@ -1,34 +1,68 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Profile} from "./Profile";
-import {connect} from "react-redux";
-import {getUserProfileTC, getUserStatusTC, savePhotoTC, updateUserStatusTC} from "../../Redux/reducer/profile-reducer";
-import {WithRouter} from "./WithRouter";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {AppDispatchType, AppRootStateType} from "../../Redux/redux-store";
-import {compose} from "redux";
-import {UserProfileType} from "../../trash/store";
+import {useSelector} from "react-redux";
+import {getUserProfileTC, ProfileUserType} from "../../Redux/reducer/profile-reducer";
+import {AppRootStateType, useAppDispatch} from "../../Redux/redux-store";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-class ProfileContainer extends React.Component<ProfileContainerType> {
+const ProfileContainer = (props: ProfileContainerType) => {
+
+
+    const profile = useSelector<AppRootStateType, ProfileUserType>(state => state.profilePage.profile)
+    const status = useSelector<AppRootStateType, string>(state => state.profilePage.status)
+    const authorizedUserId = useSelector<AppRootStateType, number | null>(state => state.auth.id)
+    const dispatch = useAppDispatch()
+
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+
+    useEffect(() => {
+
+        let userId = Number(params.id)
+        debugger
+        if (!userId) {
+            userId = authorizedUserId
+        }
+        dispatch(getUserProfileTC(userId))
+        //getUserStatus(userId)
+    }, [])
+
+    return (
+        <div>
+            <Profile isOwner={!!profile.userId}
+                     profile={profile}
+                     status={status}
+            />
+        </div>
+    )
+}
+
+/*class ProfileContainer1 extends React.Component<ProfileContainerType> {
 
     refreshProfile() {
         const {authorizedUserId, getUserProfile, getUserStatus, router} = this.props
         let userId = router.params.id
         if (!userId) {
             userId = authorizedUserId
+            console.log(userId, '- userId', authorizedUserId, '- authorizedUserId')
             if (!userId) {
-                //<Navigate to={'login'} /> redirect if no autorized
+                return <Navigate to={'login'}/>
             }
         }
         getUserProfile(userId)
-        getUserStatus(userId)
+        //getUserStatus(userId)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.refreshProfile()
     }
 
+    componentDidMount() {
+        //this.refreshProfile()
+    }
+
     componentDidUpdate(prevProps: Readonly<ProfileContainerType>, prevState: Readonly<{}>, snapshot?: any) {
-        debugger
         if (this.props.profile?.userId != prevProps.profile?.userId) {
             this.refreshProfile()
         }
@@ -61,23 +95,21 @@ const mapStateToProps = (state: AppRootStateType) => ({
     isAuth: state.auth.isAuth
 })
 
-const mapDispatchToProps = (dispatch: AppDispatchType) => ({
-    getUserProfile: (userId: number) => getUserProfileTC(userId),
-    getUserStatus: (userId: number) => dispatch(getUserStatusTC(userId)),
-    updateUserStatus: (value: string) => dispatch(updateUserStatusTC(value)),
-    savePhoto: (file: any) => dispatch(savePhotoTC(file)),
-})
-
 export default compose<React.ComponentType>(
     withAuthRedirect,
     WithRouter,
-    connect(mapStateToProps, mapDispatchToProps)
-)(ProfileContainer)
+    connect(mapStateToProps, {
+        getUserProfile: getUserProfileTC,
+        getUserStatus: getUserStatusTC,
+        updateUserStatus: updateUserStatusTC,
+        savePhoto: savePhotoTC,
+    })
+)(ProfileContainer)*/
 
 // Types
 
 type mapStateToPropsType = {
-    profile: UserProfileType | null
+    profile: ProfileUserType
     status: string
     authorizedUserId: number
     isAuth: boolean
@@ -91,4 +123,10 @@ type mapDispatchToPropsType = {
     updateUserStatus: (status: string) => void
     savePhoto: (file: any) => void
 }
-type ProfileContainerType = mapDispatchToPropsType & mapStateToPropsType & withRouterType
+type ProfileContainerType1 = mapDispatchToPropsType & mapStateToPropsType & withRouterType
+type ProfileContainerType = {
+    //router: any
+}
+
+export default ProfileContainer
+

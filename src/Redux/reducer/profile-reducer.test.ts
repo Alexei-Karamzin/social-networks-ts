@@ -1,5 +1,4 @@
-import {profileReducer} from "./profile-reducer";
-import {ProfilePageType} from "../../trash/store";
+import {ProfilePageType, profileReducer} from "./profile-reducer";
 
 let testState: ProfilePageType
 
@@ -10,7 +9,27 @@ beforeEach(() => {
             {id: 2, message: 'Hello, how are you?', LikeCounts: 14},
             {id: 3, message: '!#$', LikeCounts: 184}
         ],
-        profile: null,
+        profile: {
+            userId: 1,
+            aboutMe: '',
+            lookingForAJob: true,
+            lookingForAJobDescription: '',
+            fullName: '',
+            contacts: {
+                github: '',
+                vk: '',
+                facebook: '',
+                instagram: '',
+                twitter: '',
+                website: '',
+                youtube: '',
+                mainLink: '',
+            },
+            photos: {
+                small: '',
+                large: ''
+            }
+        },
         status: ''
     }
 })
@@ -32,7 +51,27 @@ test('status should be updated correctly', () => {
 })
 
 test('user profile should be set correctly', () => {
-    let newState = profileReducer(testState, {type: 'PROFILE/SET_USER_PROFILE', profile: {}})
+    let newState = profileReducer(testState, {type: 'PROFILE/SET_USER_PROFILE', profile: {
+            userId: 1,
+            aboutMe: '',
+            lookingForAJob: true,
+            lookingForAJobDescription: '',
+            fullName: '',
+            contacts: {
+                github: '',
+                vk: '',
+                facebook: '',
+                instagram: '',
+                twitter: '',
+                website: '',
+                youtube: '',
+                mainLink: '',
+            },
+            photos: {
+                small: '',
+                large: ''
+            }
+        }})
 
     expect(newState).not.toBe(testState)
     expect(newState.profile).toBeTruthy()

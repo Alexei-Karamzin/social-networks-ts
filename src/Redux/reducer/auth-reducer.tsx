@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
 import {SetAppStatusActionType} from "./app-reducer";
+import {getUserProfileTC} from "./profile-reducer";
 
 let initialState = {
     id: null,
@@ -68,6 +69,7 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
         const {id, email, login} = res.data.data
         dispatch(setAuthUserDataAC({id, email, login, isAuth: true, isLoggedIn: true}))
+        getUserProfileTC(id)
     }
 }
 
