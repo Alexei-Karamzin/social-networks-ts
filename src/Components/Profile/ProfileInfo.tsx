@@ -43,7 +43,9 @@ export const ProfileInfo = (
                                         updateStatus={updateStatusHandler}
                 />
                 {editMode ?
-                    <ProfileDataForm profile={profile}/> :
+                    <ProfileDataForm profile={profile}
+                                     setEditMode={setEditMode}
+                    /> :
                     <ProfileData profile={profile}
                                  isOwner={isOwner}
                                  setEditMode={setEditMode}

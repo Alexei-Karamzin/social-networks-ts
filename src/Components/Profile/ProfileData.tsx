@@ -13,16 +13,16 @@ export const ProfileData = ({profile, isOwner, setEditMode}: ProfileDataPropsTyp
     return <div>
         {isOwner && <Button type="primary" onClick={() => setEditMode(true)}>Edit data</Button>}
         <div>
-            <b>About me: {profile.aboutMe}</b>
+            <b>about me: {profile.aboutMe}</b>
         </div>
         <div>
-            <b>Full Name: {profile.fullName}</b>
+            <b>full Name: {profile.fullName}</b>
         </div>
         <div>
-            <b>lookingForAJob: {profile.lookingForAJob ? 'yes' : 'no'}</b>
+            <b>looking for a job: {profile.lookingForAJob ? 'yes' : 'no'}</b>
         </div>
         <div>
-            <b>lookingForAJobDescription: {profile.lookingForAJobDescription}</b>
+            <b>looking for a job description: {profile.lookingForAJobDescription}</b>
         </div>
         <div>
             <b>contacts</b>:

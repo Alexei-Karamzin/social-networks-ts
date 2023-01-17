@@ -69,7 +69,7 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
         const {id, email, login} = res.data.data
         dispatch(setAuthUserDataAC({id, email, login, isAuth: true, isLoggedIn: true}))
-        getUserProfileTC(id)
+       /* dispatch<any>(getUserProfileTC(id))*/
     }
 }
 

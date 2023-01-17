@@ -21,7 +21,7 @@ const ProfileContainer = (props: ProfileContainerType) => {
 
         let userId = Number(params.id)
         if (!userId) {
-            userId = authorizedUserId
+            userId = authorizedUserId as number
         }
         dispatch(getUserProfileTC(userId))
         //getUserStatus(userId)

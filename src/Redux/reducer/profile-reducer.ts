@@ -103,6 +103,27 @@ export const savePhotoTC = (file: any) => async (dispatch: Dispatch) => {
         dispatch(savePhotoSuccessAC(res.data.data.photos))
     }
 }
+export const editProfileTC = (userId: number, value: formDataType) => async (dispatch: Dispatch) => {
+    let currentObject = {
+        userId: userId,
+        lookingForAJob: value.lookingForAJob,
+        lookingForAJobDescription: value.lookingForAJobDescription,
+        fullName: value.fullName,
+        aboutMe: value.aboutMe,
+        contacts: {
+            github: value.github,
+            vk: value.vk,
+            facebook: value.facebook,
+            instagram: value.instagram,
+            twitter: value.twitter,
+            website: value.website,
+            youtube: value.youtube,
+            mainLink: value.mainLink,
+        }
+    }
+    let res = await profileAPI.editProfile(currentObject)
+    dispatch<any>(getUserProfileTC(userId))
+}
 
 // Types
 
@@ -110,6 +131,7 @@ export type updateTextPostActionType = {
     type: 'PROFILE/UPDATE_POST_TEXT'
     text: string
 }
+
 export type profileActionType =
     | ReturnType<typeof addPostAC>
     | updateTextPostActionType
@@ -146,4 +168,19 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     profile: ProfileUserType
     status: string
+}
+
+export type formDataType = {
+    aboutMe: string,
+    fullName: string,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    facebook: string,
+    website: string,
+    vk: string,
+    twitter: string,
+    instagram: string,
+    youtube: string,
+    github: string,
+    mainLink: string,
 }
