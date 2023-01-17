@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/authAPI";
 import {SetAppStatusActionType} from "./app-reducer";
-import {getUserProfileTC} from "./profile-reducer";
+import {securityAPI} from "../../api/securityAPI";
 
 let initialState = {
     id: null,
@@ -10,7 +10,8 @@ let initialState = {
     isAuth: false,
     isLoggedIn: false,
     errorMessage: null,
-    errorAppLogin: false
+    errorAppLogin: false,
+    captchaUrl: null,
 }
 
 // Action
@@ -19,6 +20,7 @@ const SET_USER_DATA = 'AUTH/SET_USER_DATA'
 const LOGIN = 'AUTH/LOGIN'
 const LOGOUT = 'AUTH/LOGOUT'
 const SET_ERROR = 'AUTH/SET_ERROR'
+const SET_CAPTCHA_URL = 'AUTH/SET_CAPTCHA_URL'
 
 // Reducer
 
@@ -49,6 +51,12 @@ export const authReducer = (state: authInitialStateType = initialState, action: 
                 errorMessage: action.message
             }
         }
+        case "AUTH/SET_CAPTCHA_URL": {
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
+            }
+        }
         default:
             return state
     }
@@ -60,6 +68,7 @@ export const setAuthUserDataAC = (payload: setUserDataType) => ({type: SET_USER_
 export const setIsLoggedInAC = () => ({type: LOGIN} as const)
 export const setIsLoggedOutAC = () => ({type: LOGOUT} as const)
 export const setErrorPassword = (message: string | null, err: boolean) => ({type: SET_ERROR, message, err} as const)
+export const setCaptchaUrlAC = (captchaUrl: any) => ({type: SET_CAPTCHA_URL, captchaUrl} as const)
 
 // Thunk Creators
 
@@ -69,7 +78,7 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
         const {id, email, login} = res.data.data
         dispatch(setAuthUserDataAC({id, email, login, isAuth: true, isLoggedIn: true}))
-       /* dispatch<any>(getUserProfileTC(id))*/
+        /* dispatch<any>(getUserProfileTC(id))*/
     }
 }
 
@@ -98,6 +107,13 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionType | SetAppStatu
     }
 }
 
+export const getCaptchaUrlTC = () => async (dispatch: Dispatch<ActionType | SetAppStatusActionType | any>) => {
+    const res = await securityAPI.getCaptchaUrl()
+
+    const captchaUrl = res.data.url
+    dispatch(setCaptchaUrlAC(captchaUrl))
+}
+
 // Types
 
 export type authInitialStateType = {
@@ -108,12 +124,13 @@ export type authInitialStateType = {
     isLoggedIn: boolean
     errorMessage: null | string
     errorAppLogin: boolean
+    captchaUrl: null | string
 }
 export type LoginPayloadType = {
     email: string
     password: string
     rememberMe?: boolean
-    captcha?: boolean
+    captcha?: string
 }
 type setUserDataType = {
     id: number | null
@@ -128,3 +145,4 @@ type authActionType =
     | ReturnType<typeof setIsLoggedOutAC>
     | ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setErrorPassword>
+    | ReturnType<typeof setCaptchaUrlAC>

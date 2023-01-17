@@ -17,6 +17,7 @@ export const Header = ({logout, isLoggedIn, authorizedUserId}: HeaderPropsType) 
 
     const logoutHandler = () => {
         dispatch(logout())
+
     }
 
     const goHomePage = () => {
