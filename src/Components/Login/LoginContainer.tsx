@@ -9,6 +9,7 @@ type LoginContainerPropsType = {
     loginTC: (payload: LoginPayloadType) => void
     errorMessage: null | string
     error: boolean
+    captchaUrl: null | string
 }
 
 const LoginContainer = (props: LoginContainerPropsType) => {
@@ -27,7 +28,8 @@ const LoginContainer = (props: LoginContainerPropsType) => {
 let mapStateToProps = (state: AppRootStateType) => {
     return {
         errorMessage: state.auth.errorMessage,
-        error: state.auth.errorAppLogin
+        error: state.auth.errorAppLogin,
+        captchaUrl: state.auth.captchaUrl,
     }
 }
 

@@ -8,9 +8,10 @@ type LoginPropsType = {
     loginTC: (payload: LoginPayloadType) => any
     errorMessage: null | string
     error: boolean
+    captchaUrl: null | string
 }
 
-export const Login = ({loginTC, errorMessage, error}: LoginPropsType) => {
+export const Login = ({loginTC, errorMessage, error, captchaUrl}: LoginPropsType) => {
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
@@ -29,7 +30,8 @@ export const Login = ({loginTC, errorMessage, error}: LoginPropsType) => {
         initialValues: {
             email: '',
             password: '',
-            rememberMe: true
+            rememberMe: true,
+            captcha: '',
         },
         onSubmit: values => {
             dispatch(loginTC(values))
@@ -59,7 +61,14 @@ export const Login = ({loginTC, errorMessage, error}: LoginPropsType) => {
             />
             {errorMessage && <div style={{color: 'red'}}>{errorMessage}</div>}
             <label htmlFor="checkbox">remember me</label>
-                <button type="submit">sign in</button>
+            <button type="submit">sign in</button>
+            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && <input id="captcha"
+                                  name="captcha"
+                                  type="text"
+                                  onChange={formik.handleChange}
+                                  value={formik.values.captcha}
+            />}
         </form>
     );
 }

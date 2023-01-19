@@ -10,7 +10,8 @@ beforeEach(()=>{
         isAuth: false,
         isLoggedIn: false,
         errorMessage: null,
-        errorAppLogin: false
+        errorAppLogin: false,
+        captchaUrl: null
     }
 })
 

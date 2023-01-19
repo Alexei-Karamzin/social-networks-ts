@@ -11,7 +11,7 @@ let initialState = {
     isLoggedIn: false,
     errorMessage: null,
     errorAppLogin: false,
-    captchaUrl: null,
+    captchaUrl: null, // if null, then captcha is not required
 }
 
 // Action
@@ -92,7 +92,9 @@ export const loginTC = (data: LoginPayloadType) => async (dispatch: Dispatch<Act
         dispatch(getAuthUserDataTC())
         dispatch(setErrorPassword(null, false))
     } else if (res.data.resultCode === 10) {
-        dispatch(setErrorPassword(res.data.messages, true)) // captcha 79less - 33:45
+        dispatch(getCaptchaUrlTC()) // captcha 79less - 33:45
+    } else {
+        dispatch(setErrorPassword(res.data.messages, true))
     }
 }
 
