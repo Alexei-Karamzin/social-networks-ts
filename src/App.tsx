@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect} from 'react';
 import s from './App.module.css'
 import {Navbar} from "./Components/Navbar/Navbar";
-import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {Music} from "./Components/Music/Music";
 import {Settings} from "./Components/Settings/Settings";
 import {News} from './Components/News/News';
@@ -69,7 +69,7 @@ export const App = () => {
 
 export const ErrorPage = () => {
     return <div>
-        <h1>ERROR: PAGE NOT FOUND</h1>
+        <h1>404: PAGE NOT FOUND</h1>
     </div>
 }
 
@@ -89,8 +89,8 @@ type MainAppPropsType = {}
 
 export const MainApp = ({}: MainAppPropsType) => {
     return <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
             <App/>
-        </HashRouter>
+        </BrowserRouter>
     </Provider>
 }
